@@ -1,0 +1,5 @@
+[default]
+SQLALCHEMY_DATABASE_URI = 'sqlite:///api_vdp/database.db'
+
+[production]
+SQLALCHEMY_DATABASE_URI = 'mysql://sql10673052:ihmBl678kM@sql10.freesqldatabase.com:3306/sql10673052'
