@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% block title %} Login {% endblock %}
 {% block content %}
-    <input type="email" name="email" id="">
+    <form method="post">
+        <input type="email" required name="email">
+        <input type="password" required name="pass">
+        <input type="text" required name="name">
+        <input type="text" name="sex">
+        <input type="number" required name="age">
+        <input type="submit" value="Sign-up">
+    </form>
 {% endblock %}

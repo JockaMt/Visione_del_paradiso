@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} Home {% endblock %}
 {% block content %}
-    <p>{{ name }}</p>
+    {% for i in lista %}
+    <p>Cliente: {{ i.name }} | sex: {{ i.sex }}</p>
+    {% endfor %}
 {% endblock %}

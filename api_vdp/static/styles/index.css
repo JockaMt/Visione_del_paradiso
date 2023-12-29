@@ -7,6 +7,10 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+input {
+    color: black;
+}
+
 header {
     display: flex;
     justify-content: space-between;
