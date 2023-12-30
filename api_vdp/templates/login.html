@@ -2,11 +2,12 @@
 {% block title %} Login {% endblock %}
 {% block content %}
     <form method="post">
-        <input type="email" required name="email">
-        <input type="password" required name="pass">
-        <input type="text" required name="name">
-        <input type="text" name="sex">
-        <input type="number" required name="age">
+        <p>Name</p><input type="text" required name="name"><br/>
+        <p>Email</p><input type="email" required name="email"><br/>
+        <p>Password</p><input type="password" required name="pass"><br/>
+        <p>Confirm Password</p><input type="password" required name="c_pass"><br/>
+        <p>Sex</p><input type="text" name="sex"><br/>
+        <p>Age</p><input type="number" required name="age"><br/>
         <input type="submit" value="Sign-up">
     </form>
 {% endblock %}
