@@ -12,15 +12,6 @@ def init_app(app):
     @app.route("/login", methods=['GET', 'POST'])
     def login():
         if request.method == 'POST':
-            cliente = Client(
-                email=request.form['email'], 
-                crypted_password=request.form['pass'], 
-                name=request.form['name'],
-                sex=request.form['sex'], 
-                age=int(request.form['age'])
-                )
-            db.session.add(cliente)
-            db.session.commit()
             return redirect(url_for("home"))
         else:
             return render_template("login.html")

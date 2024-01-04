@@ -2,6 +2,9 @@
 {% block title %} Home {% endblock %}
 {% block content %}
     {% for i in lista %}
-    <p>Cliente: {{ i.name }} | sex: {{ i.sex }}</p>
+    <div>
+        <p>Cliente: {{ i.name }}</p>
+        <p>Quarto: {{ i.room_id }}</p>
+    </div>
     {% endfor %}
 {% endblock %}
