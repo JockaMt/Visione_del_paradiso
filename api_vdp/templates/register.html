@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %} Register {% endblock %}
+{% block content %}
+<div class="login-box">
+    <div class="login-left">
+        <h2>Welcome!</h2>
+        <p>Sign up to access your</br>
+            hotel account!</p>
+    </div>
+    <div class="login-right">
+        <form method="post">
+            <h2 class="login-title">Sign up</h2>
+            <div class="input-field">
+                <span class="material-symbols-outlined">person</span>
+                <input type="text" name="n4me" required placeholder="Name">
+            </div>
+            <div class="input-field">
+                <span class="material-symbols-outlined">mail</span>
+                <input type="email" name="m4il" required placeholder="Email">
+            </div>
+            <div class="input-field">
+                <span class="material-symbols-outlined">key</span>
+                <input type="password" name="p4ss" required placeholder="Password">
+            </div>
+            <div class="input-field">
+                <span class="material-symbols-outlined">lock</span>
+                <input type="password" name="conf_p4ss" required placeholder="Confirm Password">
+            </div>
+            <p class="error-msg">{{ msg }}</p>
+            <input type="submit" value="Sign up" class="input-button">
+        </form>
+        <p class="login-create">Arealy signed? <a href="/login">Sign in</a></p>
+    </div>
+</div>
+    
+{% endblock %}

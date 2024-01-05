@@ -181,3 +181,8 @@ body {
     justify-content: center;
     color: white;
 }
+
+.error-msg {
+    text-align: center;
+    color: rgb(209, 7, 7)
+}
