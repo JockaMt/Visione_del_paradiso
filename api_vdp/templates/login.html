@@ -14,13 +14,24 @@
                 <span class="material-symbols-outlined">mail</span>
                 <input type="email" name="m4il" required placeholder="Email">
             </div>
-            <div class="input-field">
+            <div class="input-field pass">
                 <span class="material-symbols-outlined">key</span>
-                <input type="password" name="p4ss" required placeholder="Password"></div>
+                <input type="password" name="p4ss" required placeholder="Password" id="_pass">
+                <button class="visibility_btn" type="button" onclick="toggle()">
+                    <span class="material-symbols-outlined" id="visibility_icon">visibility_off</span>
+                </button>
+            </div>
             <input type="submit" value="Login" class="input-button">
         </form>
         <p class="login-create">New here? <a href="/register">Create an Account</a></p>
     </div>
 </div>
-    
+<script>
+    let input = document.getElementById("_pass")
+    let input_icon = document.getElementById("visibility_icon")
+    const toggle = () => {
+        input.type = (input.type=='password') ? 'text' : 'password';
+        input_icon.innerText = (input.type=='password') ? 'visibility_off' : 'visibility'
+    }
+</script>
 {% endblock %}

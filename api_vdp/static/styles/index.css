@@ -182,6 +182,19 @@ body {
     color: white;
 }
 
+.pass {
+    padding-right: 1rem;
+}
+
+.visibility_btn {
+    display: flex;
+    justify-content: center;
+    color: #999999;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+}
+
 .error-msg {
     text-align: center;
     color: rgb(209, 7, 7)
