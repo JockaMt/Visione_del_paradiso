@@ -17,7 +17,6 @@ def init_app(app):
             password = request.form.get('p4ss')
             client = Client.query.filter_by(email=email).first()
             if client and client.crypted_password == cripto(password, app.settings.SECRET_NUM):
-                print(client)
                 return redirect(url_for("home"))
             else:
                 return render_template("login.html")
@@ -50,3 +49,7 @@ def init_app(app):
                 return render_template("register.html", msg="Passwords not match!")
         else:
             return render_template("register.html")
+        
+    @app.route("/profile", methods=['GET', 'POST'])
+    def profile():
+        return render_template('profile.html', name=Client.name)
