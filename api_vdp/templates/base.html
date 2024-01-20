@@ -16,12 +16,18 @@
             <a class="nav_button" href="{{ url_for('home') }}">
                 <h4>Home</h4>
             </a>
-            <a class="nav_button" href="{{url_for('login')}}">
-                <h4>Perfil</h4>
+            <a class="nav_button" href="{{url_for('profile')}}">
+                <h4>Profile</h4>
             </a>
+            {% if logged %}
+            <a class="nav_button" href="{{url_for('logout')}}">
+                <h4>Logout</h4>
+            </a>
+            {% else %}
             <a class="nav_button" href="{{url_for('login')}}">
                 <h4>Login</h4>
             </a>
+            {% endif %}
         </nav>
     </header>
     <main>
