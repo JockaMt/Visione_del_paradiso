@@ -88,6 +88,10 @@ body {
     height: 35rem;
 }
 
+.mobile-logo {
+    display: none;
+}
+
 .input-field {
     display: flex;
     align-items: center;
@@ -198,4 +202,42 @@ body {
 .error-msg {
     text-align: center;
     color: rgb(209, 7, 7)
+}
+
+@media (max-width: 970px) {
+    body {
+        background-color: white;
+    }
+
+    header {
+        display: none;
+    }
+
+    main {
+        display: flex;
+        padding: 0;
+        flex: 1;
+    }
+
+    .login-box {
+        display: flex;
+        justify-content: center;
+    }
+
+    .mobile-logo {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding-bottom: 2rem;
+        font-weight: 600;
+        font-size: 2rem;
+    }
+
+    .login-title {
+        text-align: center;
+    }
+
+    .login-left {
+        display: none;
+    }
 }
