@@ -17,7 +17,7 @@ def home_page():
     lista = Client.query.all()
     return render_template("home.html", client=session['user'], logged=True)
 
-def login_page():
+def login_page(app):
     db.create_all()
     if request.method == 'POST':
         email = request.form.get('m4il')

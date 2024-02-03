@@ -7,7 +7,7 @@ def init_app(app):
     
     @app.route("/login", methods=['GET', 'POST'])
     def login():
-        return login_page()
+        return login_page(app)
         
     @app.route("/register", methods=['GET', 'POST'])
     def register():
