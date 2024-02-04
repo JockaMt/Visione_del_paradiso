@@ -1,0 +1,54 @@
+.wave-box {
+    display: flex;
+}
+
+.wave-top {
+    object-fit: cover;
+}
+
+.wave-bottom {
+    object-fit: cover;
+    transform: scaleX(-1) scaleY(-1);
+    position: fixed;
+    bottom: 0;
+}
+
+.login-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-right {
+    padding: 1.5rem;
+}
+
+.mobile-logo-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    gap: 4rem;
+    margin-bottom: 2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 2rem;
+}
+
+.mobile-logo {
+    max-width: 50%
+}
+
+.login-create {
+    width: 100%;
+    margin: 4rem 0;
+    text-align: center;
+}
+
+.login-create a {
+    color: var(--primary-color);
+}

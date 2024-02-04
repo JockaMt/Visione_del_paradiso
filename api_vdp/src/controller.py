@@ -12,10 +12,12 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+
 @login_required
 def home_page():
     lista = Client.query.all()
     return render_template("home.html", client=session['user'], logged=True)
+
 
 def login_page(app):
     db.create_all()
@@ -25,13 +27,14 @@ def login_page(app):
         client = Client.query.filter_by(email=email).first()
         if client and client.crypted_password == cripto(password, app.settings.SECRET_NUM):
             session['logged_in'] = True
-            user = {'name': client.name, 'sex': client.sex, 'age': client.age, 'room': client.room_id}
+            user = {'name': client.name, 'sex': client.sex, 'age': client.age, 'room': client.rooms}
             session['user'] = user
             return redirect(url_for("home"))
         else:
             return render_template("login.html")
     else:
         return render_template("login.html")
+
 
 def register_page(app):
     if request.method == 'POST':
@@ -47,7 +50,6 @@ def register_page(app):
                     name=name,
                     sex="Undefined",
                     age=0,
-                    room_id=None
                     )
                 db.session.add(cliente)
                 db.session.commit()
@@ -59,9 +61,11 @@ def register_page(app):
     else:
         return render_template("register.html")
 
+
 @login_required
 def profile_page():
     return render_template('profile.html', name=session['user']['name'], logged=True)
+
 
 @login_required
 def logout_page():

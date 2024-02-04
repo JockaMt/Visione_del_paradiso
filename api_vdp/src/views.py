@@ -1,5 +1,6 @@
 from api_vdp.src.controller import home_page, login_page, register_page, profile_page, logout_page
 
+
 def init_app(app):
     @app.route("/")
     def home():
