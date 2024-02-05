@@ -51,3 +51,32 @@ input:not(:placeholder-shown) {
         display: none !important;
     }
 }
+
+@media only screen and (min-width: 766px) {
+    .mobile {
+        display: none;
+    }
+}
+
+.mobile {
+    display: flex;
+    height: 5rem;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow);
+}
+
+.mobile img {
+    height: 2rem;
+    width: auto;
+}
+
+.mobile button {
+    position: fixed;
+    height: 4rem;
+    width: 5rem;
+    right: 0;
+    background-color: transparent;
+    color: var(--primary-color);
+    font-size: 3rem;
+}

@@ -32,9 +32,12 @@
             {% endif %}
         </nav>
     </header>
+    {% if logged %}
     <header class="mobile">
-
+        <img src="{{ url_for('static', filename='assets/logo.png') }}">
+        <button>=</button>
     </header>
+    {% endif %}
     <main>
         {% block content %}{% endblock %}
     </main>

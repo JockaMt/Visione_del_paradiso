@@ -4,6 +4,7 @@
 
 .wave-top {
     object-fit: cover;
+    position: fixed;
 }
 
 .wave-bottom {
@@ -14,12 +15,15 @@
 }
 
 .login-box {
+    position: fixed;
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    justify-content: center;
 }
 
 .login-right {
-    padding: 1.5rem;
+    padding: 0 3rem;
 }
 
 .mobile-logo-div {
