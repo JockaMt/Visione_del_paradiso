@@ -40,11 +40,39 @@
         <img src="{{ url_for('static', filename='assets/logo.png') }}">
         {% if form %}
         {% else %}
-        <button class="right-button">=</button>
+        <button onclick="toggle()" class="right-button">=</button>
         {% endif %}
+        <div class="side-menu-bg" id="sm1">
+            <nav class="side-menu" id="sm2">
+                <button onclick="toggle()">></button>
+                <a class="nav_button" href="{{ url_for('home') }}">
+                    <h4>Home</h4>
+                </a>
+                <a class="nav_button" href="{{url_for('profile')}}">
+                    <h4>Profile</h4>
+                </a>
+                <a class="nav_button" href="{{url_for('logout')}}">
+                    <h4>Logout</h4>
+                </a>
+            </nav>
+        </div>
     </header>
     {% endif %}
     <main>
         {% block content %}{% endblock %}
     </main>
 </body>
+<script>
+    let menu = false
+    function toggle () {
+        if (menu) {
+            document.getElementById("sm1").classList.remove("active-menu")
+            document.getElementById("sm2").classList.remove("slide-menu")
+            menu = false;
+        } else {
+            document.getElementById("sm1").classList.add("active-menu")
+            document.getElementById("sm2").classList.add("slide-menu")
+            menu = true;
+        }
+    }
+</script>
