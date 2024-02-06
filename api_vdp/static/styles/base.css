@@ -12,7 +12,6 @@
     border: none;
     font-family: 'Poppins', sans-serif;
     width: 100vw;
-    overflow-x: hidden;
     outline: none;
 }
 
@@ -22,6 +21,7 @@
     border-radius: 30px;
     height: 4rem;
     border: 1px solid #C2C2C2;
+    overflow-x: hidden;
 }
 
 .input-button {
@@ -71,11 +71,21 @@ input:not(:placeholder-shown) {
     width: auto;
 }
 
-.mobile button {
-    position: fixed;
+.right-button {
+    position: absolute;
     height: 4rem;
     width: 5rem;
     right: 0;
+    background-color: transparent;
+    color: var(--primary-color);
+    font-size: 3rem;
+}
+
+.left-button {
+    position: absolute;
+    height: 4rem;
+    width: 5rem;
+    left: 0;
     background-color: transparent;
     color: var(--primary-color);
     font-size: 3rem;

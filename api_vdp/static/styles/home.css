@@ -22,7 +22,7 @@ section {
 }
 
 .highlights a {
-    position: fixed;
+    position: absolute;
     padding: 1rem;
     background-color: var(--primary-color);
     width: auto;

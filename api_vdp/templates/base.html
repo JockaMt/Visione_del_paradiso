@@ -34,8 +34,14 @@
     </header>
     {% if logged %}
     <header class="mobile">
+        {% if secondary %}
+        <button class="left-button"><</button>
+        {% endif %}
         <img src="{{ url_for('static', filename='assets/logo.png') }}">
-        <button>=</button>
+        {% if form %}
+        {% else %}
+        <button class="right-button">=</button>
+        {% endif %}
     </header>
     {% endif %}
     <main>

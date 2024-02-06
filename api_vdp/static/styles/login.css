@@ -4,22 +4,19 @@
 
 .wave-top {
     object-fit: cover;
-    position: fixed;
+    display: flex;
 }
 
 .wave-bottom {
     object-fit: cover;
     transform: scaleX(-1) scaleY(-1);
-    position: fixed;
-    bottom: 0;
 }
 
 .login-box {
-    position: fixed;
     display: flex;
     flex-direction: column;
-    height: 100vh;
     justify-content: center;
+    min-height: 80vh;
 }
 
 .login-right {
