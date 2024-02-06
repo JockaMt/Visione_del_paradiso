@@ -19,7 +19,7 @@
     display: flex;
     max-width: 100%;
     border-radius: 30px;
-    height: 4rem;
+    height: 3rem;
     border: 1px solid #C2C2C2;
     overflow-x: hidden;
 }
@@ -28,7 +28,7 @@
     display: flex;
     max-width: 100%;
     border-radius: 30px;
-    height: 4rem;
+    height: 3rem;
     background-color: var(--primary-color);
     text-align: center !important;
     color: white;
