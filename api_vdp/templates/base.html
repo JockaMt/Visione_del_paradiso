@@ -2,13 +2,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/index.css') }}">
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/base.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" type="image/x-icon">
     <title>{% block title %} {% endblock %}</title>
+    {% block head_page %}{% endblock %}
 </head>
 <body>
-    <header>
+    <header class="desktop">
         <div>
             <img src="{{ url_for('static', filename='assets/logo.png') }}">
         </div>
@@ -30,6 +32,18 @@
             {% endif %}
         </nav>
     </header>
+    {% if logged %}
+    <header class="mobile">
+        {% if secondary %}
+        <button class="left-button"><</button>
+        {% endif %}
+        <img src="{{ url_for('static', filename='assets/logo.png') }}">
+        {% if form %}
+        {% else %}
+        <button class="right-button">=</button>
+        {% endif %}
+    </header>
+    {% endif %}
     <main>
         {% block content %}{% endblock %}
     </main>
