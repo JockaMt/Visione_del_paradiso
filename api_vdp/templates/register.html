@@ -6,9 +6,6 @@
     </head>
 {% endblock %}
 {% block content %}
-<div class="wave-box" >
-    <img class="wave-top" src="{{ url_for('static', filename='assets/waves.svg') }}">
-</div>
 <div class="login-box">
     <div class="login-left desktop">
         <h2>Welcome!</h2>
@@ -18,7 +15,7 @@
     <div class="login-right">
         <form method="post">
             <div class="mobile-logo-div">
-                <img class="mobile-logo" src="{{ url_for('static', filename='assets/logo.png') }}"/>
+                <img class="mobile mobile-logo" src="{{ url_for('static', filename='assets/logo.png') }}"/>
                 <p>Welcome! <strong>Sign up</strong> to enjoy!</p>
             </div>
             <div class="input-field">
@@ -42,9 +39,6 @@
         </form>
         <p class="login-create">Arealy signed? <a href="{{ url_for('login') }}">Sign in</a></p>
     </div>
-<div class="wave-box" >
-    <img class="wave-bottom" src="{{ url_for('static', filename='assets/waves.svg') }}">
-</div>
 </div>
     
 {% endblock %}

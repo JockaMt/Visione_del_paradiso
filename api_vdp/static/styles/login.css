@@ -1,10 +1,6 @@
-.wave-box {
-    display: flex;
-}
-
-.wave-top {
-    object-fit: cover;
-    display: flex;
+body {
+    margin: 0;
+    width: 100%;
 }
 
 .wave-bottom {
@@ -52,4 +48,70 @@ form {
 
 .login-create a {
     color: var(--primary-color);
+}
+
+@media only screen and (max-width: 767px) {
+
+    .login-right {
+        padding-top: 10rem;
+        background: url("../assets/waves.svg") no-repeat;
+        background-size: contain;
+        min-height: 100vh;
+    }
+
+    .login-box {
+
+    }
+}
+
+input {
+    width: 100%;
+}
+
+/* Desktop area */
+
+@media only screen and (min-width: 766px) {
+
+    main {
+        background-color: #e7e7e7;
+    }
+
+    .login-box {
+        display: flex;
+        flex-direction: row;
+        padding: 5rem;
+    }
+
+    .login-left {
+        display: flex;
+        flex-direction: column;
+        background-size: cover;
+        flex: 0.75;
+        background: white url("../assets/background.png");
+        border-radius: 2rem 0 0 2rem;
+        justify-content: center;
+        font-size: 24pt;
+    }
+
+    .login-left h2, .login-left p {
+        margin-left: 3rem;
+        color: var(--primary-color);
+        text-shadow: var(--shadow);
+    }
+
+    .login-right {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        flex: 0.25;
+        border-radius: 0 2rem 2rem 0;
+        justify-content: center;
+        padding-top: 2rem;
+    }
+
+    .input-field {
+        display: flex;
+        align-items: center;
+        padding-left: 1rem;
+    }
 }

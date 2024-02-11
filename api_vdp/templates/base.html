@@ -3,18 +3,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/base.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="shortcut icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>{% block title %} {% endblock %}</title>
     {% block head_page %}{% endblock %}
 </head>
 <body>
     <header class="desktop">
-        <div>
-            <img src="{{ url_for('static', filename='assets/logo.png') }}">
+        <div class="desktop-logo">
+            <img alt="logo" src="{{ url_for('static', filename='assets/logo.png') }}">
         </div>
-        <nav>
+        <nav class="desktop-nav">
             <a class="nav_button" href="{{ url_for('home') }}">
                 <h4>Home</h4>
             </a>
@@ -33,7 +32,7 @@
         </nav>
     </header>
     {% if logged %}
-    <header class="mobile">
+    <header class="mobile mobile-header">
         {% if secondary %}
         <button class="left-button"><</button>
         {% endif %}
@@ -45,15 +44,19 @@
         <div class="side-menu-bg" id="sm1">
             <nav class="side-menu" id="sm2">
                 <button onclick="toggle()">></button>
-                <a class="nav_button" href="{{ url_for('home') }}">
-                    <h4>Home</h4>
-                </a>
-                <a class="nav_button" href="{{url_for('profile')}}">
-                    <h4>Profile</h4>
-                </a>
-                <a class="nav_button" href="{{url_for('logout')}}">
-                    <h4>Logout</h4>
-                </a>
+                <ul id="side-menu">
+                    {% set buttons = {"home": "home", "rooms": "bed", "events": "event", "profile": "account_circle", "rate_us": "kid_star", "support": "help"} %}
+                    {% for i in buttons %}
+                        <li>
+
+                            <a href="{{ url_for(i) }}">
+                                <span class="material-symbols-outlined">{{ buttons[i] }}</span>
+                                {{ i.capitalize().replace("_", " ") }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <a href="{{ url_for("logout") }}" class="input-button side-menu-logout">Logout</a>
             </nav>
         </div>
     </header>

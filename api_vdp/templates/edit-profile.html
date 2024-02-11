@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %} Profile {% endblock %}
+{% block content %}
+    <div>
+        <section>
+            <h2>Welcome {{ user.name }}</h2>
+        </section>
+        <section id="about">
+            <h2>About</h2>
+            <form method="post">
+                <div>
+                    <div><label for="name">First Name: </label><input name="n4me" required id="name" type="text" value="{{ user.name }}"></div>
+                    <div><label for="last_name">Last Name: </label><input name="last-name" required id="last_name" type="text" value="{{ user.last_name if user.last_name else "" }}"></div>
+                    <div><label for="email">Email: </label><input name="m4il" required id="email" value="{{ user.email }}"></div>
+                    <div><label for="sex">Sex: </label><input name="sex" required id="sex" value="{{ user.sex if user.last_name else "" }}"></div>
+                    <div><label for="age">Age: </label><input name="age" required id="age" value="{{ user.age if user.last_name else "" }}"></div>
+                    <div><label for="phone">Phone: </label><input name="phone" required id="phone" value="{{ user.phone if user.last_name else "" }}"></div>
+                </div>
+                <div>
+                    <button type="submit">Save</button>
+                </div>
+            </form>
+        </section>
+    </div>
+{% endblock %}

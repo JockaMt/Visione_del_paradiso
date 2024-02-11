@@ -1,18 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
+*{
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    margin: 0;
+}
+
 :root {
     --primary-color: #ED4824;
     --shadow: 0px 0px 30px rgba(155, 155, 155, 0.178)
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    border: none;
-    font-family: 'Poppins', sans-serif;
-    width: 100vw;
-    outline: none;
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+    color: var(--primary-color);
+
 }
 
 .input-field {
@@ -49,11 +57,11 @@ input {
 
 @media only screen and (min-width: 766px) {
     .mobile {
-        display: none;
+        display: none !important;
     }
 }
 
-.mobile {
+.mobile-header {
     display: flex;
     height: 5rem;
     justify-content: center;
@@ -110,6 +118,33 @@ input {
     z-index: 9999;
 }
 
+.side-menu ul {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-left: 0;
+}
+
+.side-menu ul li {
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+.side-menu ul li a {
+    display: flex;
+    color: var(--primary-color);
+    padding: .75rem 2.5rem;
+    gap: 2rem;
+}
+
+.side-menu-logout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+}
+
 @keyframes slide {
     from {
         transform: translateX(100%);
@@ -126,4 +161,42 @@ input {
 .slide-menu {
     display: flex !important;
     animation: slide 0.4s cubic-bezier(.65,-0.01,0,1.01);
+}
+
+/* Desktop area */
+
+header {
+    display: flex;
+    height: 5rem;
+    box-shadow: var(--shadow);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4rem;
+}
+
+.desktop-logo {
+    display: flex;
+    height: 5rem;
+    width: auto;
+    align-items: center;
+}
+
+.desktop-logo img {
+    height: 3rem;
+}
+
+.desktop-nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav_button {
+    width: auto;
+    padding: 0 1rem;
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.nav_button:hover {
+    opacity: 50%;
 }
