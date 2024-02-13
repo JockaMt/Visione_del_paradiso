@@ -6,19 +6,16 @@
     </head>
 {% endblock %}
 {% block content %}
-<div class="wave-box" >
-    <img class="wave-top" src="{{ url_for('static', filename='assets/waves.svg') }}">
-</div>
 <div class="login-box">
     <div class="login-left desktop">
         <h2>Welcome back!</h2>
-        <p>Sign in to access your</br>
+        <p>Sign in to access your<br/>
             hotel account!</p>
         </div>
     <div class="login-right">
         <form method="post">
             <div class="mobile-logo-div">
-                <img class="mobile-logo" src="{{ url_for('static', filename='assets/logo.png') }}"/>
+                <img class="mobile mobile-logo" src="{{ url_for('static', filename='assets/logo.png') }}"/>
                 <p>Welcome! <strong>Sign in</strong> to continue!</p>
             </div>
             <div class="input-field">
@@ -29,23 +26,9 @@
                 <span class="desktop material-symbols-outlined">key</span>
                 <input type="password" name="p4ss" required placeholder="Password" id="_pass">
             </div>
-            <button class="desktop visibility_btn" type="button" onclick="toggle()">
-                <span class="material-symbols-outlined" id="visibility_icon">visibility_off</span> Show password!
-            </button>
             <input type="submit" value="Sign In" class="input-button">
         </form>
         <p class="login-create">New here? <a href="/register">Create an Account</a></p>
     </div>
 </div>
-<div class="wave-box" >
-    <img class="wave-bottom" src="{{ url_for('static', filename='assets/waves.svg') }}">
-</div>
-<script>
-    let input = document.getElementById("_pass")
-    let input_icon = document.getElementById("visibility_icon")
-    const toggle = () => {
-        input.type = (input.type=='password') ? 'text' : 'password';
-        input_icon.innerText = (input.type=='password') ? 'visibility_off' : 'visibility'
-    }
-</script>
 {% endblock %}
