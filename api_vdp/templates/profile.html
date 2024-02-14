@@ -1,67 +1,70 @@
 {% extends 'base.html' %}
 {% block title %} Profile {% endblock %}
 {% block content %}
+    <head>
+        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/profile.css') }}">
+    </head>
     <div>
         <section>
-            <h2>Welcome {{ user.name }}</h2>
+            <h2 class="wel"> Welcome! <b>{{ user.name }}!</b></h2>
         </section>
         <section id="about">
-            <h2>About</h2>
+            <h2 class="ab">About</h2>
             <div>
                 <div>
-                    <div><h3>First Name: </h3><p>{{ user.name }}</p></div>
-                    <div><h3>Last Name: </h3><p>{{ user.last_name if user.last_name else "Undefined" }}</p></div>
-                    <div><h3>Email: </h3><p>{{ user.email }}</p></div>
-                    <div><h3>Sex: </h3><p>{{ user.sex if user.sex else "Undefined" }}</p></div>
-                    <div><h3>Age: </h3> <p>{{ user.age if user.age else "Undefined" }}</p></div>
-                    <div><h3>Phone: </h3><p>{{ user.phone if user.phone else "Undefined" }}</p></div>
+                    <div class="inline"><h3 class="ti">First Name: </h3><p>{{ user.name }}</p></div>
+                    <div class="inline"><h3 class="ti">Last Name: </h3><p>{{ user.last_name if user.last_name else "Undefined" }}</p></div>
+                    <div class="inline"><h3 class="ti">Email: </h3><p>{{ user.email }}</p></div>
+                    <div class="inline"><h3 class="ti">Sex: </h3><p>{{ user.sex if user.sex else "Undefined" }}</p></div>
+                    <div class="inline"><h3 class="ti">Age: </h3> <p>{{ user.age if user.age else "Undefined" }}</p></div>
+                    <div class="inline"><h3 class="ti">Phone: </h3><p>{{ user.phone if user.phone else "Undefined" }}</p></div>
                 </div>
-                <div>
-                    <a href="{{ url_for('edit_profile') }}">Edit profile</a>
+                <div class="but">
+                    <a class="but-ed" href="{{ url_for('edit_profile') }}">Edit profile</a>
                 </div>
             </div>
         </section>
         <section id="hosting">
-            <h2>Hosting</h2>
+            <h2 class="ho">Hosting</h2>
             <div>
                 <div>
                     <h3>Days to renew: <span class="display-numbers">{{ 0 }}</span></h3>
                 </div>
-                <div>
-                    <a href="#">Renew</a>
+                <div class="but">
+                    <a class="but-ed" href="#">Renew</a>
                 </div>
             </div>
         </section>
         <section id="rooms">
-            <h2>Rooms</h2>
+            <h2 class="ro">Rooms</h2>
             <div>
                 <div>
                     <h3>You have <span class="display-numbers">{{ 0 }}</span> rooms.</h3>
                 </div>
-                <div>
-                    <a href="#">View rooms</a>
+                <div class="but">
+                    <a class="but-ed" href="#">View rooms</a>
                 </div>
             </div>
         </section>
         <section id="events">
-            <h2>Events</h2>
+            <h2 class="ev">Events</h2>
             <div>
                 <div>
                     <h3>You're in <span class="display-numbers">{{ 0 }}</span> events.</h3>
                 </div>
-                <div>
-                    <a href="#">View events</a>
+                <div class="but">
+                    <a class="but-ed" href="#">View events</a>
                 </div>
             </div>
         </section>
         <section id="services">
-            <h2>services</h2>
+            <h2 class="se">Services</h2>
             <div>
                 <div>
                     <h3>You have <span class="display-numbers">{{ 0 }}</span> services.</h3>
                 </div>
-                <div>
-                    <a href="#">View services.</a>
+                <div class="but">
+                    <a class="but-ed" href="#">View services.</a>
                 </div>
             </div>
         </section>
