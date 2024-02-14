@@ -66,6 +66,8 @@ def register_page(app):
     else:
         return render_template("register.html")
 
+
+@login_required
 def edit_profile_page(app):
     if request.method == 'POST':
         name = request.form.get('n4me')
@@ -101,6 +103,12 @@ def edit_profile_page(app):
             return redirect(url_for('edit_profile'))
     else:
         return render_template("edit-profile.html", user=session['user'], logged=True)
+
+
+@login_required
+def rooms_page(app):
+    return render_template("rooms.html", logged=True)
+
 
 @login_required
 def profile_page():

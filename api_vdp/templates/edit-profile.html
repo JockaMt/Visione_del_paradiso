@@ -1,23 +1,28 @@
 {% extends 'base.html' %}
 {% block title %} Profile {% endblock %}
+{% block head_page %}
+    <head>
+        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/profile.css') }}">
+    </head>
+{% endblock %}
 {% block content %}
     <div>
-        <section>
-            <h2>Welcome {{ user.name }}</h2>
+        <section class="title">
+            <h2 class="wel">Welcome <b>{{ user.name }}!</b></h2>
         </section>
         <section id="about">
-            <h2>About</h2>
-            <form method="post">
-                <div>
-                    <div><label for="name">First Name: </label><input name="n4me" required id="name" type="text" value="{{ user.name }}"></div>
-                    <div><label for="last_name">Last Name: </label><input name="last-name" required id="last_name" type="text" value="{{ user.last_name if user.last_name else "" }}"></div>
-                    <div><label for="email">Email: </label><input name="m4il" required id="email" value="{{ user.email }}"></div>
-                    <div><label for="sex">Sex: </label><input name="sex" required id="sex" value="{{ user.sex if user.last_name else "" }}"></div>
-                    <div><label for="age">Age: </label><input name="age" required id="age" value="{{ user.age if user.last_name else "" }}"></div>
-                    <div><label for="phone">Phone: </label><input name="phone" required id="phone" value="{{ user.phone if user.last_name else "" }}"></div>
+            <h2 class="session-title">About</h2>
+            <form class="content" method="post">
+                <div class="content-box">
+                    <div class="rows input-row"><h3 class="edit-h3"><label for="name">First Name: </label></h3><input name="n4me" required id="name" type="text" value="{{ user.name }}"></div>
+                    <div class="rows input-row"><h3 class="edit-h3"><label for="last_name">Last Name: </label></h3><input name="last-name" required id="last_name" type="text" value="{{ user.last_name if user.last_name else "" }}"></div>
+                    <div class="rows input-row"><h3 class="edit-h3"><label for="email">Email: </label></h3><input name="m4il" required id="email" value="{{ user.email }}"></div>
+                    <div class="rows input-row"><h3 class="edit-h3">Sex: </h3><label>Male <input value="male" name="sex" type="radio" {{ "checked" if user.sex == "male" }}></label><label>Female <input value="female" name="sex" type="radio" {{ "checked" if user.sex == "female" }}></label><label>None <input value="undefined" name="sex" type="radio" {{ "checked" if user.sex != "male" and user.sex != "female" }}></label></div>
+                    <div class="rows input-row"><h3 class="edit-h3"><label for="age">Age: </label></h3><input type="number" name="age" required id="age" value="{{ user.age if user.last_name else 0 }}"></div>
+                    <div class="rows input-row"><h3 class="edit-h3"><label for="phone">Phone: </label></h3><input type="tel" placeholder="XX XXXXX-XXXX" pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}" name="phone" required id="phone" value="{{ user.phone if user.last_name else "" }}"></div>
                 </div>
-                <div>
-                    <button type="submit">Save</button>
+                <div class="but">
+                    <button class="but-ed" type="submit">Save</button>
                 </div>
             </form>
         </section>
