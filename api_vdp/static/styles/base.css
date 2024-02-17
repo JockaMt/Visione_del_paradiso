@@ -41,6 +41,7 @@
     color: white;
     font-weight: bold;
     font-size: large;
+    justify-content: center;
 }
 
 input {
@@ -76,16 +77,25 @@ input {
 }
 
 .right-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     height: 4rem;
     width: 5rem;
     right: 0;
     background-color: transparent;
     color: var(--primary-color);
-    font-size: 3rem;
+}
+
+.right-button span {
+    font-size: 2.5rem;
 }
 
 .left-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     height: 4rem;
     width: 5rem;
@@ -163,6 +173,13 @@ input {
     animation: slide 0.4s cubic-bezier(.65,-0.01,0,1.01);
 }
 
+.side-header {
+    display: flex;
+    align-items: center;
+    padding-left: 2.5rem;
+    height: 5rem;
+}
+
 /* Desktop area */
 
 header {
@@ -175,6 +192,7 @@ header {
     position: sticky;
     top: 0;
     background-color: white;
+    z-index: 9;
 }
 
 .desktop-logo {

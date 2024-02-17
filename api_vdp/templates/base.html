@@ -33,19 +33,20 @@
     </header>
     {% if logged %}
     <header class="mobile mobile-header">
-        {% if secondary %}
-        <button class="left-button"><</button>
-        {% endif %}
-        <img src="{{ url_for('static', filename='assets/logo.png') }}">
+        <img alt="logo" src="{{ url_for('static', filename='assets/logo.png') }}">
         {% if form %}
+            <a href="{{ url_for(form) }}" class="left-button"><span class="material-symbols-outlined">arrow_back</span></a>
         {% else %}
-        <button onclick="toggle()" class="right-button">=</button>
+            <button onclick="toggle()" class="right-button"><span class="material-symbols-outlined">menu</span></button>
         {% endif %}
         <div class="side-menu-bg" id="sm1">
             <nav class="side-menu" id="sm2">
-                <button onclick="toggle()">></button>
+                <div class="side-header">
+                    <img alt="logo" src="{{ url_for('static', filename='assets/logo.png') }}">
+                </div>
+                <button onclick="toggle()" class="right-button"><span class="material-symbols-outlined">close</span></button>
                 <ul id="side-menu">
-                    {% set buttons = {"home": "home", "rooms": "bed", "events": "event", "profile": "account_circle", "rate_us": "kid_star", "support": "help"} %}
+                    {% set buttons = {"home": "home", "rooms": "bed", "events": "event", "services": "concierge", "profile": "account_circle", "rate_us": "kid_star", "support": "help"} %}
                     {% for i in buttons %}
                         <li>
 

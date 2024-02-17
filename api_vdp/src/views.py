@@ -40,6 +40,12 @@ def init_app(app):
 
 
     # TODO: Escrever pagina de quartos.
+    @app.route("/services", methods=['GET', 'POST'])
+    def services():
+        return home_page()
+
+
+    # TODO: Escrever pagina de quartos.
     @app.route("/rate-us", methods=['GET', 'POST'])
     def rate_us():
         return home_page()

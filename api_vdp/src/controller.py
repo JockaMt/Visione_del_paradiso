@@ -102,7 +102,7 @@ def edit_profile_page(app):
         except:
             return redirect(url_for('edit_profile'))
     else:
-        return render_template("edit-profile.html", user=session['user'], logged=True)
+        return render_template("edit-profile.html", user=session['user'], logged=True, form="profile")
 
 
 @login_required
