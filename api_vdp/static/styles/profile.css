@@ -1,139 +1,84 @@
-*   {
-    font-family: 'Poppins', sans-serif;
-    text-decoration: none;
-    border: none;
-    outline: none;
-    margin: 0;
-}
-
 .wel {
     padding-top: 30px;
     text-align: center;   
     font-weight: 400;
 }
 
-.ab {
+.session-title {
     text-align: center;
     text-decoration: underline;
     font-size: larger;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding: 1rem 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.35);
-    margin-bottom: 20px;
 }
 
-#about {
-    margin-top: 30px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 10px;
-    background-clip: padding-box;
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-bottom: 30px;
+@media only screen and (min-width: 766px) {
+
+    section:not(.title) {
+        box-shadow: var(--shadow);
+        border-radius: 10px;
+        background-clip: padding-box;
+        margin: 30px;
+    }
+
 }
 
-.inline {
-    display: inline;
+.rows {
+    display: flex;
+    gap: 1rem;
 }
 
-.ti {
-    padding-left: 25px;
-    display: inline;
+.content-box {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 1rem 0;
+    gap: .3rem;
+}
+
+.content {
+    display: flex;
 }
 
 .but {
-    text-align: end;
-    margin-right: 30px;
-    padding-bottom: 30px;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin: 1rem 1rem 1rem 0;
+}
 
+h3 {
+    padding-left: 2rem;
+}
+
+.edit-h3 {
+    width: 50%;
+}
+
+label {
+    display: flex;
+    gap: 1rem;
 }
 
 .but-ed {
-    color: black;
-    background-color: #ED4824;
+    color: white;
+    background-color: var(--primary-color);
+    font-weight: bold;
     font-size: 12px;
     padding: 10px 24px;
     border-radius: 4px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    
+    box-shadow: var(--shadow);
+    cursor: pointer;
 }
 
-#hosting {
-    margin-top: 30px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 10px;
-    background-clip: padding-box;
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-bottom: 30px;
+input {
+    width: 100%;
+    font-size: 13pt;
+    border: 1px solid rgba(30, 30, 30, 0.45);
+    border-radius: 2rem;
 }
 
-#rooms {
-    margin-top: 30px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 10px;
-    background-clip: padding-box;
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-bottom: 30px;
-}
-
-#events {
-    margin-top: 30px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 10px;
-    background-clip: padding-box;
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-bottom: 30px;
-}
-
-#services {
-    margin-top: 30px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 10px;
-    background-clip: padding-box;
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-bottom: 30px;
-}
-
-.ho {
-    text-align: center;
-    text-decoration: underline;
-    font-size: larger;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
-    margin-bottom: 20px;
-}
-
-.ro {
-    text-align: center;
-    text-decoration: underline;
-    font-size: larger;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
-    margin-bottom: 20px;
-}
-
-.ev {
-    text-align: center;
-    text-decoration: underline;
-    font-size: larger;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
-    margin-bottom: 20px;
-}
-
-.se {
-    text-align: center;
-    text-decoration: underline;
-    font-size: larger;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
-    margin-bottom: 20px;
+.up-case {
+    text-transform: capitalize;
 }
