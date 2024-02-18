@@ -1,0 +1,94 @@
+.wel {
+    padding-top: 30px;
+    text-align: center;   
+    font-weight: 400;
+}
+
+.session-title {
+    text-align: center;
+    text-decoration: underline;
+    font-size: larger;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+@media only screen and (min-width: 766px) {
+
+    section:not(.title) {
+        box-shadow: var(--shadow);
+        border-radius: 10px;
+        background-clip: padding-box;
+        padding-bottom: 75px;
+        margin: 30px;
+    }
+
+}
+
+.rows {
+    display: flex;
+    gap: 1rem;
+}
+
+.content-box {
+    display: flex;
+    width: 35%;
+    flex-direction: column;
+    padding: 1rem 0;
+    gap: .3rem;
+}
+
+.content {
+    display: flex;
+}
+
+h3 {
+    padding-left: 2rem;
+}
+
+.edit-h3 {
+    width: 50%;
+}
+
+label {
+    display: flex;
+    gap: 1rem;
+}
+
+.but {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center ;
+    margin: 5rem 7.5rem 1rem 0;
+}
+
+.but-ed {
+    color: white;
+    background-color: var(--primary-color);
+    font-weight: bold;
+    font-size: 12px;
+    padding: 10px 24px;
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+
+}
+
+.edit-but {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center ;
+    margin: 17rem 13rem 1rem 0;
+}
+
+input {
+    width: 100%;
+    font-size: 13pt;
+    border: 1px solid rgba(30, 30, 30, 0.45);
+    border-radius: 2rem;
+}
+
+.up-case {
+    text-transform: capitalize;
+}

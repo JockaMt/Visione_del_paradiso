@@ -1,5 +1,73 @@
 {% extends 'base.html' %}
 {% block title %} Home {% endblock %}
 {% block content %}
+<<<<<<< Updated upstream
     {{ name }}
+=======
+    <div>
+        <section class="title">
+            <h2 class="wel"> Welcome! <b>{{ user.name }}!</b></h2>
+        </section>
+        <section id="about">
+            <h2 class="session-title">About</h2>
+            <div class="content">
+                <div class="content-box">
+                    <div class="rows"><h3>First Name: </h3><p class="up-case">{{ user.name }}</p></div>
+                    <div class="rows"><h3>Last Name: </h3><p class="up-case">{{ user.last_name if user.last_name else "Undefined" }}</p></div>
+                    <div class="rows"><h3>Email: </h3><p>{{ user.email }}</p></div>
+                    <div class="rows"><h3>Sex: </h3><p class="up-case">{{ user.sex if user.sex else "Undefined" }}</p></div>
+                    <div class="rows"><h3>Age: </h3> <p>{{ user.age if user.age else "Undefined" }}</p></div>
+                    <div class="rows"><h3>Phone: </h3><p>{{ user.phone if user.phone else "Undefined" }}</p></div>
+                </div>
+                <div class="edit-but">
+                    <a class="but-ed" href="{{ url_for('edit_profile') }}">Edit profile</a>
+                </div>
+            </div>
+        </section>
+        <section id="hosting">
+            <h2 class="session-title">Hosting</h2>
+            <div class="content">
+                <div class="content-box">
+                    <h3>Days to renew: <span class="display-numbers">{{ 0 }}</span></h3>
+                </div>
+                <div class="but">
+                    <a class="but-ed" href="#">Renew</a>
+                </div>
+            </div>
+        </section>
+        <section id="rooms">
+            <h2 class="session-title">Rooms</h2>
+            <div class="content">
+                <div class="content-box">
+                    <h3>You have <span class="display-numbers">{{ 0 }}</span> rooms.</h3>
+                </div>
+                <div class="but">
+                    <a class="but-ed" href="#">View rooms</a>
+                </div>
+            </div>
+        </section>
+        <section id="events">
+            <h2 class="session-title">Events</h2>
+            <div class="content">
+                <div class="content-box">
+                    <h3>You're in <span class="display-numbers">{{ 0 }}</span> events.</h3>
+                </div>
+                <div class="but">
+                    <a class="but-ed" href="{{ url_for("rooms") }}">View events</a>
+                </div>
+            </div>
+        </section>
+        <section id="services">
+            <h2 class="session-title">Services</h2>
+            <div class="content">
+                <div class="content-box">
+                    <h3>You have <span class="display-numbers">{{ 0 }}</span> services.</h3>
+                </div>
+                <div class="but">
+                    <a class="but-ed" href="#">View services.</a>
+                </div>
+            </div>
+        </section>
+    </div>
+>>>>>>> Stashed changes
 {% endblock %}
