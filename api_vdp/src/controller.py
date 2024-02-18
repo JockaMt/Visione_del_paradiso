@@ -26,8 +26,8 @@ def home_page():
 def login_page(app):
     db.create_all()
     if request.method == 'POST':
-        email = request.form.get('m4il')
-        password = request.form.get('p4ss')
+        email = request.form.get('m4il').strip()
+        password = request.form.get('p4ss').strip()
         client = Client.query.filter_by(email=email).first()
         if client and client.encrypted_password == cripto(password, app.settings.SECRET_NUM):
             session['logged_in'] = True
@@ -43,10 +43,10 @@ def login_page(app):
 
 def register_page(app):
     if request.method == 'POST':
-        name = request.form.get('n4me')
-        email = request.form.get('m4il')
-        password = request.form.get('p4ss')
-        confirm_password = request.form.get('conf_p4ss')
+        name = request.form.get('n4me').strip()
+        email = request.form.get('m4il').strip()
+        password = request.form.get('p4ss').strip()
+        confirm_password = request.form.get('conf_p4ss').strip()
         if password == confirm_password:
             try:
                 client = Client(
@@ -70,12 +70,12 @@ def register_page(app):
 @login_required
 def edit_profile_page(app):
     if request.method == 'POST':
-        name = request.form.get('n4me')
-        last_name = request.form.get('last-name')
-        email = request.form.get('m4il')
-        sex = request.form.get("sex")
-        age = request.form.get('age')
-        phone = request.form.get('phone')
+        name = request.form.get('n4me').strip()
+        last_name = request.form.get('last-name').strip()
+        email = request.form.get('m4il').strip()
+        sex = request.form.get("sex").strip()
+        age = request.form.get('age').strip()
+        phone = request.form.get('phone').strip()
         try:
             if name and last_name and email and sex and age and phone:
                 client = Client.query.filter_by(email=session['user']['email']).first()
