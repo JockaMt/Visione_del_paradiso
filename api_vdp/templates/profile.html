@@ -20,9 +20,16 @@
                     <div class="rows"><h3>Sex: </h3><p class="up-case">{{ user.sex if user.sex else "Undefined" }}</p></div>
                     <div class="rows"><h3>Age: </h3> <p>{{ user.age if user.age else "Undefined" }}</p></div>
                     <div class="rows"><h3>Phone: </h3><p>{{ user.phone if user.phone else "Undefined" }}</p></div>
+                    <div class="but">
+                        <a class="but-ed" href="{{ url_for('edit_profile') }}">Edit profile</a>
+                    </div>
                 </div>
+<<<<<<< Updated upstream
                     <a class="but-ed" href="{{ url_for('edit_profile') }}">Edit profile</a>
                 </div>
+=======
+
+>>>>>>> Stashed changes
             </div>
         </section>
         <section id="hosting">
@@ -30,10 +37,11 @@
             <div class="content">
                 <div class="content-box">
                     <h3>Days to renew: <span class="display-numbers">{{ 0 }}</span></h3>
+                    <div class="but">
+                        <a class="but-ed" href="#">Renew</a>
+                    </div>
                 </div>
-                <div class="but">
-                    <a class="but-ed" href="#">Renew</a>
-                </div>
+
             </div>
         </section>
         <section id="rooms">
@@ -41,10 +49,11 @@
             <div class="content">
                 <div class="content-box">
                     <h3>You have <span class="display-numbers">{{ 0 }}</span> rooms.</h3>
+                    <div class="but">
+                        <a class="but-ed" href="#">View rooms</a>
+                    </div>
                 </div>
-                <div class="but">
-                    <a class="but-ed" href="#">View rooms</a>
-                </div>
+
             </div>
         </section>
         <section id="events">
@@ -52,9 +61,9 @@
             <div class="content">
                 <div class="content-box">
                     <h3>You're in <span class="display-numbers">{{ 0 }}</span> events.</h3>
-                </div>
-                <div class="but">
-                    <a class="but-ed" href="{{ url_for("rooms") }}">View events</a>
+                    <div class="but">
+                        <a class="but-ed" href="{{ url_for("rooms") }}">View events</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -63,10 +72,11 @@
             <div class="content">
                 <div class="content-box">
                     <h3>You have <span class="display-numbers">{{ 0 }}</span> services.</h3>
+                    <div class="but">
+                        <a class="but-ed" href="#">View services.</a>
+                    </div>
                 </div>
-                <div class="but">
-                    <a class="but-ed" href="#">View services.</a>
-                </div>
+
             </div>
         </section>
     </div>
