@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
-{% block title %} Home {% endblock %}
+{% block title %} Profile {% endblock %}
+{% block head_page %}
+    <head>
+        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/profile.css') }}">
+    </head>
+{% endblock %}
 {% block content %}
-<<<<<<< Updated upstream
-    {{ name }}
-=======
     <div>
         <section class="title">
             <h2 class="wel"> Welcome! <b>{{ user.name }}!</b></h2>
@@ -19,7 +21,6 @@
                     <div class="rows"><h3>Age: </h3> <p>{{ user.age if user.age else "Undefined" }}</p></div>
                     <div class="rows"><h3>Phone: </h3><p>{{ user.phone if user.phone else "Undefined" }}</p></div>
                 </div>
-                <div class="edit-but">
                     <a class="but-ed" href="{{ url_for('edit_profile') }}">Edit profile</a>
                 </div>
             </div>
@@ -69,5 +70,4 @@
             </div>
         </section>
     </div>
->>>>>>> Stashed changes
 {% endblock %}

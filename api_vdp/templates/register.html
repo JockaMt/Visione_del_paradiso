@@ -1,35 +1,43 @@
 {% extends 'base.html' %}
 {% block title %} Register {% endblock %}
+{% block head_page %}
+    <head>
+        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/login.css') }}">
+    </head>
+{% endblock %}
 {% block content %}
 <div class="login-box">
-    <div class="login-left">
+    <div class="login-left desktop">
         <h2>Welcome!</h2>
-        <p>Sign up to access your</br>
+        <p><strong>Sign up</strong> to access your</br>
             hotel account!</p>
     </div>
     <div class="login-right">
         <form method="post">
-            <h2 class="login-title">Sign up</h2>
+            <div class="mobile-logo-div">
+                <img class="mobile mobile-logo" src="{{ url_for('static', filename='assets/logo.png') }}"/>
+                <p>Welcome! <strong>Sign up</strong> to enjoy!</p>
+            </div>
             <div class="input-field">
-                <span class="material-symbols-outlined">person</span>
+                <span class="desktop material-symbols-outlined">person</span>
                 <input type="text" name="n4me" required placeholder="Name">
             </div>
             <div class="input-field">
-                <span class="material-symbols-outlined">mail</span>
+                <span class="desktop material-symbols-outlined">mail</span>
                 <input type="email" name="m4il" required placeholder="Email">
             </div>
             <div class="input-field">
-                <span class="material-symbols-outlined">key</span>
+                <span class="desktop material-symbols-outlined">key</span>
                 <input type="password" name="p4ss" required placeholder="Password">
             </div>
             <div class="input-field">
-                <span class="material-symbols-outlined">lock</span>
+                <span class="desktop material-symbols-outlined">lock</span>
                 <input type="password" name="conf_p4ss" required placeholder="Confirm Password">
             </div>
             <p class="error-msg">{{ msg }}</p>
-            <input type="submit" value="Sign up" class="input-button">
+            <input type="submit" value="Sign Up" class="input-button">
         </form>
-        <p class="login-create">Arealy signed? <a href="/login">Sign in</a></p>
+        <p class="login-create">Arealy signed? <a href="{{ url_for('login') }}">Sign in</a></p>
     </div>
 </div>
     

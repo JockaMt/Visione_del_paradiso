@@ -1,7 +1,30 @@
 {% extends 'base.html' %}
 {% block title %} Home {% endblock %}
+{% block head_page %}
+    <head>
+        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/home.css') }}">
+    </head>
+{% endblock %}
 {% block content %}
-    <div>
-        <p>Bem vindo, {{ client['name'] }}!</p>
-    </div>
+    <section class="highlights">
+         <img src="{{ url_for('static', filename='assets/room_example.png') }}">
+        <a href="#">Premium room - see more</a>
+    </section>
+    <section class="buttons">
+        <a class="a_button" href="#">Schedules and rooms</a>
+        <a class="a_button" href="#">Events</a>
+        <a class="a_button" href="#">Services</a>
+    </section>
+    <section class="news">
+        <h2>Welcome to Visione del Paradiso!</h2>
+        <article><p>It is with great pleasure that we open the doors of Visione del Paradiso to welcome you to a setting where comfort meets elegance, and every moment is a unique experience.</p>
+        <br/><p>In this haven of tranquility, we dedicate ourselves to providing you with a memorable stay, filled with amenities and services that exceed your expectations. From carefully decorated rooms to refined cuisine that awakens the senses, every detail has been thoughtfully considered to elevate your experience to an extraordinary level.</p>
+        <br/><p>Immerse yourself in the serenity of our lush gardens, relax by the pool with a stunning view, or indulge in the luxuries of our exclusive spa. At Visione del Paradiso, excellence in service is our priority, and our team is here to make your stay truly special.</p>
+        <br/><p>Whatever the reason for your visit, we look forward to sharing unforgettable moments and making this retreat a piece of your personal paradise.</p>
+        <br/><p>Feel at home at Visione del Paradiso - where luxury meets hospitality with open arms.</p>
+        <br/><p>With esteem, The Visione del Paradiso Team</p></article>
+    </section>
+    <footer>
+
+    </footer>
 {% endblock %}

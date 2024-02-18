@@ -18,7 +18,6 @@
         box-shadow: var(--shadow);
         border-radius: 10px;
         background-clip: padding-box;
-        padding-bottom: 75px;
         margin: 30px;
     }
 
@@ -31,7 +30,6 @@
 
 .content-box {
     display: flex;
-    width: 35%;
     flex-direction: column;
     padding: 1rem 0;
     gap: .3rem;
@@ -54,14 +52,6 @@ label {
     gap: 1rem;
 }
 
-.but {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center ;
-    margin: 5rem 7.5rem 1rem 0;
-}
-
 .but-ed {
     color: white;
     background-color: var(--primary-color);
@@ -72,14 +62,6 @@ label {
     box-shadow: var(--shadow);
     cursor: pointer;
 
-}
-
-.edit-but {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center ;
-    margin: 17rem 13rem 1rem 0;
 }
 
 input {

@@ -60,18 +60,16 @@ pip install -r requirements.txt
 Para finalizar, é preciso criar manualmente dois arquivos de configurações com o nome: `settings.toml` e `.env`, dentro deles deve estar algumas informações, no primeiro arquivo, duas variáveis de ambiente, desta forma:
 
 ```toml
-[development]
-SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
-
-[production]
-SQLALCHEMY_DATABASE_URI = '<banco_de_dados_em_produção>'
+[default]
+SECRET_NUM=7
+SECRET_KEY='vdp_es_project'
+SQLALCHEMY_DATABASE_URI='sqlite:///database.db'
 ```
 
 no segundo arquivo apenas as variáveis de ambiente que estivermos utilizando, assim:
 
 ```env
 FLASK_APP=api_vdp\main.py
-FLASK_ENV=development
 ```
 
 _Caso esteja apenas testando, não será necessário preencher os dados do banco de dados em produção._

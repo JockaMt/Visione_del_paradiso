@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %} Rooms {% endblock %}
+{% block content %}
+    {% set rooms = [{"img": "./static/assets/room_example.png", "name": "Couple's basic suite", "price": "125.00"}, {"img": "./static/assets/room_example.png", "name": "Couple's basic suite", "price": "100.00"}] %}
+    <div>
+        <section>
+            <h2>Rooms</h2>
+        </section>
+        <section id="rooms">
+            {% for room in rooms %}
+                <div>
+                    <div><img alt="room-img" src="{{ room.img }}"></div>
+                    <div>
+                        <h2>{{ room.name }}</h2>
+                        <div><span>{{ room.price }}</span><p> per day.</p></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock %}
