@@ -30,7 +30,6 @@
 
 .content-box {
     display: flex;
-    width: 100%;
     flex-direction: column;
     padding: 1rem 0;
     gap: .3rem;
@@ -38,14 +37,6 @@
 
 .content {
     display: flex;
-}
-
-.but {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    align-items: flex-end;
-    margin: 1rem 1rem 1rem 0;
 }
 
 h3 {
@@ -70,6 +61,7 @@ label {
     border-radius: 4px;
     box-shadow: var(--shadow);
     cursor: pointer;
+
 }
 
 input {
