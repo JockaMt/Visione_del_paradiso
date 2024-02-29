@@ -1,5 +1,5 @@
 from api_vdp.src.controller import (home_page, login_page, register_page, profile_page,
-                                    logout_page, edit_profile_page, rooms_page)
+                                    logout_page, edit_profile_page, rooms_page, admin_page)
 
 
 def init_app(app):
@@ -60,6 +60,11 @@ def init_app(app):
     @app.route("/logout")
     def logout():
         return logout_page()
+
+
+    @app.route("/admin")
+    def admin():
+        return admin_page()
 
 
     # TODO: Escrever pagina de checkin.

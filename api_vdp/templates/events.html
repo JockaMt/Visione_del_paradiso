@@ -3,15 +3,15 @@
 {% block content %}
     <div>
         <section>
-            <h2>Rooms</h2>
+            <h2>Events</h2>
         </section>
         <section id="rooms">
-            {% for room in rooms %}
+            {% for event in events %}
                 <div>
                     <!-- div><img alt="room-img" src=""></--div -->
                     <div>
-                        <h2>{{ room.name }}</h2>
-                        <div><p>{{ room.price }} per day.</p></div>
+                        <h2>{{ event.name }}</h2>
+                        <div><p> per day.</p></div>
                     </div>
                 </div>
             {% endfor %}
