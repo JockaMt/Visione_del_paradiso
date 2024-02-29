@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %} Profile {% endblock %}
+{% block head_page %}
+    <head>
+        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/profile.css') }}">
+    </head>
+{% endblock %}
+{% block content %}
+    <div>
+        <section class="title">
+            <h2 class="wel"> Welcome! <b>{{ user.name }}</b>! to Admin page.</h2>
+        </section>
+        <section>
+            <h2 class="session-title">Rooms</h2>
+            <div class="content">
+                <div class="content-box">
+                    <form name="add_room" class="content" method="post">
+                        <div class="content-box">
+                            <div class="rows input-row"><h3 class="edit-h3"><label for="name">Name: </label></h3><input name="name" required id="name" type="text"></div>
+                        </div>
+                        <div class="but">
+                            <button class="but-ed" type="submit">Add room</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2 class="session-title">Services</h2>
+            <div class="content">
+                <div class="content-box">
+                    <form name="add_room" class="content" method="post">
+                        <div class="content-box">
+                            <div class="rows input-row"><h3 class="edit-h3"><label for="name">Name: </label></h3><input name="name" required id="name" type="text"></div>
+                        </div>
+                        <div class="but">
+                            <button class="but-ed" type="submit">Add service</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2 class="session-title">Events</h2>
+            <div class="content">
+                <div class="content-box">
+                    <form name="add_room" class="content" method="post">
+                        <div class="content-box">
+                            <div class="rows input-row"><h3 class="edit-h3"><label for="name">Name: </label></h3><input name="name" required id="name" type="text"></div>
+                        </div>
+                        <div class="but">
+                            <button class="but-ed" type="submit">Add event</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
