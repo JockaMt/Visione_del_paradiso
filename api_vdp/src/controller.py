@@ -176,6 +176,14 @@ def services_page():
 
 
 @login_required
+def catalog_item():
+    _h = Item()
+    services = _h.read(Service)
+    info = {'title': "Rooms", 'items': services}
+    return render_template('catalog.html', user=session['user'], logged=True, info=info)
+
+
+@login_required
 def logout_page():
     session.pop('logged_in', None)
     session.pop('username', None)
