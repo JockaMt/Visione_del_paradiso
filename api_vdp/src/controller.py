@@ -1,30 +1,34 @@
 from functools import wraps
 import sqlalchemy.exc
-from api_vdp.src.model import Client, Room
+from api_vdp.src.model import Client, Room, Event, Service
 from flask import session, redirect, url_for, render_template, request
 from api_vdp.src.auth import cripto
 from api_vdp.src.database import db
 
 
 class Item:
-    def create(self, name, description, size, data=None):
+    @staticmethod
+    def create(name, description, size, data=None):
         item = {'name': name, 'description': description, 'size': size, 'data': data}
         return item
 
-    def read(self, class_name):
+    @staticmethod
+    def read(class_name):
         items = class_name.query.all()
         return items
 
-    def update(self, id, class_name, item):
-        result = class_name.get(id)
+    @staticmethod
+    def update(class_id, class_name, item):
+        result = class_name.get(class_id)
         result.name = item['name']
         result.description = item['description']
         result.size = item['size']
         result.data = item['data']
         return result
 
-    def delete(self, id, class_name):
-        room = class_name.query.get(id)
+    @staticmethod
+    def delete(class_id, class_name):
+        room = class_name.query.get(class_id)
         if room:
             db.session.delete(room)
             db.session.commit()
@@ -84,7 +88,7 @@ def register_page(app):
                 db.session.add(client)
                 db.session.commit()
                 return redirect(url_for("home"))
-            except sqlalchemy.exc.IntegrityError as e:
+            except sqlalchemy.exc.IntegrityError as _:
                 return render_template("register.html", msg="E-mail already registered!")
         else:
             return render_template("register.html", msg="Passwords not match!")
@@ -93,7 +97,7 @@ def register_page(app):
 
 
 @login_required
-def edit_profile_page(app):
+def edit_profile_page():
     if request.method == 'POST':
         name = request.form.get('n4me').strip()
         last_name = request.form.get('last-name').strip()
@@ -125,18 +129,18 @@ def edit_profile_page(app):
                 return redirect(url_for("profile"))
             else:
                 return redirect(url_for('edit_profile'))
-        except:
+        except sqlalchemy.exc.IntegrityError as _:
             return redirect(url_for('edit_profile'))
     else:
         return render_template("edit-profile.html", user=session['user'], logged=True, form="profile")
 
 
 @login_required
-def rooms_page(app):
+def rooms_page():
     _h = Item()
     rooms = _h.read(Room)
-    print(rooms)
-    return render_template("rooms.html", logged=True, rooms=rooms)
+    info = {'title': "Rooms", 'items': rooms}
+    return render_template("catalog.html", logged=True, info=info)
 
 
 @login_required
@@ -153,6 +157,22 @@ def profile_page():
             }
     session['user'] = user
     return render_template('profile.html', user=session['user'], logged=True)
+
+
+@login_required
+def events_page():
+    _h = Item()
+    events = _h.read(Event)
+    info = {'title': "Rooms", 'items': events}
+    return render_template('catalog.html', user=session['user'], logged=True, info=info)
+
+
+@login_required
+def services_page():
+    _h = Item()
+    services = _h.read(Service)
+    info = {'title': "Rooms", 'items': services}
+    return render_template('catalog.html', user=session['user'], logged=True, info=info)
 
 
 @login_required
