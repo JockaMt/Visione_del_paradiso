@@ -7,8 +7,8 @@
 {% endblock %}
 {% block content %}
     <section class="highlights">
-         <img alt="Premium-room-image" src="{{ url_for('static', filename='assets/room_example.png') }}">
-        <a href="#">Premium room - see more</a>
+        <img alt="Premium-room-image" src="{{ url_for('static', filename='assets/room_example.png') }}">
+        <a href="{{ '/checkout/Room-' + destaque.id|string }}">Highlighted room - see more</a>
     </section>
     <section class="buttons">
         <a class="a_button" href="{{ url_for('rooms') }}">Schedules and rooms</a>

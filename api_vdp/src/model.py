@@ -64,3 +64,36 @@ db.ForeignKeyConstraint([Client_event.client_id], [Client.id])
 db.ForeignKeyConstraint([Client_event.event_id], [Event.id])
 db.ForeignKeyConstraint([Client_service.client_id], [Client.id])
 db.ForeignKeyConstraint([Client_service.service_id], [Service.id])
+
+
+class Item:
+    @staticmethod
+    def create(name, description, size, date=None, price=None):
+        item = {'name': name, 'description': description, 'size': size, 'date': date, 'price': price}
+        return item
+
+    @staticmethod
+    def read(class_name):
+        items = class_name.query.all()
+        return items
+
+    @staticmethod
+    def update(class_id, class_name, item):
+        result = class_name.get(class_id)
+        result.name = item['name']
+        result.description = item['description']
+        result.size = item['size']
+        result.data = item['data']
+        return result
+
+    @staticmethod
+    def delete(class_id, class_name):
+        room = class_name.query.get(class_id)
+        if room:
+            db.session.delete(room)
+            db.session.commit()
+
+    @staticmethod
+    def view(class_id, class_name):
+        room = class_name.query.get(class_id)
+        return room

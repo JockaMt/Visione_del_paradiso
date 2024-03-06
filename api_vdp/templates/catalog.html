@@ -1,25 +1,29 @@
 {% extends 'base.html' %}
-{% block title %} Rooms {% endblock %}
+{% block title %} Visione del Paradiso {% endblock %}
 {% block content %}
     <head>
         <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/room.css') }}">
+        <title></title>
     </head>
     <div>
         <section>
             <p class="title">{{ info['title'] }}</p>
-            </section>
         </section>
         <section>
-            <div>
-                    <!-- div><img alt="room-img" src=""></--div -->
-                <div class="container">
-                    <img class="container_img" src="api_vdp\static\assets\room_example.png" alt="" width="100" height="100">
-                    <div class="divid">
-                        <p class="container_name">Couple's basic suite</p>
-                        <p class="container_value"><b class="container_num">$  120,00</b> per day</p>
+            {% for item in info['items'] %}
+                {% set name = info['title'][:-1] %}
+                {% set id = item['id']|string %}
+                {% set url = "/checkout/" + name + '-' + id %}
+                <a href="{{ url }}">
+                    <div class="container">
+                        <img class="container_img" src="{{ url_for('static', filename='assets/room_example.png') }}" alt="" width="100" height="100">
+                        <div class="divid">
+                            <p class="container_name">{{ item['name'] }}</p>
+                            <p class="container_value"><b class="container_num">$  {{ item['price'] if item['price'] else 0.00 }}</b> per day</p>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </a>
+            {% endfor %}
         </section>
     </div>
 {% endblock %}

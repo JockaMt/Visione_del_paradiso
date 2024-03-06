@@ -3,6 +3,7 @@
 {% block head_page %}
     <head>
         <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/profile.css') }}">
+        <title></title>
     </head>
 {% endblock %}
 {% block content %}
@@ -14,9 +15,12 @@
             <h2 class="session-title">Rooms</h2>
             <div class="content">
                 <div class="content-box">
-                    <form name="add_room" class="content" method="post">
+                    <form name="add_room" class="content" method="post" action="{{ url_for('create_room') }}">
                         <div class="content-box">
-                            <div class="rows input-row"><h3 class="edit-h3"><label for="name">Name: </label></h3><input name="name" required id="name" type="text"></div>
+                            <div class="rows input-row"><h3 class="edit-h3"><label for="room_name">Name: <input name="room_name" required id="room_name" type="text"></label></h3></div>
+                            <div class="rows input-row"><h3 class="edit-h3"><label for="room_description">Description: <input name="room_description" required id="room_description" type="text"></label></h3></div>
+                            <div class="rows input-row"><h3 class="edit-h3"><label for="room_size">Size: <input name="room_size" required id="room_size" type="number"></label></h3></div>
+                            <div class="rows input-row"><h3 class="edit-h3"><label for="room_price">Price: <input name="room_price" required id="room_price" type="text"></label></h3></div>
                         </div>
                         <div class="but">
                             <button class="but-ed" type="submit">Add room</button>
@@ -29,9 +33,11 @@
             <h2 class="session-title">Services</h2>
             <div class="content">
                 <div class="content-box">
-                    <form name="add_room" class="content" method="post">
+                    <form name="add_service" class="content" method="post" action="{{ url_for('create_service') }}">
                         <div class="content-box">
-                            <div class="rows input-row"><h3 class="edit-h3"><label for="name">Name: </label></h3><input name="name" required id="name" type="text"></div>
+                            <div class="rows input-row"><h3 class="edit-h3"><label for="service_name">Name: <input name="service_name" required id="service_name" type="text"></label></h3></div>
+                            <div class="rows input-row"><h3 class="edit-h3"><label for="service_description">Description: <input name="service_description" required id="service_description" type="text"></label></h3></div>
+                            <div class="rows input-row"><h3 class="edit-h3"><label for="service_size">Size: <input name="service_size" required id="service_size" type="number"></label></h3></div>
                         </div>
                         <div class="but">
                             <button class="but-ed" type="submit">Add service</button>
@@ -44,9 +50,11 @@
             <h2 class="session-title">Events</h2>
             <div class="content">
                 <div class="content-box">
-                    <form name="add_room" class="content" method="post">
+                    <form name="add_event" class="content" method="post" action="{{ url_for('create_event') }}">
                         <div class="content-box">
-                            <div class="rows input-row"><h3 class="edit-h3"><label for="name">Name: </label></h3><input name="name" required id="name" type="text"></div>
+                            <div class="rows input-row"><h3 class="edit-h3"><label for="event_name">Name: <input name="event_name" required id="event_name" type="text"></label></h3></div>
+                            <div class="rows input-row"><h3 class="edit-h3"><label for="event_description">Description: <input name="event_description" required id="event_description" type="text"></label></h3></div>
+                            <div class="rows input-row"><h3 class="edit-h3"><label for="event_size">Size: <input name="event_size" required id="event_size" type="number"></label></h3></div>
                         </div>
                         <div class="but">
                             <button class="but-ed" type="submit">Add event</button>

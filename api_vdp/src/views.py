@@ -1,6 +1,7 @@
 from api_vdp.src.controller import (home_page, login_page, register_page, profile_page,
-                                    logout_page, edit_profile_page, rooms_page, admin_page,
-                                    events_page, catalog_item)
+                                    logout_page, edit_profile_page, rooms_page,
+                                    events_page, catalog_item, services_page)
+from api_vdp.src.admin_controller import admin_page
 
 
 def init_app(app):
@@ -34,12 +35,14 @@ def init_app(app):
 
     @app.route("/services", methods=['GET', 'POST'])
     def services():
-        return home_page()
+        return services_page()
 
+    #TODO
     @app.route("/rate-us", methods=['GET', 'POST'])
     def rate_us():
         return home_page()
 
+    #TODO
     @app.route("/support", methods=['GET', 'POST'])
     def support():
         return home_page()
@@ -52,6 +55,6 @@ def init_app(app):
     def admin():
         return admin_page()
 
-    @app.route("/checkin/<room_id>", methods=['GET', 'POST'])
-    def checkin(room_id):
-        return catalog_item(room_id)
+    @app.route("/checkout/<item_name>-<item_id>", methods=['GET', 'POST'])
+    def checkin(item_id, item_name):
+        return catalog_item(item_id, item_name)

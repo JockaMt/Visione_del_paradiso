@@ -1,52 +1,20 @@
-from functools import wraps
+from api_vdp.src.auth import login_required
 import sqlalchemy.exc
-from api_vdp.src.model import Client, Room, Event, Service
+from api_vdp.src.model import Client, Room, Event, Service, Item
 from flask import session, redirect, url_for, render_template, request
 from api_vdp.src.auth import cripto
 from api_vdp.src.database import db
 
 
-class Item:
-    @staticmethod
-    def create(name, description, size, data=None):
-        item = {'name': name, 'description': description, 'size': size, 'data': data}
-        return item
-
-    @staticmethod
-    def read(class_name):
-        items = class_name.query.all()
-        return items
-
-    @staticmethod
-    def update(class_id, class_name, item):
-        result = class_name.get(class_id)
-        result.name = item['name']
-        result.description = item['description']
-        result.size = item['size']
-        result.data = item['data']
-        return result
-
-    @staticmethod
-    def delete(class_id, class_name):
-        room = class_name.query.get(class_id)
-        if room:
-            db.session.delete(room)
-            db.session.commit()
-
-
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'logged_in' not in session:
-            return redirect(url_for('login'))
-        return f(*args, **kwargs)
-
-    return decorated_function
+def go_home():
+    if session['logged_in']:
+        return redirect(url_for('home'))
 
 
 @login_required
 def home_page():
-    return render_template("home.html", client=session['user'], logged=True)
+    room = Room.query.first()
+    return render_template("home.html", client=session['user'], logged=True, destaque=room)
 
 
 def login_page(app):
@@ -60,7 +28,7 @@ def login_page(app):
             user = {'name': client.name, 'sex': client.sex, 'age': client.age, 'email': client.email,
                     'room': client.rooms, 'admin': client.admin}
             session['user'] = user
-            return redirect(url_for("home"))
+            return go_home()
         else:
             return render_template("login.html")
     else:
@@ -85,9 +53,13 @@ def register_page(app):
                     phone="",
                     admin=False
                 )
+                session['logged_in'] = True
+                user = {'name': client.name, 'sex': client.sex, 'age': client.age, 'email': client.email,
+                        'room': client.rooms, 'admin': client.admin}
+                session['user'] = user
                 db.session.add(client)
                 db.session.commit()
-                return redirect(url_for("home"))
+                return go_home()
             except sqlalchemy.exc.IntegrityError as _:
                 return render_template("register.html", msg="E-mail already registered!")
         else:
@@ -163,7 +135,7 @@ def profile_page():
 def events_page():
     _h = Item()
     events = _h.read(Event)
-    info = {'title': "Rooms", 'items': events}
+    info = {'title': "Events", 'items': events}
     return render_template('catalog.html', user=session['user'], logged=True, info=info)
 
 
@@ -171,16 +143,22 @@ def events_page():
 def services_page():
     _h = Item()
     services = _h.read(Service)
-    info = {'title': "Rooms", 'items': services}
+    info = {'title': "Services", 'items': services}
     return render_template('catalog.html', user=session['user'], logged=True, info=info)
 
 
 @login_required
-def catalog_item():
+def catalog_item(class_id, class_name):
     _h = Item()
-    services = _h.read(Service)
-    info = {'title': "Rooms", 'items': services}
-    return render_template('catalog.html', user=session['user'], logged=True, info=info)
+    item = None
+    match class_name:
+        case "Room":
+            item = _h.view(class_id, Room)
+        case "Event":
+            item = _h.view(class_id, Event)
+        case "Service":
+            item = _h.view(class_id, Service)
+    return render_template('view-item.html', user=session['user'], logged=True, item=item)
 
 
 @login_required
@@ -188,10 +166,3 @@ def logout_page():
     session.pop('logged_in', None)
     session.pop('username', None)
     return redirect(url_for("login"))
-
-
-@login_required
-def admin_page():
-    if session['user']['admin']:
-        return render_template('admin.html', user=session['user'], logged=True)
-    return url_for('home')
