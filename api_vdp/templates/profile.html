@@ -24,12 +24,10 @@
                         <a class="but-ed" href="{{ url_for('edit_profile') }}">Edit profile</a>
                     </div>
                 </div>
-<<<<<<< Updated upstream
+
                     <a class="but-ed" href="{{ url_for('edit_profile') }}">Edit profile</a>
                 </div>
-=======
-
->>>>>>> Stashed changes
+                    
             </div>
         </section>
         <section id="hosting">
@@ -50,7 +48,7 @@
                 <div class="content-box">
                     <h3>You have <span class="display-numbers">{{ 0 }}</span> rooms.</h3>
                     <div class="but">
-                        <a class="but-ed" href="#">View rooms</a>
+                        <a class="but-ed" href="{{ url_for("rooms") }}">View rooms</a>
                     </div>
                 </div>
 
@@ -62,7 +60,7 @@
                 <div class="content-box">
                     <h3>You're in <span class="display-numbers">{{ 0 }}</span> events.</h3>
                     <div class="but">
-                        <a class="but-ed" href="{{ url_for("rooms") }}">View events</a>
+                        <a class="but-ed" href="{{ url_for("events") }}">View events</a>
                     </div>
                 </div>
             </div>
@@ -73,7 +71,7 @@
                 <div class="content-box">
                     <h3>You have <span class="display-numbers">{{ 0 }}</span> services.</h3>
                     <div class="but">
-                        <a class="but-ed" href="#">View services.</a>
+                        <a class="but-ed" href="{{ url_for("") }}">View services.</a>
                     </div>
                 </div>
 
