@@ -1,26 +1,20 @@
-from functools import wraps
-
+from api_vdp.src.auth import login_required
 import sqlalchemy.exc
-
-from api_vdp.src.model import Client
+from api_vdp.src.model import Client, Room, Event, Service, Item
 from flask import session, redirect, url_for, render_template, request
 from api_vdp.src.auth import cripto
 from api_vdp.src.database import db
 
 
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'logged_in' not in session:
-            return redirect(url_for('login'))
-        return f(*args, **kwargs)
-
-    return decorated_function
+def go_home():
+    if session['logged_in']:
+        return redirect(url_for('home'))
 
 
 @login_required
 def home_page():
-    return render_template("home.html", client=session['user'], logged=True)
+    room = Room.query.first()
+    return render_template("home.html", client=session['user'], logged=True, destaque=room)
 
 
 def login_page(app):
@@ -32,9 +26,9 @@ def login_page(app):
         if client and client.encrypted_password == cripto(password, app.settings.SECRET_NUM):
             session['logged_in'] = True
             user = {'name': client.name, 'sex': client.sex, 'age': client.age, 'email': client.email,
-                    'room': client.rooms}
+                    'room': client.rooms, 'admin': client.admin}
             session['user'] = user
-            return redirect(url_for("home"))
+            return go_home()
         else:
             return render_template("login.html")
     else:
@@ -42,6 +36,7 @@ def login_page(app):
 
 
 def register_page(app):
+    db.create_all()
     if request.method == 'POST':
         name = request.form.get('n4me').strip()
         email = request.form.get('m4il').strip()
@@ -55,11 +50,17 @@ def register_page(app):
                     name=name,
                     sex="Undefined",
                     age=0,
+                    phone="",
+                    admin=False
                 )
+                session['logged_in'] = True
+                user = {'name': client.name, 'sex': client.sex, 'age': client.age, 'email': client.email,
+                        'room': client.rooms, 'admin': client.admin}
+                session['user'] = user
                 db.session.add(client)
                 db.session.commit()
-                return redirect(url_for("home"))
-            except sqlalchemy.exc.IntegrityError as e:
+                return go_home()
+            except sqlalchemy.exc.IntegrityError as _:
                 return render_template("register.html", msg="E-mail already registered!")
         else:
             return render_template("register.html", msg="Passwords not match!")
@@ -68,7 +69,7 @@ def register_page(app):
 
 
 @login_required
-def edit_profile_page(app):
+def edit_profile_page():
     if request.method == 'POST':
         name = request.form.get('n4me').strip()
         last_name = request.form.get('last-name').strip()
@@ -92,6 +93,7 @@ def edit_profile_page(app):
                         'email': client.email,
                         'phone': client.phone,
                         'room': client.rooms,
+                        'admin': client.admin
                         }
                 session['user'] = user
                 db.session.add(client)
@@ -99,15 +101,18 @@ def edit_profile_page(app):
                 return redirect(url_for("profile"))
             else:
                 return redirect(url_for('edit_profile'))
-        except:
+        except sqlalchemy.exc.IntegrityError as _:
             return redirect(url_for('edit_profile'))
     else:
         return render_template("edit-profile.html", user=session['user'], logged=True, form="profile")
 
 
 @login_required
-def rooms_page(app):
-    return render_template("rooms.html", logged=True)
+def rooms_page():
+    _h = Item()
+    rooms = _h.read(Room)
+    info = {'title': "Rooms", 'items': rooms}
+    return render_template("catalog.html", logged=True, info=info)
 
 
 @login_required
@@ -120,9 +125,40 @@ def profile_page():
             'email': client.email,
             'phone': client.phone,
             'room': client.rooms,
+            'admin': client.admin
             }
     session['user'] = user
     return render_template('profile.html', user=session['user'], logged=True)
+
+
+@login_required
+def events_page():
+    _h = Item()
+    events = _h.read(Event)
+    info = {'title': "Events", 'items': events}
+    return render_template('catalog.html', user=session['user'], logged=True, info=info)
+
+
+@login_required
+def services_page():
+    _h = Item()
+    services = _h.read(Service)
+    info = {'title': "Services", 'items': services}
+    return render_template('catalog.html', user=session['user'], logged=True, info=info)
+
+
+@login_required
+def catalog_item(class_id, class_name):
+    _h = Item()
+    item = None
+    match class_name:
+        case "Room":
+            item = _h.view(class_id, Room)
+        case "Event":
+            item = _h.view(class_id, Event)
+        case "Service":
+            item = _h.view(class_id, Service)
+    return render_template('view-item.html', user=session['user'], logged=True, item=item)
 
 
 @login_required
