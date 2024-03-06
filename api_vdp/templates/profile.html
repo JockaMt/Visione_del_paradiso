@@ -22,6 +22,10 @@
                     <div class="rows"><h3>Age: </h3> <p>{{ user.age if user.age else "Undefined" }}</p></div>
                     <div class="rows"><h3>Phone: </h3><p>{{ user.phone if user.phone else "Undefined" }}</p></div>
                 </div>
+                <div class="but">
+                    <a class="but-ed" href="{{ url_for('edit_profile') }}">Edit profile</a>
+                </div>
+            </div>
         </section>
         <section id="hosting">
             <h2 class="session-title">Hosting</h2>
