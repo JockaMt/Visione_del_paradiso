@@ -43,10 +43,10 @@
             <h2 class="session-title">Rooms</h2>
             <div class="content">
                 <div class="content-box">
-                    <h3>You have <span class="display-numbers">{{ 0 }}</span> rooms.</h3>
+                    <h3>You have <span class="display-numbers">{{ items['rooms'] }}</span> rooms.</h3>
                 </div>
                 <div class="but">
-                    <a class="but-ed" href="{{ url_for('rooms') }}">View rooms</a>
+                    <a class="but-ed" href="{{ url_for('my_rooms') }}">My rooms</a>
                 </div>
             </div>
         </section>
@@ -54,10 +54,10 @@
             <h2 class="session-title">Events</h2>
             <div class="content">
                 <div class="content-box">
-                    <h3>You're in <span class="display-numbers">{{ 0 }}</span> events.</h3>
+                    <h3>You're in <span class="display-numbers">{{ items['events'] }}</span> events.</h3>
                 </div>
                 <div class="but">
-                    <a class="but-ed" href="{{ url_for('events') }}">View events</a>
+                    <a class="but-ed" href="{{ url_for('my_events') }}">My events</a>
                 </div>
             </div>
         </section>
@@ -65,10 +65,10 @@
             <h2 class="session-title">Services</h2>
             <div class="content">
                 <div class="content-box">
-                    <h3>You have <span class="display-numbers">{{ 0 }}</span> services.</h3>
+                    <h3>You have <span class="display-numbers">{{ items['services'] }}</span> services.</h3>
                 </div>
                 <div class="but">
-                    <a class="but-ed" href="{{ url_for('services') }}">View services.</a>
+                    <a class="but-ed" href="{{ url_for('my_services') }}">My services</a>
                 </div>
             </div>
         </section>

@@ -1,6 +1,7 @@
 from api_vdp.src.controller import (home_page, login_page, register_page, profile_page,
                                     logout_page, edit_profile_page, rooms_page,
-                                    events_page, catalog_item, services_page, remove_account_action)
+                                    events_page, catalog_item, services_page, remove_account_action, my_rooms_page,
+                                    my_events_page, my_services_page)
 from api_vdp.src.admin_controller import admin_page
 
 
@@ -28,6 +29,18 @@ def init_app(app):
     @app.route("/rooms", methods=['GET', 'POST'])
     def rooms():
         return rooms_page()
+
+    @app.route("/my-rooms", methods=['GET', 'POST'])
+    def my_rooms():
+        return my_rooms_page()
+
+    @app.route("/my-events", methods=['GET', 'POST'])
+    def my_events():
+        return my_events_page()
+
+    @app.route("/my-services", methods=['GET', 'POST'])
+    def my_services():
+        return my_services_page()
 
     @app.route("/events", methods=['GET', 'POST'])
     def events():
