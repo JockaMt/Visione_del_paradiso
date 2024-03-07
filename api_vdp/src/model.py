@@ -88,9 +88,9 @@ class Item:
 
     @staticmethod
     def delete(class_id, class_name):
-        room = class_name.query.get(class_id)
-        if room:
-            db.session.delete(room)
+        item = class_name.query.get(class_id)
+        if item:
+            db.session.delete(item)
             db.session.commit()
 
     @staticmethod

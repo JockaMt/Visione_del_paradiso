@@ -1,6 +1,6 @@
 from api_vdp.src.controller import (home_page, login_page, register_page, profile_page,
                                     logout_page, edit_profile_page, rooms_page,
-                                    events_page, catalog_item, services_page)
+                                    events_page, catalog_item, services_page, remove_account_action)
 from api_vdp.src.admin_controller import admin_page
 
 
@@ -50,6 +50,10 @@ def init_app(app):
     @app.route("/logout")
     def logout():
         return logout_page()
+
+    @app.route("/remove_account", methods=['GET'])
+    def remove_account():
+        return remove_account_action()
 
     @app.route("/admin")
     def admin():

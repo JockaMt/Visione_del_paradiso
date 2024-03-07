@@ -6,8 +6,10 @@ from api_vdp.src.auth import cripto
 from api_vdp.src.database import db
 
 
-def go_home():
+def go_home(message=None):
     if session['logged_in']:
+        if message:
+            session['message'] = message
         return redirect(url_for('home'))
 
 
@@ -38,7 +40,7 @@ def login_page(app):
 def register_page(app):
     db.create_all()
     if request.method == 'POST':
-        name = request.form.get('n4me').strip()
+        name = request.form.get('n4me').strip().capitalize()
         email = request.form.get('m4il').strip()
         password = request.form.get('p4ss').strip()
         confirm_password = request.form.get('conf_p4ss').strip()
@@ -59,7 +61,7 @@ def register_page(app):
                 session['user'] = user
                 db.session.add(client)
                 db.session.commit()
-                return go_home()
+                return go_home("User registered successfully!")
             except sqlalchemy.exc.IntegrityError as _:
                 return render_template("register.html", msg="E-mail already registered!")
         else:
@@ -71,8 +73,8 @@ def register_page(app):
 @login_required
 def edit_profile_page():
     if request.method == 'POST':
-        name = request.form.get('n4me').strip()
-        last_name = request.form.get('last-name').strip()
+        name = request.form.get('n4me').strip().capitalize()
+        last_name = request.form.get('last-name').strip().capitalize()
         email = request.form.get('m4il').strip()
         sex = request.form.get("sex").strip()
         age = request.form.get('age').strip()
@@ -166,3 +168,10 @@ def logout_page():
     session.pop('logged_in', None)
     session.pop('username', None)
     return redirect(url_for("login"))
+
+
+@login_required
+def remove_account_action():
+    client = Client.query.filter_by(email=session['user']['email']).first()
+    Item().delete(client.id, Client)
+    return redirect(url_for('logout'))

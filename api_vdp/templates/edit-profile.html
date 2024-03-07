@@ -19,7 +19,7 @@
                     <div class="rows input-row"><h3 class="edit-h3"><label for="email">Email: </label></h3><input name="m4il" required id="email" value="{{ user.email }}"></div>
                     <div class="rows input-row"><h3 class="edit-h3">Sex: </h3><label>Male <input value="male" name="sex" type="radio" {{ "checked" if user.sex == "male" }}></label><label>Female <input value="female" name="sex" type="radio" {{ "checked" if user.sex == "female" }}></label><label>None <input value="undefined" name="sex" type="radio" {{ "checked" if user.sex != "male" and user.sex != "female" }}></label></div>
                     <div class="rows input-row"><h3 class="edit-h3"><label for="age">Age: </label></h3><input type="number" name="age" required id="age" value="{{ user.age if user.last_name else 0 }}"></div>
-                    <div class="rows input-row"><h3 class="edit-h3"><label for="phone">Phone: </label></h3><input type="tel" placeholder="XX XXXXX-XXXX" pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}" name="phone" required id="phone" value="{{ user.phone if user.last_name else "" }}"></div>
+                    <div class="rows input-row"><h3 class="edit-h3"><label for="phone">Phone: </label></h3><input type="tel" placeholder="XX XXXXX-XXXX" pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}" name="phone" id="phone" value="{{ user.phone if user.last_name else "" }}"></div>
                 </div>
                 <div class="but">
                     <button class="but-ed" type="submit">Save</button>
