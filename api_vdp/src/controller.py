@@ -183,6 +183,15 @@ def my_services_page():
 
 
 @login_required
+def rate_us_page():
+    return render_template('rate_us.html', user=session['user'], logged=True)
+
+
+def support_page():
+    return render_template('support.html')
+
+
+@login_required
 def catalog_item(class_id, class_name):
     _h = Item()
     item = None
