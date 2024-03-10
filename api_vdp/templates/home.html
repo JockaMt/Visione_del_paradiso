@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} Home {% endblock %}
 {% block head_page %}
-    <head>
-        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/home.css') }}">
-    </head>
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/home.css') }}">
 {% endblock %}
 {% block content %}
     <section class="highlights">
@@ -24,7 +22,9 @@
         <br/><p>Feel at home at Visione del Paradiso - where luxury meets hospitality with open arms.</p>
         <br/><p>With esteem, The Visione del Paradiso Team</p></article>
     </section>
-    <footer>
-
-    </footer>
+    {% if session.get('message') %}
+        <script>
+            alert("{{ session.pop('message') }}");
+        </script>
+    {% endif %}
 {% endblock %}

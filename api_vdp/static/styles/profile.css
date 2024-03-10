@@ -21,6 +21,18 @@
         margin: 30px;
     }
 
+    .content {
+        flex-direction: row !important;
+        align-items: flex-end !important;
+    }
+
+    .but {
+        width: 20rem !important;
+        align-items: flex-end;
+        padding-bottom: 1rem !important;
+        padding-top: 1rem !important;
+    }
+
 }
 
 .rows {
@@ -38,14 +50,23 @@
 
 .content {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
 }
 
 .but {
     display: flex;
     width: 100%;
-    justify-content: flex-end;
+    flex-direction: column;
+    gap: 1rem;
     align-items: flex-end;
-    margin: 1rem 1rem 1rem 0;
+    box-sizing: border-box;
+    padding: 0 2rem;
+}
+
+.danger {
+    background-color: rgba(0, 0, 0, 0.78) !important;
 }
 
 h3 {
@@ -66,10 +87,13 @@ label {
     background-color: var(--primary-color);
     font-weight: bold;
     font-size: 12px;
-    padding: 10px 24px;
+    padding: 10px 2rem;
     border-radius: 4px;
     box-shadow: var(--shadow);
     cursor: pointer;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 input {

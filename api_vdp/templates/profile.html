@@ -24,6 +24,7 @@
                 </div>
                 <div class="but">
                     <a class="but-ed" href="{{ url_for('edit_profile') }}">Edit profile</a>
+                    <button class="but-ed danger" onclick="a()">Delete account</button>
                 </div>
             </div>
         </section>
@@ -42,10 +43,10 @@
             <h2 class="session-title">Rooms</h2>
             <div class="content">
                 <div class="content-box">
-                    <h3>You have <span class="display-numbers">{{ 0 }}</span> rooms.</h3>
+                    <h3>You have <span class="display-numbers">{{ items['rooms'] }}</span> rooms.</h3>
                 </div>
                 <div class="but">
-                    <a class="but-ed" href="#">View rooms</a>
+                    <a class="but-ed" href="{{ url_for('my_rooms') }}">My rooms</a>
                 </div>
             </div>
         </section>
@@ -53,7 +54,10 @@
             <h2 class="session-title">Events</h2>
             <div class="content">
                 <div class="content-box">
-                    <h3>You're in <span class="display-numbers">{{ 0 }}</span> events.</h3>
+                    <h3>You're in <span class="display-numbers">{{ items['events'] }}</span> events.</h3>
+                </div>
+                <div class="but">
+                    <a class="but-ed" href="{{ url_for('my_events') }}">My events</a>
                 </div>
             </div>
         </section>
@@ -61,12 +65,20 @@
             <h2 class="session-title">Services</h2>
             <div class="content">
                 <div class="content-box">
-                    <h3>You have <span class="display-numbers">{{ 0 }}</span> services.</h3>
+                    <h3>You have <span class="display-numbers">{{ items['services'] }}</span> services.</h3>
                 </div>
                 <div class="but">
-                    <a class="but-ed" href="#">View services.</a>
+                    <a class="but-ed" href="{{ url_for('my_services') }}">My services</a>
                 </div>
             </div>
         </section>
     </div>
+    <script>
+        function a() {
+            let res = window.confirm("You sure?")
+            if (res){
+                window.location.href="{{ url_for('remove_account') }}"
+            }
+        }
+    </script>
 {% endblock %}

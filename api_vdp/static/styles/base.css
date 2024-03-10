@@ -8,6 +8,12 @@
     margin: 0;
 }
 
+body {
+    min-height: 100vh;
+    padding-bottom: 8rem;
+    position: relative;
+}
+
 :root {
     --primary-color: #ED4824;
     --shadow: rgba(0, 0, 0, 0.17) 0 5px 15px;
@@ -133,12 +139,14 @@ input {
     flex-direction: column;
     flex: 1;
     padding-left: 0;
+    width: 100%;
 }
 
 .side-menu ul li {
     display: flex;
     list-style: none;
     align-items: center;
+    width: 100%;
 }
 
 .side-menu ul li a {
@@ -146,6 +154,7 @@ input {
     color: var(--primary-color);
     padding: .75rem 2.5rem;
     gap: 2rem;
+    width: 100%;
 }
 
 .side-menu-logout {
