@@ -46,3 +46,7 @@
 .container_num {
     color: #ED4824;
 }
+
+a {
+    color:rgba(0, 0, 0, .75)
+}

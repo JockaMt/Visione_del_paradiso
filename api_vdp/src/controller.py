@@ -88,7 +88,8 @@ def edit_profile_page():
                 client.age = age
                 client.sex = sex
                 client.phone = phone
-                user = {'name': client.name,
+                user = {'id': client.id,
+                        'name': client.name,
                         'last_name': client.last_name,
                         'sex': client.sex,
                         'age': client.age,
@@ -112,7 +113,8 @@ def edit_profile_page():
 @login_required
 def profile_page():
     client = Client.query.filter_by(email=session['user']['email']).first()
-    user = {'name': client.name,
+    user = {'id': client.id,
+            'name': client.name,
             'last_name': client.last_name,
             'sex': client.sex,
             'age': client.age,
@@ -195,20 +197,37 @@ def support_page():
 def catalog_item(class_id, class_name):
     _h = Item()
     item = None
+    client_id = Client.query.filter_by(email=session['user']['email']).first().id
     match class_name:
         case "Room":
             item = _h.view(class_id, Room)
-        case "My room":
+            if request.method == 'POST':
+                if item.client_id == client_id:
+                    item.client_id = None
+                else:
+                    item.client_id = client_id
+                db.session.add(item)
+                db.session.commit()
+                return redirect(url_for("rooms"))
+        case "My-room":
             item = _h.view(class_id, Room)
+            if request.method == 'POST':
+                if item.client_id == client_id:
+                    item.client_id = None
+                else:
+                    item.client_id = client_id
+                db.session.add(item)
+                db.session.commit()
+                return redirect(url_for("my_rooms"))
         case "Event":
             item = _h.view(class_id, Event)
-        case "My event":
+        case "My-event":
             item = _h.view(class_id, Event)
         case "Service":
             item = _h.view(class_id, Service)
-        case "My service":
+        case "My-service":
             item = _h.view(class_id, Service)
-    return render_template('view-item.html', user=session['user'], logged=True, item=item)
+    return render_template('view-item.html', user=session['user'], logged=True, item=item, client_id=client_id)
 
 
 @login_required

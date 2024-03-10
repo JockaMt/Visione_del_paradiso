@@ -2,7 +2,7 @@
 {% block title %} Visione del Paradiso {% endblock %}
 {% block content %}
     <head>
-        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/room.css') }}">
+        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/catalog.css') }}">
         <title></title>
     </head>
     <div>
@@ -11,7 +11,7 @@
         </section>
         <section>
             {% for item in info['items'] %}
-                {% set name = info['title'][:-1] %}
+                {% set name = info['title'][:-1].replace(" ", "-").lower() %}
                 {% set id = item['id']|string %}
                 {% set url = "/checkout/" + name + '-' + id %}
                 <a href="{{ url }}">

@@ -72,4 +72,4 @@ def init_app(app):
 
     @app.route("/checkout/<item_name>-<item_id>", methods=['GET', 'POST'])
     def checkin(item_id, item_name):
-        return catalog_item(item_id, item_name)
+        return catalog_item(item_id, item_name.capitalize())
