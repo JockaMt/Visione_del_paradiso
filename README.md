@@ -68,8 +68,16 @@ SQLALCHEMY_DATABASE_URI='sqlite:///database.db'
 
 no segundo arquivo apenas as variáveis de ambiente que estivermos utilizando, assim:
 
+
+- Windows
 ```env
 FLASK_APP=api_vdp\main.py
+```
+
+- Linux
+
+```
+FLASK_APP=api_vdp/main.py
 ```
 
 _Caso esteja apenas testando, não será necessário preencher os dados do banco de dados em produção._
