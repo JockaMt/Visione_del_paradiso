@@ -20,8 +20,14 @@
                 {% else %}
                     <button disabled class="input-button">Occupied</button>
                 {% endif %}
+            {% elif relationship %}
+                {% if relationship.client_id == client_id %}
+                    <button class="input-button">Cancel</button> 
+                {% else %}
+                    <button disabled class="input-button">Occupied</button>
+                {% endif %}
             {% else %}
-            <button class="input-button">{{ 'Pay' if item.price else 'Get' }}</button>
+                <button class="input-button">{{ 'Pay' if item.price else 'Get' }}</button>
             {% endif %}
         </form>
     </div>

@@ -148,17 +148,6 @@ def my_rooms_page():
 
 @login_required
 def events_page():
-    client = Client.query.filter_by(email=session['user']['email']).first()
-    events = Client_event.query.filter_by(client_id=client.id)
-    aux = []
-    for event in events:
-        aux.append(Event.query.filter_by(id=event.event_id).first())
-    info = {'title': "Events", 'items': aux}
-    return render_template('catalog.html', user=session['user'], logged=True, info=info)
-
-
-@login_required
-def my_events_page():
     _h = Item()
     events = _h.read(Event)
     info = {'title': "Events", 'items': events}
@@ -166,21 +155,32 @@ def my_events_page():
 
 
 @login_required
-def services_page():
+def my_events_page():
     client = Client.query.filter_by(email=session['user']['email']).first()
-    services = Client_service.query.filter_by(client_id=client.id)
+    events = Client_event.query.filter_by(client_id=client.id)
     aux = []
-    for service in services:
-        aux.append(Service.query.filter_by(id=service.service_id).first())
-    info = {'title': "Services", 'items': aux}
+    for event in events:
+        aux.append(Event.query.filter_by(id=event.event_id).first())
+    info = {'title': "My Events", 'items': aux}
+    return render_template('catalog.html', user=session['user'], logged=True, info=info)
+
+
+@login_required
+def services_page():
+    _h = Item()
+    services = _h.read(Service)
+    info = {'title': "Services", 'items': services}
     return render_template('catalog.html', user=session['user'], logged=True, info=info)
 
 
 @login_required
 def my_services_page():
-    _h = Item()
-    services = _h.read(Service)
-    info = {'title': "Services", 'items': services}
+    client = Client.query.filter_by(email=session['user']['email']).first()
+    services = Client_service.query.filter_by(client_id=client.id)
+    aux = []
+    for service in services:
+        aux.append(Service.query.filter_by(id=service.service_id).first())
+    info = {'title': "My Services", 'items': aux}
     return render_template('catalog.html', user=session['user'], logged=True, info=info)
 
 
@@ -197,6 +197,7 @@ def support_page():
 def catalog_item(class_id, class_name):
     _h = Item()
     item = None
+    instance = None
     client_id = Client.query.filter_by(email=session['user']['email']).first().id
     match class_name:
         case "Room":
@@ -212,22 +213,57 @@ def catalog_item(class_id, class_name):
         case "My-room":
             item = _h.view(class_id, Room)
             if request.method == 'POST':
-                if item.client_id == client_id:
-                    item.client_id = None
-                else:
-                    item.client_id = client_id
+                item.client_id = None
                 db.session.add(item)
                 db.session.commit()
                 return redirect(url_for("my_rooms"))
         case "Event":
             item = _h.view(class_id, Event)
+            instance = Client_event.query.filter_by(client_id=client_id, event_id=item.id).first()
+            if request.method == 'POST':
+                try:
+                    if instance:
+                        db.session.delete(instance)
+                        db.session.commit()
+                        return redirect(url_for("events"))
+                    else:
+                        relationship = Client_event(event_id=item.id, client_id=client_id)
+                        db.session.add(relationship)
+                        db.session.commit()
+                        return redirect(url_for("events"))
+                except sqlalchemy.exc.IntegrityError as e:
+                    go_home("Already registred in this event.")
         case "My-event":
             item = _h.view(class_id, Event)
+            instance = Client_event.query.filter_by(client_id=client_id, event_id=item.id).first()
+            if request.method == 'POST':
+                db.session.delete(instance)
+                db.session.commit()
+                return redirect(url_for("my_events"))
         case "Service":
             item = _h.view(class_id, Service)
+            instance = Client_service.query.filter_by(client_id=client_id, service_id=item.id).first()
+            if request.method == 'POST':
+                try:
+                    if instance:
+                        db.session.delete(instance)
+                        db.session.commit()
+                        return redirect(url_for("services"))
+                    else:
+                        relationship = Client_service(service_id=item.id, client_id=client_id)
+                        db.session.add(relationship)
+                        db.session.commit()
+                        return redirect(url_for("services"))
+                except sqlalchemy.exc.IntegrityError as e:
+                    go_home("Already registred in this service.")
         case "My-service":
             item = _h.view(class_id, Service)
-    return render_template('view-item.html', user=session['user'], logged=True, item=item, client_id=client_id)
+            instance = Client_service.query.filter_by(client_id=client_id, service_id=item.id).first()
+            if request.method == 'POST':
+                db.session.delete(instance)
+                db.session.commit()
+                return redirect(url_for("my_services"))
+    return render_template('view-item.html', user=session['user'], logged=True, item=item, client_id=client_id, relationship=instance)
 
 
 @login_required
