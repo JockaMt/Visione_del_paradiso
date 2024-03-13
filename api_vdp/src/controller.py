@@ -27,8 +27,7 @@ def login_page(app):
         client = Client.query.filter_by(email=email).first()
         if client and client.encrypted_password == cripto(password, app.settings.SECRET_NUM):
             session['logged_in'] = True
-            user = {'name': client.name, 'sex': client.sex, 'age': client.age, 'email': client.email,
-                    'room': client.rooms, 'admin': client.admin}
+            user = {'name': client.name, 'sex': client.sex, 'age': client.age, 'email': client.email, 'admin': client.admin}
             session['user'] = user
             return go_home()
         else:
