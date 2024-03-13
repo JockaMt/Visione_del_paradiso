@@ -2,7 +2,7 @@
 {% block title %} Visione del paradiso {% endblock %}
 {% block content %}
     <head>
-        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/room.css') }}">
+        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/catalog.css') }}">
         <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/view-item.css') }}">
         <title></title>
     </head>
@@ -12,9 +12,23 @@
         <div class="info-box">
             <p>{{ item.description }}</p>
         </div>
-        <div class="bottom-bar">
+        <form class="bottom-bar" method="post">
             <p>$ {{ item.price if item.price else 0.00 }}</p>
-            <a class="input-button">{{ 'Pay' if item.price else 'Get' }}</a>
-        </div>
+            {% if item.client_id %}
+                {% if item.client_id == client_id %}
+                    <button class="input-button">Cancel</button> 
+                {% else %}
+                    <button disabled class="input-button">Occupied</button>
+                {% endif %}
+            {% elif relationship %}
+                {% if relationship.client_id == client_id %}
+                    <button class="input-button">Cancel</button> 
+                {% else %}
+                    <button disabled class="input-button">Occupied</button>
+                {% endif %}
+            {% else %}
+                <button class="input-button">{{ 'Pay' if item.price else 'Get' }}</button>
+            {% endif %}
+        </form>
     </div>
 {% endblock %}

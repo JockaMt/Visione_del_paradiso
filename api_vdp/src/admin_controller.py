@@ -1,13 +1,13 @@
 from datetime import datetime
 from api_vdp.src.database import db
-from api_vdp.src.model import Room, Event, Service
+from api_vdp.src.model import Client, Room, Event, Service
 from flask import session, render_template, redirect, url_for, request
 from api_vdp.src.auth import login_required
 
 
 @login_required
 def admin_page():
-    if session['user']['admin']:
+    if Client.query.filter_by(email=session['user']['email']):
         return render_template('admin.html', user=session['user'], logged=True)
     return redirect(url_for('home'))
 

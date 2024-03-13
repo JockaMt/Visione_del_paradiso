@@ -296,3 +296,5 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/git,python,visualstudiocode,flask
 .vercel
+.vscode/settings.json
+database.session.sql
