@@ -4,6 +4,11 @@
     font-weight: 400;
 }
 
+.display-numbers {
+    color: var(--primary-color);
+    padding: 0 .5rem;
+}
+
 .session-title {
     text-align: center;
     text-decoration: underline;

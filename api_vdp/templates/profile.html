@@ -1,60 +1,60 @@
 {% extends 'base.html' %}
-{% block title %} Profile {% endblock %}
+{% block title %} Perfil {% endblock %}
 {% block head_page %}
     <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/profile.css') }}">
 {% endblock %}
 {% block content %}
     <div>
         <section class="title">
-            <h2 class="wel"> Welcome! <b>{{ user.name }}!</b></h2>
+            <h2 class="wel"> Bem vindo! <b>{{ user.name }}!</b></h2>
         </section>
         <section id="about">
-            <h2 class="session-title">About</h2>
+            <h2 class="session-title">Sobre</h2>
             <div class="content">
                 <div class="content-box">
-                    <div class="rows"><h3>First Name: </h3><p class="up-case">{{ user.name }}</p></div>
-                    <div class="rows"><h3>Last Name: </h3><p class="up-case">{{ user.last_name if user.last_name else "Undefined" }}</p></div>
+                    <div class="rows"><h3>Nome: </h3><p class="up-case">{{ user.name }}</p></div>
+                    <div class="rows"><h3>Sobrenome: </h3><p class="up-case">{{ user.last_name if user.last_name else "Undefined" }}</p></div>
                     <div class="rows"><h3>Email: </h3><p>{{ user.email }}</p></div>
-                    <div class="rows"><h3>Sex: </h3><p class="up-case">{{ user.sex if user.sex else "Undefined" }}</p></div>
-                    <div class="rows"><h3>Age: </h3> <p>{{ user.age if user.age else "Undefined" }}</p></div>
-                    <div class="rows"><h3>Phone: </h3><p>{{ user.phone if user.phone else "Undefined" }}</p></div>
+                    <div class="rows"><h3>Sexo: </h3><p class="up-case">{{ user.sex if user.sex else "Undefined" }}</p></div>
+                    <div class="rows"><h3>Idade: </h3> <p>{{ user.age if user.age else "Undefined" }}</p></div>
+                    <div class="rows"><h3>Telefone: </h3><p>{{ user.phone if user.phone else "Undefined" }}</p></div>
                 </div>
                 <div class="but">
-                    <a class="but-ed" href="{{ url_for('edit_profile') }}">Edit profile</a>
-                    <button class="but-ed danger" onclick="a()">Delete account</button>
+                    <a class="but-ed" href="{{ url_for('edit_profile') }}">Editar perfil</a>
+                    <button class="but-ed danger" onclick="a()">Deletar conta</button>
                 </div>
             </div>
         </section>
         <section id="rooms">
-            <h2 class="session-title">Rooms</h2>
+            <h2 class="session-title">Quartos</h2>
             <div class="content">
                 <div class="content-box">
-                    <h3>You have <span class="display-numbers">{{ items['rooms'] }}</span> rooms.</h3>
+                    <h3>Você alugou <span class="display-numbers">{{ items['rooms'] }}</span> {{ "quartos" if items['rooms'] != 1 else "quarto" }}.</h3>
                 </div>
                 <div class="but">
-                    <a class="but-ed" href="{{ url_for('my_rooms') }}">My rooms</a>
+                    <a class="but-ed" href="{{ url_for('my_rooms') }}">Meus quartos</a>
                 </div>
             </div>
         </section>
         <section id="events">
-            <h2 class="session-title">Events</h2>
+            <h2 class="session-title">Eventos</h2>
             <div class="content">
                 <div class="content-box">
-                    <h3>You're in <span class="display-numbers">{{ items['events'] }}</span> events.</h3>
+                    <h3>Você se registrou em <span class="display-numbers">{{ items['events'] }}</span> {{ "eventos" if items['events'] != 1 else "evento" }}.</h3>
                 </div>
                 <div class="but">
-                    <a class="but-ed" href="{{ url_for('my_events') }}">My events</a>
+                    <a class="but-ed" href="{{ url_for('my_events') }}">Meus eventos</a>
                 </div>
             </div>
         </section>
         <section id="services">
-            <h2 class="session-title">Services</h2>
+            <h2 class="session-title">Serviços</h2>
             <div class="content">
                 <div class="content-box">
-                    <h3>You have <span class="display-numbers">{{ items['services'] }}</span> services.</h3>
+                    <h3>Você contratou <span class="display-numbers">{{ items['services'] }}</span> serviços.</h3>
                 </div>
                 <div class="but">
-                    <a class="but-ed" href="{{ url_for('my_services') }}">My services</a>
+                    <a class="but-ed" href="{{ url_for('my_services') }}">Meus serviços</a>
                 </div>
             </div>
         </section>
