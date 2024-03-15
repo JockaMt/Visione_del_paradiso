@@ -14,19 +14,19 @@
             <img alt="logo" src="{{ url_for('static', filename='assets/logo.png') }}">
         </div>
         <nav class="desktop-nav">
+            {% if logged %}
             <a class="nav_button" href="{{ url_for('home') }}">
-                <h4>Home</h4>
+                <h4>Início</h4>
             </a>
             <a class="nav_button" href="{{url_for('profile')}}">
-                <h4>Profile</h4>
+                <h4>Perfil</h4>
             </a>
-            {% if logged %}
             <a class="nav_button" href="{{url_for('logout')}}">
-                <h4>Logout</h4>
+                <h4>Sair</h4>
             </a>
             {% else %}
             <a class="nav_button" href="{{url_for('login')}}">
-                <h4>Login</h4>
+                <h4>Começar</h4>
             </a>
             {% endif %}
         </nav>
@@ -46,17 +46,17 @@
                 </div>
                 <button onclick="toggle()" class="right-button"><span class="material-symbols-outlined">close</span></button>
                 <ul id="side-menu">
-                    {% set buttons = {"home": "home", "rooms": "bed", "events": "event", "services": "concierge", "profile": "account_circle", "rate_us": "kid_star", "support": "help"} %}
+                    {% set buttons = {"home": ["home", "Início"], "rooms": ["bed", "Quartos"], "events": ["event", "Eventos"], "services": ["concierge", "Serviços"], "profile": ["account_circle", "Perfil"], "support": ["help", "Suporte"]} %}
                     {% for i in buttons %}
                         <li>
                             <a href="{{ url_for(i) }}">
-                                <span class="material-symbols-outlined">{{ buttons[i] }}</span>
-                                {{ i.capitalize().replace("_", " ") }}
+                                <span class="material-symbols-outlined">{{ buttons[i][0] }}</span>
+                                {{ buttons[i][1] }}
                             </a>
                         </li>
                     {% endfor %}
                 </ul>
-                <a href="{{ url_for("logout") }}" class="input-button side-menu-logout">Logout</a>
+                <a href="{{ url_for("logout") }}" class="input-button side-menu-logout">Sair</a>
             </nav>
         </div>
     </header>
