@@ -80,7 +80,7 @@ def edit_profile_page():
         age = request.form.get('age').strip()
         phone = request.form.get('phone').strip()
         try:
-            if name and last_name and email and sex and age and phone:
+            if name and email:
                 client = Client.query.filter_by(email=session['user']['email']).first()
                 client.name = name
                 client.last_name = last_name
@@ -95,7 +95,6 @@ def edit_profile_page():
                         'age': client.age,
                         'email': client.email,
                         'phone': client.phone,
-                        'room': client.rooms,
                         'admin': client.admin
                         }
                 session['user'] = user
@@ -134,7 +133,7 @@ def profile_page():
 def rooms_page():
     _h = Item()
     rooms = _h.read(Room)
-    info = {'title': "Rooms", 'items': rooms}
+    info = {'title': "Rooms", 'items': rooms, 'titulo': 'Quartos'}
     return render_template("catalog.html", logged=True, info=info)
 
 
@@ -142,7 +141,7 @@ def rooms_page():
 def my_rooms_page():
     client = Client.query.filter_by(email=session['user']['email']).first()
     rooms = Room.query.filter_by(client_id=client.id).all()
-    info = {'title': "My rooms", 'items': rooms}
+    info = {'title': "My rooms", 'items': rooms, 'titulo': 'Meus Quartos'}
     return render_template("catalog.html", logged=True, info=info)
 
 
@@ -150,7 +149,7 @@ def my_rooms_page():
 def events_page():
     _h = Item()
     events = _h.read(Event)
-    info = {'title': "Events", 'items': events}
+    info = {'title': "Events", 'items': events, 'titulo': 'Eventos'}
     return render_template('catalog.html', user=session['user'], logged=True, info=info)
 
 
@@ -161,7 +160,7 @@ def my_events_page():
     aux = []
     for event in events:
         aux.append(Event.query.filter_by(id=event.event_id).first())
-    info = {'title': "My Events", 'items': aux}
+    info = {'title': "My Events", 'items': aux, 'titulo': 'Meus Eventos'}
     return render_template('catalog.html', user=session['user'], logged=True, info=info)
 
 
@@ -169,7 +168,7 @@ def my_events_page():
 def services_page():
     _h = Item()
     services = _h.read(Service)
-    info = {'title': "Services", 'items': services}
+    info = {'title': "Services", 'items': services, 'titulo': 'Serviços'}
     return render_template('catalog.html', user=session['user'], logged=True, info=info)
 
 
@@ -180,13 +179,8 @@ def my_services_page():
     aux = []
     for service in services:
         aux.append(Service.query.filter_by(id=service.service_id).first())
-    info = {'title': "My Services", 'items': aux}
+    info = {'title': "My Services", 'items': aux, 'titulo': 'Meus Serviços'}
     return render_template('catalog.html', user=session['user'], logged=True, info=info)
-
-
-@login_required
-def rate_us_page():
-    return render_template('rate_us.html', user=session['user'], logged=True)
 
 
 def support_page():
