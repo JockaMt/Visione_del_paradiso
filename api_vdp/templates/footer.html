@@ -2,17 +2,17 @@
     <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/footer.css') }}">
 {% endblock %}
 <footer>
-    {% set buttons = ["home", "rooms", "events", "services", "profile", "rate_us", "support"] %}
+    {% set buttons = [["home", "Início"], ["rooms", "Quartos"], ["events", "Eventos"], ["services", "Serviços"], ["profile", "Perfil"] , ["support", "Suporte"]] %}
     <div class="footer-content">
         <ul>
         {% for i in buttons %}
             <li>
-                <a href="{{ url_for(i) }}">
-                    {{ i.capitalize().replace("_", " ") }}
+                <a href="{{ url_for(i[0]) }}">
+                    {{ i[1] }}
                 </a>
             </li>
         {% endfor %}
         </ul>
-        <a href="{{ url_for('admin') }}">.</a>
+        <a href="{{ url_for('admin') }}">Admin</a>
     </div>
 </footer>

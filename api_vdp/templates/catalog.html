@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 {% block title %} Visione del Paradiso {% endblock %}
+{% block head_page %}
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/catalog.css') }}">
+{% endblock %}
 {% block content %}
-    <head>
-        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/catalog.css') }}">
-        <title></title>
-    </head>
     <div>
         <section>
-            <p class="title">{{ info['title'] }}</p>
+            <p class="title">{{ info['titulo'] }}</p>
         </section>
         <section>
             {% for item in info['items'] %}
@@ -18,8 +17,8 @@
                     <div class="container">
                         <img class="container_img" src="{{ url_for('static', filename='assets/room_example.png') }}" alt="" width="100" height="100">
                         <div class="divid">
-                            <p class="container_name">{{ item['name'] }}</p>
-                            <p class="container_value"><b class="container_num">$  {{ item['price'] if item['price'] else 0.00 }}</b> per day</p>
+                            <p class="container_name">< {{ item['name'] }} ></p>
+                            <p class="container_value"><b class="container_num">$  {{ item['price'] if item['price'] else 0.00 }}</b></p>
                         </div>
                     </div>
                 </a>

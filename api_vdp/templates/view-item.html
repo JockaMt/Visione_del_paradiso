@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 {% block title %} Visione del paradiso {% endblock %}
+{% block head_page %}
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/catalog.css') }}">
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/view-item.css') }}">
+{% endblock %}
 {% block content %}
-    <head>
-        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/catalog.css') }}">
-        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/view-item.css') }}">
-        <title></title>
-    </head>
     <div>
         <img class="header-image" alt="room_image" src="{{ url_for('static', filename='assets/room_example.png') }}">
         <p class="title">{{ item.name }}</p>
@@ -16,18 +15,18 @@
             <p>$ {{ item.price if item.price else 0.00 }}</p>
             {% if item.client_id %}
                 {% if item.client_id == client_id %}
-                    <button class="input-button">Cancel</button> 
+                    <button class="input-button">Cancelar</button>
                 {% else %}
-                    <button disabled class="input-button">Occupied</button>
+                    <button disabled class="input-button">Ocupado</button>
                 {% endif %}
             {% elif relationship %}
                 {% if relationship.client_id == client_id %}
-                    <button class="input-button">Cancel</button> 
+                    <button class="input-button">Cancelar</button>
                 {% else %}
-                    <button disabled class="input-button">Occupied</button>
+                    <button disabled class="input-button">Ocupado</button>
                 {% endif %}
             {% else %}
-                <button class="input-button">{{ 'Pay' if item.price else 'Get' }}</button>
+                <button class="input-button">{{ 'Alugar' if item.price else 'Quero!' }}</button>
             {% endif %}
         </form>
     </div>
