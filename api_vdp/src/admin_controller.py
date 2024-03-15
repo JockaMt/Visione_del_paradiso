@@ -7,7 +7,8 @@ from api_vdp.src.auth import login_required
 
 @login_required
 def admin_page():
-    if Client.query.filter_by(email=session['user']['email']):
+    user = Client.query.filter_by(email=session['user']['email']).first()
+    if Client.query.filter_by(email=session['user']['email']) and user.admin:
         return render_template('admin.html', user=session['user'], logged=True)
     return redirect(url_for('home'))
 
