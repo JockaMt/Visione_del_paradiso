@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 
-{% block title %} Login/Cadastro {% endblock %}
+{% block title %} Login | Cadastro {% endblock %}
 
 {% block content %}
 <section class="flex flex-1 min-h-full items-center justify-center bg-gray-100 dark:bg-gray-900 py-8 px-4">
@@ -17,6 +17,9 @@
         </div>
 
         <div id="myTabContent">
+            <button class="absolute top-4 left-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300" onclick="history.back()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
             {% include 'components/login_frame.html' %}
             {% include 'components/register_frame.html' %}
         </div>
@@ -24,6 +27,16 @@
 </section>
 
 {% block scripts %}
+{% if page == "register" %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const registerTab = document.getElementById('register-tab');
+        if (registerTab) {
+            registerTab.click();
+        }
+    });
+</script>
+{% endif %}
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const tabs = document.querySelectorAll('#myTab button');

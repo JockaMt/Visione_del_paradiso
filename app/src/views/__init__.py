@@ -1,5 +1,6 @@
-from ..controller.pages import home_page, rooms_page, login_page, contact_page, profile_page
-from ..controller.actions import logout_action, register_action
+from ..controller.pages import home_page, rooms_page, contact_page, profile_page
+from ..controller.actions import logout_action, get_users
+from ..auth import login_required
 
 def init_app(app):
     @app.route("/")
@@ -10,17 +11,8 @@ def init_app(app):
     def rooms():
         return rooms_page()
     
-    @app.route("/auth", methods=['GET', 'POST'])
-    def auth():
-        return login_page(app)
-    
-    @app.route("/register", methods=['POST'])
-    def register():
-        return register_action()
-    
     @app.route("/logout")
     def logout():
-        # Implement logout logic here
         return logout_action()
     
     @app.route("/contact")
@@ -29,6 +21,7 @@ def init_app(app):
         return contact_page()
     
     @app.route("/profile", methods=['GET', 'POST'])
+    @login_required
     def profile():
         # Implement profile page logic here
         return profile_page()

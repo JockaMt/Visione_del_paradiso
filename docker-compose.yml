@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: my_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my_app
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URL: postgres://admin:admin123@postgres:5432/mydb
+      FLASK_APP: app/main.py
+      FLASK_ENV: development
+      FLASK_RUN_PORT: 8080
+      FLASK_DEBUG: True
+
+volumes:
+  pgdata:
