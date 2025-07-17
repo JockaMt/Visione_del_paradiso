@@ -20,7 +20,7 @@
     {% if not request.path.startswith('/auth') %} <!-- Alterar para verificar logado -->
     {% include 'components/header.html' %}
     {% endif %}
-    <main class="flex flex-col flex-1 bg-gray-100">
+    <main class="flex flex-col flex-1 bg-gray-100 dark:bg-gray-900">
         {% block content %}{% endblock %}
     </main>
     {% include 'components/footer.html' %}

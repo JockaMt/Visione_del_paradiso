@@ -1,5 +1,5 @@
 from flask import Flask
-from .src import views, database, config
+from src import views, database, config
 import logging
 
 app = Flask(__name__)

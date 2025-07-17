@@ -1,11 +1,7 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+db = None
 
 def init_app(app):
-    db.init_app(app)
-    with app.app_context():
-        db.create_all()
+    pass
         # You can add more initialization logic here if needed
         # For example, creating default users or roles
         # db.session.add(User(username='admin',
