@@ -1,32 +1,69 @@
-{% extends 'base.html' %}
-{% block title %} Login {% endblock %}
-{% block head_page %}
-    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/login.css') }}">
-{% endblock %}
+{% extends 'index.html' %}
+
+{% block title %} Login/Cadastro {% endblock %}
+
 {% block content %}
-<div class="login-box">
-    <div class="login-left desktop">
-        <h2>Seja muito bem vindo(a)!</h2>
-        <p>Entre com sua conta<br/>
-            para acessar o melhor hotel da atualidade!</p>
+<section class="flex flex-1 min-h-full items-center justify-center bg-gray-100 dark:bg-gray-900 py-8 px-4">
+    <div class="bg-white dark:bg-gray-800 duration-300 transition-all p-8 rounded-lg shadow-lg max-w-md w-full">
+        <div class="mb-6 border-b dark:border-gray-700">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block p-4 border-b-2 rounded-t-lg" id="login-tab" data-tabs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Entrar</button>
+                </li>
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="register-tab" data-tabs-target="#register" type="button" role="tab" aria-controls="register" aria-selected="false">Cadastrar</button>
+                </li>
+            </ul>
+        </div>
+
+        <div id="myTabContent">
+            {% include 'components/login_frame.html' %}
+            {% include 'components/register_frame.html' %}
+        </div>
     </div>
-    <div class="login-right">
-        <form method="post">
-            <div class="mobile-logo-div">
-                <img alt="logo" class="mobile mobile-logo" src="{{ url_for('static', filename='assets/logo.png') }}"/>
-                <p>Bem vindo(a)! <strong>Entre</strong> para continuar!</p>
-            </div>
-            <div class="input-field">
-                <span class="desktop material-symbols-outlined">mail</span>
-                <input type="email" name="m4il" required placeholder="Email">
-            </div>
-            <div class="input-field pass">
-                <span class="desktop material-symbols-outlined">key</span>
-                <input type="password" name="p4ss" required placeholder="Senha" id="_pass">
-            </div>
-            <input type="submit" value="Entrar" class="input-button">
-        </form>
-        <p class="login-create">Novo aqui? <a href="/register">Crie uma conta</a> agora mesmo!</p>
-    </div>
-</div>
+</section>
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabs = document.querySelectorAll('#myTab button');
+        const tabContents = document.querySelectorAll('#myTabContent > div');
+
+        function activateTab(tabId) {
+            tabs.forEach(tab => {
+                const targetId = tab.getAttribute('data-tabs-target').substring(1);
+                if (targetId === tabId) {
+                    tab.classList.add('text-primary', 'border-primary');
+                    tab.classList.remove('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300', 'dark:hover:text-gray-300');
+                    tab.setAttribute('aria-selected', 'true');
+                } else {
+                    tab.classList.remove('text-primary', 'border-primary');
+                    tab.classList.add('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300', 'dark:hover:text-gray-300');
+                    tab.setAttribute('aria-selected', 'false');
+                }
+            });
+
+            tabContents.forEach(content => {
+                if (content.id === tabId) {
+                    content.classList.remove('hidden');
+                    content.classList.add('block');
+                } else {
+                    content.classList.add('hidden');
+                    content.classList.remove('block');
+                }
+            });
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.getAttribute('data-tabs-target').substring(1);
+                activateTab(targetId);
+            });
+        });
+
+        // Activate the login tab by default on page load
+        activateTab('login');
+    });
+</script>
+{% endblock %}
 {% endblock %}

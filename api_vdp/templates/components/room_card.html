@@ -1,0 +1,12 @@
+{% macro render(image, title, description, price) %}
+<div class="group bg-white flex-1 overflow-hidden rounded shadow-md hover:shadow-lg transition-shadow duration-300 min-w-48 w-auto h-auto">
+    <img class="w-full" alt="room_image" src="{{ image }}">
+    <div class="p-4 flex flex-col justify-between">
+        <div class="flex justify-between">
+            <p>{{title}}</p>
+            <p class="text-primary font-bold text-lg">{{price}}</p>
+        </div>
+        <p class="flex text-sm text-gray-600 duration-300">{{ description }}</p>
+    </div>
+</div>
+{% endmacro %}

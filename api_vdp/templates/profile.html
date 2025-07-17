@@ -1,70 +1,62 @@
-{% extends 'base.html' %}
-{% block title %} Perfil {% endblock %}
-{% block head_page %}
-    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/profile.css') }}">
-{% endblock %}
+{% extends 'index.html' %}
+
+{% block title %} Perfil do Usuário {% endblock %}
+
 {% block content %}
-    <div>
-        <section class="title">
-            <h2 class="wel"> Bem vindo! <b>{{ user.name }}!</b></h2>
-        </section>
-        <section id="about">
-            <h2 class="session-title">Sobre</h2>
-            <div class="content">
-                <div class="content-box">
-                    <div class="rows"><h3>Nome: </h3><p class="up-case">{{ user.name }}</p></div>
-                    <div class="rows"><h3>Sobrenome: </h3><p class="up-case">{{ user.last_name if user.last_name else "Undefined" }}</p></div>
-                    <div class="rows"><h3>Email: </h3><p>{{ user.email }}</p></div>
-                    <div class="rows"><h3>Sexo: </h3><p class="up-case">{{ user.sex if user.sex else "Undefined" }}</p></div>
-                    <div class="rows"><h3>Idade: </h3> <p>{{ user.age if user.age else "Undefined" }}</p></div>
-                    <div class="rows"><h3>Telefone: </h3><p>{{ user.phone if user.phone else "Undefined" }}</p></div>
-                </div>
-                <div class="but">
-                    <a class="but-ed" href="{{ url_for('edit_profile') }}">Editar perfil</a>
-                    <button class="but-ed danger" onclick="a()">Deletar conta</button>
+<section class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-xl w-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+
+        <div class="flex flex-col items-center mb-8">
+            <div class="relative w-28 h-28 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 mb-4 flex items-center justify-center">
+
+                <button class="absolute bottom-0 right-0 p-1 bg-primary rounded-full text-white hover:bg-primary/70 transition duration-200">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+
+        <hr class="border-gray-200 dark:border-gray-700 mb-8">
+
+        <div class="space-y-6 mb-8">
+            <div>
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Informações Pessoais</h3>
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-sm">
+                    <p class="text-gray-700 dark:text-gray-300 mb-2">
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-2">
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300">
+                    </p>
                 </div>
             </div>
-        </section>
-        <section id="rooms">
-            <h2 class="session-title">Quartos</h2>
-            <div class="content">
-                <div class="content-box">
-                    <h3>Você alugou <span class="display-numbers">{{ items['rooms'] }}</span> {{ "quartos" if items['rooms'] != 1 else "quarto" }}.</h3>
-                </div>
-                <div class="but">
-                    <a class="but-ed" href="{{ url_for('my_rooms') }}">Meus quartos</a>
-                </div>
-            </div>
-        </section>
-        <section id="events">
-            <h2 class="session-title">Eventos</h2>
-            <div class="content">
-                <div class="content-box">
-                    <h3>Você se registrou em <span class="display-numbers">{{ items['events'] }}</span> {{ "eventos" if items['events'] != 1 else "evento" }}.</h3>
-                </div>
-                <div class="but">
-                    <a class="but-ed" href="{{ url_for('my_events') }}">Meus eventos</a>
+
+            <div>
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Configurações de Conta</h3>
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-sm">
+                    <p class="text-gray-700 dark:text-gray-300 mb-2">
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300">
+                    </p>
                 </div>
             </div>
-        </section>
-        <section id="services">
-            <h2 class="session-title">Serviços</h2>
-            <div class="content">
-                <div class="content-box">
-                    <h3>Você contratou <span class="display-numbers">{{ items['services'] }}</span> serviços.</h3>
-                </div>
-                <div class="but">
-                    <a class="but-ed" href="{{ url_for('my_services') }}">Meus serviços</a>
-                </div>
-            </div>
-        </section>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <a href="/edit_profile" class="w-full sm:w-auto px-6 py-3 bg-primary text-white text-center rounded-lg font-semibold hover:bg-primary/70 transition duration-300">
+                Editar Perfil
+            </a>
+            <button class="w-full sm:w-auto px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                Mudar Senha
+            </button>
+            <button class="w-full sm:w-auto px-6 py-3 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition duration-300">
+                Excluir Conta
+            </button>
+        </div>
+
     </div>
-    <script>
-        function a() {
-            let res = window.confirm("You sure?")
-            if (res){
-                window.location.href="{{ url_for('remove_account') }}"
-            }
-        }
-    </script>
+</section>
 {% endblock %}
