@@ -17,7 +17,8 @@
 </head>
 
 <body class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
-    {% if not request.path.startswith('/auth') %} <!-- Alterar para verificar logado -->
+    {% if request.path.startswith('/auth') %} <!-- Alterar para verificar logado -->
+    {% else %}
     {% include 'components/header.html' %}
     {% endif %}
     <main class="flex flex-col flex-1 bg-gray-100 dark:bg-gray-900">
@@ -25,5 +26,6 @@
     </main>
     {% include 'components/footer.html' %}
 </body>
-
+{% block scripts %}
+{% endblock %}
 </html>

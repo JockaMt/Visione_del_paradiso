@@ -38,3 +38,4 @@ def init_app(app):
                 return {"code": 401, "message": "Usuário ou senha inválidos"}, 401
             
     api.add_resource(Login, '/login')
+    

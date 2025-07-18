@@ -16,15 +16,26 @@
                 <li class="relative group">
                     <!-- Botão -->
                     <button
-                        class="flex items-center duration-300 hover:text-white hover:dark:text-gray-800 hover:bg-primary rounded px-6 py-2 font-semibold text-lg text-primary w-full">
+                        class="flex items-center gap-2 duration-300 hover:text-white hover:dark:text-gray-800 hover:bg-primary rounded px-6 py-2 font-semibold text-lg text-primary w-full">
                         <span class="material-symbols-outlined">account_circle</span>
+                        {% if "user_username" in session %}
+                        <p>
+                            {{ session.get("user_username").capitalize() }}
+                        </p>
+                        {% endif %}
                     </button>
 
                     <!-- Dropdown -->
                     <div
                         class="absolute top-full overflow-hidden right-0 z-10 flex scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 duration-300 transition-color flex-col bg-white dark:bg-gray-800 shadow-lg rounded w-40">
-                        <a class="px-4 py-2 hover:bg-gray-100 text-gray-800 dark:text-gray-200" href="/profile">Perfil</a>
-                        <a class="px-4 py-2 hover:bg-gray-100 text-gray-800 dark:text-gray-200" href="/logout">Sair</a>
+                        <a class="px-4 py-2 hover:bg-gray-100 text-gray-800 hover:dark:bg-gray-900/80 dark:text-gray-200" href="/profile">
+                            {% if "user_username" in session %}
+                            Perfil
+                            {% else %}
+                            Login
+                            {% endif %}
+                        </a>
+                        <a class="px-4 py-2 hover:bg-gray-100 text-gray-800 hover:dark:bg-gray-900/80 dark:text-gray-200" href="/logout">Sair</a>
                     </div>
                 </li>
             </ul>

@@ -4,11 +4,12 @@
 {% block content %}
 <img src="https://images.pexels.com/photos/19836801/pexels-photo-19836801.jpeg" alt="Banner"
     class="w-full h-64 object-cover mb-4">
+{% if "user_username" in session %}
 <div class="container mx-auto mb-8">
     <ul class="flex p-4 mx-4 bg-white dark:bg-gray-800 shadow-md rounded justify-between space-x-4">
         <li class="flex w-full"><a
                 class="flex hover:scale-105 transition duration-300 bg-primary justify-center w-full py-2 rounded text-white"
-                href="">Meus quartos</a></li>
+                href="/my-rooms">Meus quartos</a></li>
         <li class="flex w-full"><a
                 class="flex hover:scale-105 transition duration-300 bg-primary justify-center w-full py-2 rounded text-white"
                 href="">Meus serviços</a></li>
@@ -17,6 +18,7 @@
                 href="">Meus eventos</a></li>
     </ul>
 </div>
+{% endif %}
 <section class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-bold text-center mb-2">Quartos em destaque!</h1>
     <p class="text-center">Descubra nossos quartos luxuosos e confortáveis, perfeitos para uma estadia inesquecível.</p>

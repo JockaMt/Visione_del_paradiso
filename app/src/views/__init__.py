@@ -1,5 +1,5 @@
-from ..controller.pages import home_page, rooms_page, contact_page, profile_page
-from ..controller.actions import logout_action, get_users
+from ..controller.pages import home_page, rooms_page, contact_page, profile_page, my_rooms_page
+from ..controller.actions import logout_action, buscar_action
 from ..auth import login_required
 
 def init_app(app):
@@ -25,6 +25,10 @@ def init_app(app):
     def profile():
         # Implement profile page logic here
         return profile_page()
+    
+    @app.route("/buscar")
+    def buscar():
+        return buscar_action()
 
     # @app.route("/register", methods=['GET', 'POST'])
     # def register():
@@ -42,9 +46,9 @@ def init_app(app):
     # def rooms():
     #     return rooms_page()
 
-    # @app.route("/my-rooms", methods=['GET', 'POST'])
-    # def my_rooms():
-    #     return my_rooms_page()
+    @app.route("/my-rooms", methods=['GET', 'POST'])
+    def my_rooms():
+        return my_rooms_page()
 
     # @app.route("/my-events", methods=['GET', 'POST'])
     # def my_events():

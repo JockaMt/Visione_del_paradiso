@@ -17,3 +17,6 @@ def contact_page():
 
 def profile_page():
     return render_template("profile.html")
+
+def my_rooms_page():
+    return render_template("my_rooms.html")

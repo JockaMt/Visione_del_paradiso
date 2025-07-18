@@ -13,23 +13,32 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-  
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: my_app
-    restart: always
-    depends_on:
-      - postgres
+    healthcheck: # Adicionando healthcheck para o PostgreSQL
+      test: ["CMD-SHELL", "pg_isready -U admin -d mydb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
     ports:
-      - "5000:5000"
+      - "${FLASK_PORT:-5000}:5000"
+    env_file:
+      - .env # Usará o .env na raiz do projeto
+    volumes:
+      - .:/app
+      # Se você usar a URL completa, o Dynaconf pode montar isso
+      # DATABASE_URL: postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
     environment:
-      DATABASE_URL: postgres://admin:admin123@postgres:5432/mydb
-      FLASK_APP: app/main.py
-      FLASK_ENV: development
-      FLASK_RUN_PORT: 8080
-      FLASK_DEBUG: True
+      FLASK_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # Este comando assumirá que seu aplicativo Flask está configurado para ler
+    # as configurações do Dynaconf e inicializar o Flask-SQLAlchemy
+    command: gunicorn --bind 0.0.0.0:5000 app.main:app # Exemplo com Gunicorn, comum em produção
+    # Ou se você estiver usando um arquivo principal como app.py e um método de execução direto:
+    # command: python app.py
 
 volumes:
   pgdata:

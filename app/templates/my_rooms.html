@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+{% block title %} Meus quartos {% endblock %}
+{% import 'components/room_card.html' as room_card %}
+
+{% block content %}
+<section>
+    <div class="container mx-auto px-4 py-8">
+        <div
+            class="container flex flex-col lg:flex-row lg:justify-between mx-auto mb-8 border-b-2 border-gray-200 pb-4">
+            <h1 class="text-3xl font-bold text-center mb-2">Meus Quartos</h1>
+            <div class="flex flex-1 lg:max-w-xl items-center">
+                <input type="text" placeholder="Pesquisar quartos..." id="filtro"
+                    class="flex flex-1 w-full p-2 border border-gray-300 rounded">
+                <button
+                    class="flex bg-primary text-white items-center px-4 gap-2 py-2 rounded ml-2 hover:bg-primary/70 cursor-pointer transition-all duration-300">
+                    Pesquisar
+                    <span class="material-symbols-outlined scale-70 -mr-2" aria-label="search">
+                        search
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div id="lista-quartos" class="grid md:grid-cols-3 lg:grid-cols-5 grid-cols-2 justify-between gap-4">
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+    const input = document.getElementById('filtro');
+    const lista = document.getElementById('lista-quartos');
+    let timeout;
+
+    input.addEventListener('input', () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(async () => {
+            const termo = input.value;
+            const resposta = await fetch(`/buscar?termo=${encodeURIComponent(termo)}`);
+            const quartos = await resposta.json();
+
+            lista.innerHTML = '';
+
+            if (quartos.length === 0) {
+                lista.innerHTML = '<p class="col-span-full text-center text-gray-500">Nenhum quarto encontrado.</p>';
+            } else {
+                quartos.forEach(room => {
+                    const card = `
+                    <div class="group bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
+                        <img class="w-full" alt="room_image" src="${room.image}">
+                        <div class="p-4 flex flex-col justify-between">
+                            <div class="flex justify-between">
+                                <p>${room.title}</p>
+                                <p class="text-primary font-bold text-lg">${room.price}</p>
+                            </div>
+                            <p class="flex text-sm text-gray-600 dark:text-gray-200/50 duration-300">${room.description}</p>
+                        </div>
+                    </div>
+                    `;
+                    lista.insertAdjacentHTML('beforeend', card);
+                });
+            }
+        }, 300); // debounce de 300ms
+    });
+
+    // Carrega todos os quartos no início (se desejar)
+    window.addEventListener('DOMContentLoaded', () => {
+        input.dispatchEvent(new Event('input'));
+    });
+</script>
+{% endblock %}
