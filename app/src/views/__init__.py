@@ -1,6 +1,17 @@
-from ..controller.pages import home_page, rooms_page, contact_page, profile_page, my_rooms_page
+from ..controller.pages import (
+    home_page,
+    rooms_page,
+    contact_page,
+    profile_page,
+    my_rooms_page,
+    my_services_page,
+    my_events_page,
+    services_page,
+    events_page,
+)
 from ..controller.actions import logout_action, buscar_action
 from ..auth import login_required
+
 
 def init_app(app):
     @app.route("/")
@@ -10,25 +21,48 @@ def init_app(app):
     @app.route("/rooms")
     def rooms():
         return rooms_page()
-    
+
+    @app.route("/services")
+    def services():
+        return services_page()
+
+    @app.route("/events")
+    def events():
+        return events_page()
+
     @app.route("/logout")
     def logout():
         return logout_action()
-    
+
     @app.route("/contact")
     def contact():
         # Implement contact page logic here
         return contact_page()
-    
-    @app.route("/profile", methods=['GET', 'POST'])
+
+    @app.route("/profile", methods=["GET", "POST"])
     @login_required
     def profile():
         # Implement profile page logic here
         return profile_page()
-    
+
     @app.route("/buscar")
     def buscar():
         return buscar_action()
+
+    @app.route("/my-rooms", methods=["GET", "POST"])
+    @login_required
+    def my_rooms():
+        return my_rooms_page()
+
+    @app.route("/my-events", methods=["GET", "POST"])
+    @login_required
+    def my_events():
+        return my_events_page()
+
+    @app.route("/my-services", methods=["GET", "POST"])
+    @login_required
+    def my_services():
+        return my_services_page()
 
     # @app.route("/register", methods=['GET', 'POST'])
     # def register():
@@ -45,10 +79,6 @@ def init_app(app):
     # @app.route("/rooms", methods=['GET', 'POST'])
     # def rooms():
     #     return rooms_page()
-
-    @app.route("/my-rooms", methods=['GET', 'POST'])
-    def my_rooms():
-        return my_rooms_page()
 
     # @app.route("/my-events", methods=['GET', 'POST'])
     # def my_events():

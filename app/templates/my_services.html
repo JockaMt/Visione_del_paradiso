@@ -1,5 +1,6 @@
 {% extends 'index.html' %}
-{% block title %} Meus quartos {% endblock %}
+{% block title %} Meus serviços {% endblock %}
+{% import 'components/room_card.html' as room_card %}
 
 {% block content %}
 <section>
@@ -7,13 +8,13 @@
         <div
             class="container flex flex-col lg:flex-row lg:justify-between mx-auto mb-8 border-b-2 border-gray-200 pb-4">
             <div>
-                <h1 class="text-3xl font-bold mb-2">Meus Quartos</h1>
+                <h1 class="text-3xl font-bold mb-2">Meus Serviços</h1>
                 <small>
-                    <p class="text-gray-500 text-sm">Gerencie seus quartos reservados</p>
+                    <p class="text-gray-500 text-sm">Gerencie seus serviços reservados</p>
                 </small>
             </div>
             <div class="flex flex-1 lg:max-w-xl items-center mt-2">
-                <input type="text" placeholder="Pesquisar quartos..." id="filtro"
+                <input type="text" placeholder="Pesquisar serviços..." id="filtro"
                     class="flex flex-1 w-full p-2 border border-gray-300 rounded">
                 <button
                     class="flex bg-primary text-white items-center px-4 gap-2 py-2 rounded ml-2 hover:bg-primary/70 cursor-pointer transition-all duration-300">
@@ -30,5 +31,5 @@
 </section>
 {% endblock %}
 {% block scripts %}
-<script src="{{ url_for('static', filename='assets/search.js') }}"></script>
+<script src="/static/assets/search.js"></script>
 {% endblock %}

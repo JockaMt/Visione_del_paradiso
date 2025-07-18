@@ -12,7 +12,7 @@
                 href="/my-rooms">Meus quartos</a></li>
         <li class="flex w-full"><a
                 class="flex hover:scale-105 transition duration-300 bg-primary justify-center w-full py-2 rounded text-white"
-                href="">Meus serviços</a></li>
+                href="/my-services">Meus serviços</a></li>
         <li class="flex w-full"><a
                 class="flex hover:scale-105 transition duration-300 bg-primary justify-center w-full py-2 rounded text-white"
                 href="">Meus eventos</a></li>
@@ -25,9 +25,9 @@
     <div class="container mx-auto px-4 py-8 mt-6">
         <div class="flex flex-wrap justify-between gap-4">
             {% set room_card = room_card %}
-            {% for item in ["Room 1","Room 2","Room 3"] %}
-            {{ room_card.render(title=item,
-            image="https://images.pexels.com/photos/19836801/pexels-photo-19836801.jpeg", description='loren impson') }}
+            {% for item in quartos %}
+            {{ room_card.render(title=item.name,
+            image=item.image, description=item.description) }}
             {% endfor %}
         </div>
     </div>

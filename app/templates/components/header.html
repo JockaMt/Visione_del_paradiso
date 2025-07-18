@@ -1,4 +1,5 @@
-<header class="flex sticky top-0 justify-center relative shadow-md bg-white dark:bg-gray-800 backdrop-blur-md px-6 h-24 z-99">
+<header
+    class="flex sticky top-0 justify-center relative shadow-md bg-white dark:bg-gray-800 backdrop-blur-md px-6 h-24 z-99">
     <div class="container flex items-center justify-between h-full px-4">
         <a href="#"><img src="{{ url_for('static', filename='assets/logo.png') }}" alt="logo" class="h-12 w-auto"></a>
         <nav class="hidden lg:flex flex items-center justify-between h-full">
@@ -8,9 +9,9 @@
                 <li><a class="flex items-center duration-300 hover:text-white hover:dark:text-gray-800 hover:scale-110 hover:bg-primary rounded px-6 flex-1 py-2 font-semibold text-lg text-primary"
                         href="/rooms">Quartos</a></li>
                 <li><a class="flex items-center duration-300 hover:text-white hover:dark:text-gray-800 hover:scale-110 hover:bg-primary rounded px-6 flex-1 py-2 font-semibold text-lg text-primary"
-                        href="/rooms">Serviços</a></li>
+                        href="/services">Serviços</a></li>
                 <li><a class="flex items-center duration-300 hover:text-white hover:dark:text-gray-800 hover:scale-110 hover:bg-primary rounded px-6 flex-1 py-2 font-semibold text-lg text-primary"
-                        href="/rooms">Eventos</a></li>
+                        href="/events">Eventos</a></li>
                 <li><a class="flex items-center duration-300 hover:text-white hover:dark:text-gray-800 hover:scale-110 hover:bg-primary rounded px-6 flex-1 py-2 font-semibold text-lg text-primary"
                         href="/contact">Contato</a></li>
                 <li class="relative group">
@@ -28,36 +29,63 @@
                     <!-- Dropdown -->
                     <div
                         class="absolute top-full overflow-hidden right-0 z-10 flex scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 duration-300 transition-color flex-col bg-white dark:bg-gray-800 shadow-lg rounded w-40">
-                        <a class="px-4 py-2 hover:bg-gray-100 text-gray-800 hover:dark:bg-gray-900/80 dark:text-gray-200" href="/profile">
-                            {% if "user_username" in session %}
-                            Perfil
-                            {% else %}
+                        {% if "user_username" in session %}
+                        <a class="px-4 py-2 hover:bg-gray-100 text-gray-800 hover:dark:bg-gray-900/80 dark:text-gray-200"
+                            href="/profile">Perfil</a>
+                        <a class="px-4 py-2 hover:bg-gray-100 text-gray-800 hover:dark:bg-gray-900/80 dark:text-gray-200"
+                            href="/my-rooms">Meus Quartos</a>
+                        <a class="px-4 py-2 hover:bg-gray-100 text-gray-800 hover:dark:bg-gray-900/80 dark:text-gray-200"
+                            href="/my-services">Meus Serviços</a>
+                        <a class="px-4 py-2 hover:bg-gray-100 text-gray-800 hover:dark:bg-gray-900/80 dark:text-gray-200"
+                            href="/my-events">Meus Eventos</a>
+                        <a class="px-4 py-2 hover:bg-gray-100 text-gray-800 hover:dark:bg-gray-900/80 dark:text-gray-200"
+                            href="/logout">Sair</a>
+                        {% else %}
+                        <a class="px-4 py-2 hover:bg-gray-100 text-gray-800 hover:dark:bg-gray-900/80 dark:text-gray-200"
+                            href="/profile">
                             Login
-                            {% endif %}
                         </a>
-                        <a class="px-4 py-2 hover:bg-gray-100 text-gray-800 hover:dark:bg-gray-900/80 dark:text-gray-200" href="/logout">Sair</a>
+                        {% endif %}
                     </div>
                 </li>
             </ul>
         </nav>
         <button id="menu-button" class="flex lg:hidden text-primary p-6 translate-x-1/2 text-3xl">&#9776;</button>
-        <nav id="sidebar-menu" class="hidden lg:hidden duration-300 flex fixed top-0 left-0 items-center bg-white dark:bg-gray-800 min-h-screen min-w-full z-50 shadow-lg">
-            <button class="absolute top-1 right-0 text-4xl text-primary py-6 px-8 text-3xl" onclick="this.parentElement.classList.add('hidden')">&times;</button>
-            <ul class="flex flex-col w-full items-center space-x-4 border-t border-gray-200">
-                <li class="flex flex-1 w-2/3"><a class="flex items-center justify-center flex-1 w-full h-24 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
-                        href="/">Início</a></li>
-                <li class="flex flex-1 w-2/3"><a class="flex items-center justify-center flex-1 w-full h-24 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
-                        href="/rooms">Quartos</a></li>
-                <li class="flex flex-1 w-2/3"><a class="flex items-center justify-center flex-1 w-full h-24 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
-                        href="/services">Serviços</a></li>
-                <li class="flex flex-1 w-2/3"><a class="flex items-center justify-center flex-1 w-full h-24 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
-                        href="/events">Eventos</a></li>
-                <li class="flex flex-1 w-2/3"><a class="flex items-center justify-center flex-1 w-full h-24 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
-                        href="/contact">Contato</a></li>
-                <li class="flex flex-col w-full items-center relative group border-t border-gray-200 pt-4">
-                    <a class="flex items-center justify-center text-center flex-1 w-2/3 min-h-24 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary" href="/profile">Perfil</a>
-                    <a class="flex items-center justify-center text-center flex-1 w-2/3 min-h-24 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary" href="/logout">Sair</a>
+        <nav id="sidebar-menu"
+            class="hidden lg:hidden duration-300 flex absolute overflow-scroll top-0 left-0 items-center bg-white dark:bg-gray-800 min-h-screen min-w-full z-50 shadow-lg">
+            <button class="absolute top-1 right-0 text-4xl text-primary py-6 px-8 text-3xl"
+                onclick="this.parentElement.classList.add('hidden')">&times;</button>
+            <ul class="flex flex-col w-full items-center justify-center space-x-4 py-4 border-y border-gray-200">
+                {% if "user_username" in session %}
+                <li class="flex flex-col w-full items-center relative group border-b border-gray-200 pb-4 mb-4">
+                    <a class="flex items-center justify-center text-center flex-1 w-2/3 min-h-16 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
+                        href="/profile">Perfil</a>
+                    <a class="flex items-center justify-center text-center flex-1 w-2/3 min-h-16 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
+                        href="/my-rooms">Meus quartos</a>
+                    <a class="flex items-center justify-center text-center flex-1 w-2/3 min-h-16 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
+                        href="/my-services">Meus serviços</a>
+                    <a class="flex items-center justify-center text-center flex-1 w-2/3 min-h-16 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
+                        href="/my-events">Meus eventos</a>
+                    <a class="flex items-center justify-center text-center flex-1 w-2/3 min-h-16 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
+                        href="/logout">Sair</a>
                 </li>
+                {% endif %}
+                <li class="flex flex-1 w-2/3"><a
+                        class="flex items-center justify-center flex-1 w-full h-16 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
+                        href="/">Início</a></li>
+                <li class="flex flex-1 w-2/3"><a
+                        class="flex items-center justify-center flex-1 w-full h-16 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
+                        href="/rooms">Quartos</a></li>
+                <li class="flex flex-1 w-2/3"><a
+                        class="flex items-center justify-center flex-1 w-full h-16 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
+                        href="/services">Serviços</a></li>
+                <li class="flex flex-1 w-2/3"><a
+                        class="flex items-center justify-center flex-1 w-full h-16 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
+                        href="/events">Eventos</a></li>
+                <li class="flex flex-1 w-2/3"><a
+                        class="flex items-center justify-center flex-1 w-full h-16 text-center duration-300 px-6 py-2 font-semibold text-lg text-primary"
+                        href="/contact">Contato</a></li>
+                <li></li>
             </ul>
         </nav>
     </div>
