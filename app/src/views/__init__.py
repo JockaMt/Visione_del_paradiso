@@ -8,6 +8,7 @@ from ..controller.pages import (
     my_events_page,
     services_page,
     events_page,
+    page_not_found_page,
 )
 from ..controller.actions import logout_action, buscar_action
 from ..auth import login_required
@@ -21,6 +22,11 @@ def init_app(app):
     @app.route("/rooms")
     def rooms():
         return rooms_page()
+    
+    @app.route("/rooms/room/<id>")
+    def selected_room(id):
+        # Implement logic to fetch and display the selected room details
+        return rooms_page(id=id)
 
     @app.route("/services")
     def services():
@@ -64,6 +70,9 @@ def init_app(app):
     def my_services():
         return my_services_page()
 
+    @app.errorhandler(404)
+    def page_not_found(error):
+        return page_not_found_page(error)
     # @app.route("/register", methods=['GET', 'POST'])
     # def register():
     #     return register_page(app)

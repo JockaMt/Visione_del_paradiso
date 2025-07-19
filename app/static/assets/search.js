@@ -9,7 +9,7 @@ const card = (item) => {
     if (listType == 'rooms') {
         return (
             `
-                <div class="flex flex-col group bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
+                <div onclick="select('${item.id}')" class="flex flex-col group bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
                     <img class="w-full max-h-40 h-full object-cover" alt="item_image" src="${item.image}">
                     <div class="p-4 flex flex-col justify-between">
                         <div class="flex justify-between">
@@ -28,9 +28,9 @@ const card = (item) => {
                     <img class="w-full max-h-40 object-cover" alt="item_image" src="${item.image}">
                     <div class="p-4 flex flex-col justify-between">
                         <div class="flex justify-between">
-                            <p>${item.title}</p>
+                            <p class="first-letter:capitalize">${item.title}</p>
                         </div>
-                        <p class="flex text-sm text-gray-600 dark:text-gray-200/50 duration-300">${item.description}</p>
+                        <p class="first-letter:capitalize flex text-sm text-gray-600 dark:text-gray-200/50 duration-300">${item.description}</p>
                     </div>
                 </div>
             `
@@ -74,3 +74,15 @@ searchInput.addEventListener('input', () => {
 window.addEventListener('DOMContentLoaded', () => {
     searchInput.dispatchEvent(new Event('input'));
 });
+
+const select = (id) => {
+    if (listType === 'rooms') {
+        window.location.href = `/rooms/room/${id}`;
+    }
+    if (listType === 'services') {
+        window.location.href = `/services/${id}`;
+    }
+    if (listType === 'events') {
+        window.location.href = `/events/${id}`;
+    }
+}

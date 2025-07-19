@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+{% block title %} Quarto {% endblock %}
+{% import 'components/room_card.html' as room_card %}
+
+{% block content %}
+<section class="container mx-auto px-4 py-8">
+    <div class="container flex flex-col lg:flex-row lg:justify-between mx-auto mb-8 border-b-2 border-gray-200 dark:border-gray-700 pb-4">
+        <div>
+            <h1 class="text-3xl font-bold mb-2">Detalhes do Quarto</h1>
+            <small>
+                <p class="text-gray-500 text-sm">Informações sobre o quarto selecionado</p>
+            </small>
+        </div>
+    </div>
+    <div id="room-details" class="">
+    </div>
+    <div class="mt-8">
+        <h2 class="text-2xl font-semibold mb-4">Descrição</h2>
+        <p class="text-gray-600 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum mollitia aut molestias quos quis a numquam quo et sapiente velit in expedita, magnam quisquam quam. Dolor omnis minus optio ipsam.
+        Consectetur molestiae nesciunt repudiandae aut aperiam, fuga illum mollitia nostrum libero omnis perferendis in eaque fugit fugiat nulla laboriosam. Odio veniam omnis sequi assumenda, nobis atque illo harum veritatis ducimus?
+        Cupiditate quidem unde harum debitis nisi. Iure in voluptatum error accusamus assumenda eveniet, repudiandae, ea asperiores quas facere, temporibus cumque obcaecati totam veritatis. Ipsum nemo fugiat facilis velit maxime soluta?
+        Numquam quia odit obcaecati sequi, molestias corporis natus commodi ipsa, quaerat molestiae delectus quos est sapiente! Eligendi officiis veniam, culpa corrupti perferendis et tenetur excepturi quo similique fugit natus unde.
+        Mollitia distinctio maxime blanditiis perspiciatis quasi quos corrupti illum reprehenderit tempore quibusdam voluptatum cumque ex quo nisi, facilis sapiente laudantium, dolores maiores corporis id, cupiditate magnam ratione ad quis. Aliquid.
+        Repellendus dicta corporis veniam natus praesentium, esse, dolores impedit aliquam laudantium, quidem nulla illum saepe quos facilis fuga? Nostrum atque voluptates totam cupiditate rem ratione officia eligendi reiciendis vitae temporibus.
+        Ducimus eaque exercitationem architecto deleniti labore sint? Numquam, maiores odio quo commodi eum cum optio eius libero voluptatibus, nisi nobis aspernatur quam tenetur perspiciatis? Cum debitis totam reiciendis excepturi quidem?
+        Rerum quaerat enim totam similique aliquid ea quod necessitatibus iusto quis, adipisci, magni, exercitationem incidunt nobis repellat debitis culpa laudantium! Non reprehenderit odit expedita cupiditate fuga nemo corrupti ipsam atque.</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const roomId = window.location.pathname.split('/').pop();
+        console.log("Carregando detalhes do quarto com ID:", roomId);
+
+        fetch(`/api/rooms/room/${roomId}`)
+            .then(response => {
+                console.log("Resposta recebida:", response);
+                if (!response.ok) {
+                    throw new Error("Quarto não encontrado");
+                }
+                return response.json();
+            })
+            .then(room => {
+                const container = document.getElementById("room-details");
+                container.innerHTML = `
+                <div class="flex flex-1 w-full justify-between">
+                    <img src="${room.image}" alt="${room.name}" class="w-64 h-40 object-cover rounded mb-4">
+                    <div div class="flex flex-col flex-1 ml-4">
+                        <span class="material-symbols-outlined text-4xl text-gray-500 dark:text-gray-400">
+                            hotel
+                        </span>
+                        <h2 class="text-xl font-semibold">${room.name}</h2>
+                        <p class="text-gray-600 dark:text-gray-400">${room.description}</p>
+                        <p class="text-green-600 font-bold mt-2">R$ ${room.price.toFixed(2)}</p>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="flex flex-row gap-2 items-center">
+                            <span class="material-symbols-outlined text-4xl text-gray-500 dark:text-gray-400">
+                                group
+                            </span>
+                            <p class="text-gray-600 dark:text-gray-400">Capacidade: ${room.capacity} pessoas</p>
+                        </div>
+                        <button class="bg-primary text-white px-4 py-2 rounded-md mt-4 hover:bg-primary/70 transition-all duration-300">
+                            Reservar Quarto
+                        </button>
+                    </div>
+                </div>
+            `;
+            })
+            .catch(error => {
+                document.getElementById("room-details").innerHTML = "<p class='text-red-500'>Erro ao carregar o quarto.</p>";
+                console.error(error);
+            });
+    });
+</script>
+{% endblock %}

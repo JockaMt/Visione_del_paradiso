@@ -19,6 +19,7 @@ def get_first_three_rooms():
 
 def serialize_result(obj):
     return {
+        "id": getattr(obj, 'id', None),
         "title": getattr(obj, 'name', 'Sem título'),
         "description": getattr(obj, 'description', 'Sem descrição'),
         "price": f"R$ {getattr(obj, 'price', 0):.2f}" if hasattr(obj, 'price') else None,

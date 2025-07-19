@@ -20,4 +20,6 @@ def login_required(f):
 def init_app(app):
     @app.route("/auth", methods=["GET", "POST"])
     def auth():
+        if session.get("user_username"):
+            return redirect(url_for('home'))
         return render_template("login.html")

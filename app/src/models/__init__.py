@@ -191,6 +191,7 @@ class Services(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
+    image = db.Column(db.String(255), nullable=True, default="https://img.freepik.com/fotos-gratis/rotina-domestica-dona-de-casa-sorridente-em-pe-de-avental-na-cozinha_259150-59700.jpg")
     description = db.Column(db.String(200), nullable=True)
     price = db.Column(db.Float, nullable=False)
 
