@@ -4,7 +4,8 @@
 
 {% block content %}
 <section class="container mx-auto px-4 py-8">
-    <div class="container flex flex-col lg:flex-row lg:justify-between mx-auto mb-8 border-b-2 border-gray-200 dark:border-gray-700 pb-4">
+    <div
+        class="container flex flex-col lg:flex-row lg:justify-between mx-auto mb-8 border-b-2 border-gray-200 dark:border-gray-700 pb-4">
         <div>
             <h1 class="text-3xl font-bold mb-2">Detalhes do Quarto</h1>
             <small>
@@ -16,33 +17,92 @@
     </div>
     <div class="mt-8">
         <h2 class="text-2xl font-semibold mb-4">Descrição</h2>
-        <p class="text-gray-600 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum mollitia aut molestias quos quis a numquam quo et sapiente velit in expedita, magnam quisquam quam. Dolor omnis minus optio ipsam.
-        Consectetur molestiae nesciunt repudiandae aut aperiam, fuga illum mollitia nostrum libero omnis perferendis in eaque fugit fugiat nulla laboriosam. Odio veniam omnis sequi assumenda, nobis atque illo harum veritatis ducimus?
-        Cupiditate quidem unde harum debitis nisi. Iure in voluptatum error accusamus assumenda eveniet, repudiandae, ea asperiores quas facere, temporibus cumque obcaecati totam veritatis. Ipsum nemo fugiat facilis velit maxime soluta?
-        Numquam quia odit obcaecati sequi, molestias corporis natus commodi ipsa, quaerat molestiae delectus quos est sapiente! Eligendi officiis veniam, culpa corrupti perferendis et tenetur excepturi quo similique fugit natus unde.
-        Mollitia distinctio maxime blanditiis perspiciatis quasi quos corrupti illum reprehenderit tempore quibusdam voluptatum cumque ex quo nisi, facilis sapiente laudantium, dolores maiores corporis id, cupiditate magnam ratione ad quis. Aliquid.
-        Repellendus dicta corporis veniam natus praesentium, esse, dolores impedit aliquam laudantium, quidem nulla illum saepe quos facilis fuga? Nostrum atque voluptates totam cupiditate rem ratione officia eligendi reiciendis vitae temporibus.
-        Ducimus eaque exercitationem architecto deleniti labore sint? Numquam, maiores odio quo commodi eum cum optio eius libero voluptatibus, nisi nobis aspernatur quam tenetur perspiciatis? Cum debitis totam reiciendis excepturi quidem?
-        Rerum quaerat enim totam similique aliquid ea quod necessitatibus iusto quis, adipisci, magni, exercitationem incidunt nobis repellat debitis culpa laudantium! Non reprehenderit odit expedita cupiditate fuga nemo corrupti ipsam atque.</p>
+        <p class="text-gray-600 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
+            mollitia aut molestias quos quis a numquam quo et sapiente velit in expedita, magnam quisquam quam. Dolor
+            omnis minus optio ipsam.
+            Consectetur molestiae nesciunt repudiandae aut aperiam, fuga illum mollitia nostrum libero omnis perferendis
+            in eaque fugit fugiat nulla laboriosam. Odio veniam omnis sequi assumenda, nobis atque illo harum veritatis
+            ducimus?
+            Cupiditate quidem unde harum debitis nisi. Iure in voluptatum error accusamus assumenda eveniet,
+            repudiandae, ea asperiores quas facere, temporibus cumque obcaecati totam veritatis. Ipsum nemo fugiat
+            facilis velit maxime soluta?
+            Numquam quia odit obcaecati sequi, molestias corporis natus commodi ipsa, quaerat molestiae delectus quos
+            est sapiente! Eligendi officiis veniam, culpa corrupti perferendis et tenetur excepturi quo similique fugit
+            natus unde.
+            Mollitia distinctio maxime blanditiis perspiciatis quasi quos corrupti illum reprehenderit tempore quibusdam
+            voluptatum cumque ex quo nisi, facilis sapiente laudantium, dolores maiores corporis id, cupiditate magnam
+            ratione ad quis. Aliquid.
+            Repellendus dicta corporis veniam natus praesentium, esse, dolores impedit aliquam laudantium, quidem nulla
+            illum saepe quos facilis fuga? Nostrum atque voluptates totam cupiditate rem ratione officia eligendi
+            reiciendis vitae temporibus.
+            Ducimus eaque exercitationem architecto deleniti labore sint? Numquam, maiores odio quo commodi eum cum
+            optio eius libero voluptatibus, nisi nobis aspernatur quam tenetur perspiciatis? Cum debitis totam
+            reiciendis excepturi quidem?
+            Rerum quaerat enim totam similique aliquid ea quod necessitatibus iusto quis, adipisci, magni,
+            exercitationem incidunt nobis repellat debitis culpa laudantium! Non reprehenderit odit expedita cupiditate
+            fuga nemo corrupti ipsam atque.</p>
     </div>
 </section>
 {% endblock %}
 
 {% block scripts %}
 <script>
+    function reserveRoom(roomId) {
+        fetch(`/api/rooms/reserve/${roomId}`, {
+            method: "POST"
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(data => {
+                        throw new Error(data.message || "Erro ao reservar quarto");
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert(data.message); // ou mostrar em algum elemento da página
+                location.reload();   // ou atualizar os dados do quarto
+            })
+            .catch(error => {
+                alert("Erro: " + error.message);
+            });
+    }
+
+    function cancelReservation(roomId) {
+        if (confirm("Tem certeza que deseja cancelar a reserva deste quarto?")) {
+            fetch(`/api/rooms/cancel/${roomId}`, {
+                method: "POST"
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.message || "Erro ao cancelar reserva");
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert(data.message);
+                    location.reload();
+                })
+                .catch(error => {
+                    alert("Erro: " + error.message);
+                });
+        }
+    }
     document.addEventListener("DOMContentLoaded", () => {
         const roomId = window.location.pathname.split('/').pop();
-        console.log("Carregando detalhes do quarto com ID:", roomId);
-
+        const buttonStyle = "bg-primary text-white cursor-pointer text-center px-4 py-2 rounded-md mt-4 hover:bg-primary/70 transition-all duration-300"
+        const disabledStyle = "bg-gray-300/20 text-gray-500 text-center px-4 py-2 rounded-md cursor-not-allowed";
         fetch(`/api/rooms/room/${roomId}`)
             .then(response => {
-                console.log("Resposta recebida:", response);
                 if (!response.ok) {
                     throw new Error("Quarto não encontrado");
                 }
                 return response.json();
             })
             .then(room => {
+                console.log(room);
                 const container = document.getElementById("room-details");
                 container.innerHTML = `
                 <div class="flex flex-1 w-full justify-between">
@@ -62,9 +122,15 @@
                             </span>
                             <p class="text-gray-600 dark:text-gray-400">Capacidade: ${room.capacity} pessoas</p>
                         </div>
-                        <button class="bg-primary text-white px-4 py-2 rounded-md mt-4 hover:bg-primary/70 transition-all duration-300">
+                        <a onclick="${room.occupied ? '' : `reserveRoom(${room.id})`}" disabled=${room.occupied} class="${room.occupied ? disabledStyle : buttonStyle}">
                             Reservar Quarto
-                        </button>
+                        </a>
+                        <a class="${buttonStyle} {{ "" if owner else "hidden" }}"  onclick="${`cancelReservation(${room.id})`}">
+                                Cancelar Reserva
+                            </a>
+                        <p class="text-gray-500 text-sm mt-2">
+                            ${room.occupied ? "Este quarto está atualmente ocupado." : ""}
+                        </p>
                     </div>
                 </div>
             `;

@@ -1,10 +1,11 @@
 from flask import redirect, url_for, session, jsonify, request
-from ..models import User, Rooms, Services, Events, search_by_name
+from ..models import User, Rooms, Services, Events, search_by_name, search_by_name_with_user
 import json
 
 
 def logout_action():
     session.pop("user_username", None)
+    session.pop("user_name", None)
     return redirect(url_for('auth'))
 
 def get_users():
@@ -30,15 +31,25 @@ def serialize_result(obj):
 def buscar_action():
     termo = request.args.get('termo', '').strip().lower()
     searchType = request.args.get('type', '').strip().lower()
+    username = request.args.get('user', '').strip().lower()
     searchItem = None
     
     # Busca filtrada no banco
     if (searchType == 'rooms'):
-        searchItem = search_by_name(Rooms, termo)
+        if username:
+            searchItem = search_by_name_with_user(Rooms, termo, username)
+        else:
+            searchItem = search_by_name(Rooms, termo)
     elif (searchType == 'services'):
-        searchItem = search_by_name(Services, termo)
+        if username:
+            searchItem = search_by_name_with_user(Services, termo, username)
+        else:
+            searchItem = search_by_name(Services, termo)
     elif (searchType == 'events'):
-        searchItem = search_by_name(Events, termo)
+        if username:
+            searchItem = search_by_name_with_user(Events, termo, username)
+        else:
+            searchItem = search_by_name(Events, termo)
 
     # Converte os objetos para dicionário (JSON serializável)
     resultados = [serialize_result(i) for i in searchItem]

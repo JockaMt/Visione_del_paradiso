@@ -1,5 +1,10 @@
-{% macro render(image, title, description, price) %}
-<div class="group bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
+{% macro render(image, id, title, description, price) %}
+<script>
+    const search = (id) => {
+        window.location.href = `/rooms/room/${id}`;
+    };
+</script>
+<div onclick="search('{{ id }}')" class="group bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 transition-all duration-300 ease-[cubic-bezier(.01,2.48,.38,.52)] rounded shadow-md hover:shadow-lg min-w-48 w-auto h-auto">
     <img class="w-full max-h-52 object-cover" alt="room_image" src="{{ image }}">
     <div class="p-4 flex flex-col justify-between">
         <div class="flex justify-between">

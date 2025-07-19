@@ -1,17 +1,17 @@
 from ..database import db
 
 
-def search_by_name(cls, termo: str):
-    termo = termo.strip().lower()
-    return db.session.query(cls).filter(db.func.lower(cls.name).like(f"%{termo}%")).all()
-
-
 class User(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    avatar = db.Column(
+        db.String(200),
+        nullable=True,
+        default="https://placehold.co/500x400?text=Avatar",
+    )
     hash_password = db.Column(db.String(128), nullable=False)
     name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), default="Undefined")
@@ -19,6 +19,16 @@ class User(db.Model):
     age = db.Column(db.Integer)
     phone = db.Column(db.String(120))
     admin = db.Column(db.Boolean, default=False)
+
+    rooms = db.relationship(
+        "Rooms", back_populates="user", cascade="all, delete-orphan"
+    )
+    services = db.relationship(
+        "Services", back_populates="user", cascade="all, delete-orphan"
+    )
+    events = db.relationship(
+        "Events", back_populates="user", cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         return f"<User {self.username}>"
@@ -90,9 +100,16 @@ class Rooms(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String(200), nullable=True)
-    image = db.Column(db.String(200), nullable=True, default="https://images.pexels.com/photos/19836801/pexels-photo-19836801.jpeg")
+    image = db.Column(
+        db.String(200),
+        nullable=True,
+        default="https://images.pexels.com/photos/19836801/pexels-photo-19836801.jpeg",
+    )
     price = db.Column(db.Float, nullable=False, default=0.0)
     capacity = db.Column(db.Integer, nullable=False)
+
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
+    user = db.relationship("User", back_populates="rooms")
 
     def __repr__(self):
         return f"<Room {self.name}>"
@@ -143,6 +160,9 @@ class Events(db.Model):
     name = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String(200), nullable=True)
     date = db.Column(db.DateTime, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
+
+    user = db.relationship("User", back_populates="events")
 
     def __repr__(self):
         return f"<Event {self.name}>"
@@ -191,9 +211,16 @@ class Services(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
-    image = db.Column(db.String(255), nullable=True, default="https://img.freepik.com/fotos-gratis/rotina-domestica-dona-de-casa-sorridente-em-pe-de-avental-na-cozinha_259150-59700.jpg")
+    image = db.Column(
+        db.String(255),
+        nullable=True,
+        default="https://img.freepik.com/fotos-gratis/rotina-domestica-dona-de-casa-sorridente-em-pe-de-avental-na-cozinha_259150-59700.jpg",
+    )
     description = db.Column(db.String(200), nullable=True)
     price = db.Column(db.Float, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
+
+    user = db.relationship("User", back_populates="services")
 
     def __repr__(self):
         return f"<Service {self.name}>"
@@ -214,13 +241,17 @@ class Services(db.Model):
         return db.session.query(cls).filter_by(id=service_id).first()
 
     @classmethod
-    def update(cls, service_id, **kwargs):
-        service = db.session.query(cls).filter_by(id=service_id).first()
-        if service:
+    def update(cls, identifier, by_username=True, **kwargs):
+        if by_username:
+            user = db.session.query(cls).filter_by(username=identifier).first()
+        else:
+            user = db.session.query(cls).filter_by(id=identifier).first()
+        
+        if user:
             for key, value in kwargs.items():
-                setattr(service, key, value)
+                setattr(user, key, value)
             db.session.commit()
-            return service
+            return user
         return None
 
     @classmethod
@@ -235,3 +266,25 @@ class Services(db.Model):
     @classmethod
     def exists(cls, name):
         return db.session.query(cls).filter_by(name=name).first() is not None
+
+
+def search_by_name(cls, termo: str):
+    termo = termo.strip().lower()
+    return (
+        db.session.query(cls).filter(db.func.lower(cls.name).like(f"%{termo}%")).all()
+    )
+
+def get_room_owner(room_id: int):
+    room = Rooms.get_by_id(room_id)
+    if room and room.user:
+        return room.user.username
+    return None
+
+def search_by_name_with_user(cls, termo: str, username: str):
+    termo = f"%{termo.strip().lower()}%"
+    return (
+        db.session.query(cls)
+        .join(User, cls.user_id == User.id)
+        .filter(db.func.lower(cls.name).like(termo), User.username == username)
+        .all()
+    )

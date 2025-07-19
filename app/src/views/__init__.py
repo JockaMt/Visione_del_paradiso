@@ -9,6 +9,7 @@ from ..controller.pages import (
     services_page,
     events_page,
     page_not_found_page,
+    edit_profile_page,
 )
 from ..controller.actions import logout_action, buscar_action
 from ..auth import login_required
@@ -25,7 +26,6 @@ def init_app(app):
     
     @app.route("/rooms/room/<id>")
     def selected_room(id):
-        # Implement logic to fetch and display the selected room details
         return rooms_page(id=id)
 
     @app.route("/services")
@@ -50,6 +50,12 @@ def init_app(app):
     def profile():
         # Implement profile page logic here
         return profile_page()
+    
+    @app.route("/edit-profile", methods=["GET", "POST"])
+    @login_required
+    def edit_profile():
+        # Implement edit profile logic here
+        return edit_profile_page()
 
     @app.route("/buscar")
     def buscar():

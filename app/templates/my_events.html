@@ -31,5 +31,8 @@
 </section>
 {% endblock %}
 {% block scripts %}
-<script src="{{ url_for('static', filename='assets/search.js') }}"></script>
+<script>
+    const username = "{{ username }}";
+</script>
+<script src="{{ url_for('static', filename='assets/search_my.js') }}"></script>
 {% endblock %}

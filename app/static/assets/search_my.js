@@ -4,6 +4,7 @@ let debounceTimeout;
 
 const path = window.location.pathname;
 const listType = path.includes('rooms') ? 'rooms' : path.includes('services') ? 'services' : path.includes('events') ? 'events' : null;
+console.log(`Username from session storage: ${username}`);
 
 const card = (item) => {
     if (listType == 'rooms') {
@@ -55,7 +56,7 @@ searchInput.addEventListener('input', () => {
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(async () => {
         const searchTerm = searchInput.value;
-        const response = await fetch(`/buscar?termo=${encodeURIComponent(searchTerm)}&type=${listType}`);
+        const response = await fetch(`/buscar?termo=${encodeURIComponent(searchTerm)}&type=${listType}&user=${username}`);
         const items = await response.json();
 
         resultsList.innerHTML = '';
@@ -80,9 +81,9 @@ const select = (id) => {
         window.location.href = `/rooms/room/${id}`;
     }
     if (listType === 'services') {
-        window.location.href = `/services/${id}`;
+        window.location.href = `/services/service/${id}`;
     }
     if (listType === 'events') {
-        window.location.href = `/events/${id}`;
+        window.location.href = `/events/event/${id}`;
     }
 }

@@ -21,7 +21,7 @@
                         <span class="material-symbols-outlined">account_circle</span>
                         {% if "user_username" in session %}
                         <p>
-                            {{ session.get("user_username").capitalize() }}
+                            {{ session.get("user_name").capitalize() }}
                         </p>
                         {% endif %}
                     </button>

@@ -26,7 +26,7 @@
         <div class="flex flex-wrap justify-between gap-4">
             {% set room_card = room_card %}
             {% for item in quartos %}
-            {{ room_card.render(title=item.name,
+            {{ room_card.render(title=item.name, id=item.id,
             image=item.image, description=item.description) }}
             {% endfor %}
         </div>
@@ -35,8 +35,13 @@
 <section class="py-8">
     <div class="container mx-auto px-4 pb-6">
         <div class="flex flex-col items-center mb-8">
-            <h1 class="flex text-3xl font-bold text-center mb-2 px-8 pb-4 border-b-2 border-primary gap-[.5rem]">Bem vindo ao <span class="text-primary"> Visione del Paradiso</span>.</h1>
+            <div class="flex flex-row items-center mb-8 px-8 pb-4 border-b-2 border-primary">
+                <h1 class="text-3xl font-bold text-center">
+                    Bem vindo ao <span class="text-primary">Visione del Paradiso</span>.
+                </h1>
+            </div>
         </div>
+
         <article class="text-lg text-gray-700 dark:text-gray-200 leading-relaxed">
             <p>É com grande prazer que abrimos as portas da Visione del Paradiso para recebê-lo em um ambiente onde o
                 conforto encontra a elegância, e cada momento é uma experiência única.</p>
