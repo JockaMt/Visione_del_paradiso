@@ -1,5 +1,5 @@
 from flask import redirect, url_for, session, jsonify, request
-from ..models import User, Rooms, Services, Events, search_by_name, search_by_name_with_user
+from ..models import User, Rooms, Services, Events, search_by_name, search_by_name_with_user, search_service_by_name_with_user_from_relation, search_event_by_name_with_user_from_relation
 import json
 
 
@@ -42,12 +42,12 @@ def buscar_action():
             searchItem = search_by_name(Rooms, termo)
     elif (searchType == 'services'):
         if username:
-            searchItem = search_by_name_with_user(Services, termo, username)
+            searchItem = search_service_by_name_with_user_from_relation(termo, username)
         else:
             searchItem = search_by_name(Services, termo)
     elif (searchType == 'events'):
         if username:
-            searchItem = search_by_name_with_user(Events, termo, username)
+            searchItem = search_event_by_name_with_user_from_relation(termo, username)
         else:
             searchItem = search_by_name(Events, termo)
 

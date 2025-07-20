@@ -9,7 +9,7 @@ const card = (item) => {
     if (listType == 'rooms') {
         return (
             `
-                <div onclick="select('${item.id}')" class="flex flex-col group bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
+                <div onclick="select('${item.id}')" class="flex cursor-pointer flex-col group bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
                     <img class="w-full max-h-40 h-full object-cover" alt="item_image" src="${item.image}">
                     <div class="p-4 flex flex-col justify-between">
                         <p>${item.title}</p>
@@ -24,7 +24,7 @@ const card = (item) => {
     } else if (listType == 'services') {
         return (
             `
-                <div class="group bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
+                <div onclick="select('${item.id}')" class="group cursor-pointer bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
                     <img class="w-full max-h-40 object-cover" alt="item_image" src="${item.image}">
                     <div class="p-4 flex flex-col justify-between">
                         <div class="flex justify-between">
@@ -38,7 +38,7 @@ const card = (item) => {
     } else if (listType == 'events') {
         return (
             `
-                <div class="group bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
+                <div onclick="select(${item.id})" class="group bg-white dark:bg-gray-800 cursor-pointer flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
                     <div class="p-4 flex flex-col border-t-10 py-10 justify-between">
                         <div class="flex justify-between">
                             <p>${item.title}</p>
@@ -67,10 +67,9 @@ searchInput.addEventListener('input', () => {
                 resultsList.insertAdjacentHTML('beforeend', card(item));
             });
         }
-    }, 200); // debounce de 300ms
+    }, 200);
 });
 
-// Carrega todos os itens no início (se desejar)
 window.addEventListener('DOMContentLoaded', () => {
     searchInput.dispatchEvent(new Event('input'));
 });
@@ -80,9 +79,9 @@ const select = (id) => {
         window.location.href = `/rooms/room/${id}`;
     }
     if (listType === 'services') {
-        window.location.href = `/services/${id}`;
+        window.location.href = `/services/service/${id}`;
     }
     if (listType === 'events') {
-        window.location.href = `/events/${id}`;
+        window.location.href = `/events/event/${id}`;
     }
 }

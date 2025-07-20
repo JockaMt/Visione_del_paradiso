@@ -25,7 +25,7 @@ const card = (item) => {
     } else if (listType == 'services') {
         return (
             `
-                <div class="group bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
+                <div onclick="select(${item.id})" class="group bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
                     <img class="w-full max-h-40 object-cover" alt="item_image" src="${item.image}">
                     <div class="p-4 flex flex-col justify-between">
                         <div class="flex justify-between">
@@ -39,7 +39,7 @@ const card = (item) => {
     } else if (listType == 'events') {
         return (
             `
-                <div class="group bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
+                <div onclick="select(${item.id})" class="group bg-white dark:bg-gray-800 flex-1 overflow-hidden hover:scale-105 duration-300 rounded shadow-md hover:shadow-lg transition-all ease-[cubic-bezier(.01,2.48,.38,.52)] duration-300 min-w-48 w-auto h-auto">
                     <div class="p-4 flex flex-col border-t-10 py-10 justify-between">
                         <div class="flex justify-between">
                             <p>${item.title}</p>

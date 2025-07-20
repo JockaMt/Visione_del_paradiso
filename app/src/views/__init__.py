@@ -25,8 +25,16 @@ def init_app(app):
         return rooms_page()
     
     @app.route("/rooms/room/<id>")
-    def selected_room(id):
+    def selected_room(id=None):
         return rooms_page(id=id)
+    
+    @app.route("/services/service/<id>")
+    def selected_service(id=None):
+        return services_page(id=id)
+    
+    @app.route("/events/event/<id>")
+    def selected_event(id=None):
+        return events_page(id=id)
 
     @app.route("/services")
     def services():

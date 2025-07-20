@@ -23,12 +23,11 @@ class User(db.Model):
     rooms = db.relationship(
         "Rooms", back_populates="user", cascade="all, delete-orphan"
     )
-    services = db.relationship(
-        "Services", back_populates="user", cascade="all, delete-orphan"
-    )
-    events = db.relationship(
-        "Events", back_populates="user", cascade="all, delete-orphan"
-    )
+    user_events = db.relationship("UserEvent", back_populates="user", cascade="all, delete-orphan")
+    events = db.relationship("Events", secondary="user_events", viewonly=True)
+
+    user_services = db.relationship("UserService", back_populates="user", cascade="all, delete-orphan")
+    services = db.relationship("Services", secondary="user_services", viewonly=True)
 
     def __repr__(self):
         return f"<User {self.username}>"
@@ -151,6 +150,13 @@ class Rooms(db.Model):
     @classmethod
     def exists(cls, name):
         return db.session.query(cls).filter_by(name=name).first() is not None
+    
+    @classmethod
+    def is_occupied(cls, room_id):
+        room = Rooms.get_by_id(room_id)
+        if room:
+            return bool(room.user_id)  # Verifica se o quarto tem um usuário associado
+        return False
 
 
 class Events(db.Model):
@@ -162,7 +168,8 @@ class Events(db.Model):
     date = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
 
-    user = db.relationship("User", back_populates="events")
+    user_events = db.relationship("UserEvent", back_populates="event", cascade="all, delete-orphan")
+    users = db.relationship("User", secondary="user_events", viewonly=True)
 
     def __repr__(self):
         return f"<Event {self.name}>"
@@ -220,7 +227,8 @@ class Services(db.Model):
     price = db.Column(db.Float, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
 
-    user = db.relationship("User", back_populates="services")
+    user_services = db.relationship("UserService", back_populates="service", cascade="all, delete-orphan")
+    users = db.relationship("User", secondary="user_services", viewonly=True)
 
     def __repr__(self):
         return f"<Service {self.name}>"
@@ -267,6 +275,70 @@ class Services(db.Model):
     def exists(cls, name):
         return db.session.query(cls).filter_by(name=name).first() is not None
 
+class UserEvent(db.Model):
+    __tablename__ = "user_events"
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), primary_key=True)
+    event_id = db.Column(db.Integer, db.ForeignKey("events.id"), primary_key=True)
+
+    user = db.relationship("User", back_populates="user_events")
+    event = db.relationship("Events", back_populates="user_events")
+    
+    @classmethod
+    def get_by_user_and_event(cls, user_id, event_id):
+        return db.session.query(cls).filter_by(user_id=user_id, event_id=event_id).first()
+    
+    @classmethod
+    def create(cls, user_id, event_id):
+        user_event = cls(user_id=user_id, event_id=event_id)
+        db.session.add(user_event)
+        db.session.commit()
+        return user_event
+    
+    @classmethod
+    def delete(cls, user_id, event_id):
+        user_event = db.session.query(cls).filter_by(user_id=user_id, event_id=event_id).first()
+        if user_event:
+            db.session.delete(user_event)
+            db.session.commit()
+            return True
+        return False
+    
+    @classmethod
+    def find_by_user_and_event(cls, user_id, event_id):
+        return db.session.query(cls).filter_by(user_id=user_id, event_id=event_id).first()
+
+
+class UserService(db.Model):
+    __tablename__ = "user_services"
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), primary_key=True)
+    service_id = db.Column(db.Integer, db.ForeignKey("services.id"), primary_key=True)
+
+    user = db.relationship("User", back_populates="user_services")
+    service = db.relationship("Services", back_populates="user_services")
+    
+    @classmethod
+    def get_by_user_and_service(cls, user_id, service_id):
+        return db.session.query(cls).filter_by(user_id=user_id, service_id=service_id).first()
+    
+    @classmethod
+    def create(cls, user_id, service_id):
+        user_service = cls(user_id=user_id, service_id=service_id)
+        db.session.add(user_service)
+        db.session.commit()
+        return user_service
+    
+    @classmethod
+    def delete(cls, user_id, service_id):
+        user_service = db.session.query(cls).filter_by(user_id=user_id, service_id=service_id).first()
+        if user_service:
+            db.session.delete(user_service)
+            db.session.commit()
+            return True
+        return False
+    
+    @classmethod
+    def find_by_user_and_service(cls, user_id, service_id):
+        return db.session.query(cls).filter_by(user_id=user_id, service_id=service_id).first()
 
 def search_by_name(cls, termo: str):
     termo = termo.strip().lower()
@@ -286,5 +358,25 @@ def search_by_name_with_user(cls, termo: str, username: str):
         db.session.query(cls)
         .join(User, cls.user_id == User.id)
         .filter(db.func.lower(cls.name).like(termo), User.username == username)
+        .all()
+    )
+    
+def search_service_by_name_with_user_from_relation(termo: str, username: str):
+    termo = f"%{termo.strip().lower()}%"
+    return (
+        db.session.query(Services)
+        .join(UserService, Services.id == UserService.service_id)
+        .join(User, UserService.user_id == User.id)
+        .filter(db.func.lower(Services.name).like(termo), User.username == username)
+        .all()
+    )
+    
+def search_event_by_name_with_user_from_relation(termo: str, username: str):
+    termo = f"%{termo.strip().lower()}%"
+    return (
+        db.session.query(Events)
+        .join(UserEvent, Events.id == UserEvent.event_id)
+        .join(User, UserEvent.user_id == User.id)
+        .filter(db.func.lower(Events.name).like(termo), User.username == username)
         .all()
     )

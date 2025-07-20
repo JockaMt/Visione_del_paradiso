@@ -16,7 +16,7 @@
     {% block head_page %}{% endblock %}
 </head>
 
-<body class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+<body class="flex flex-col scroll min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
     {% if request.path.startswith('/auth') %} <!-- Alterar para verificar logado -->
     {% else %}
     {% include 'components/header.html' %}
