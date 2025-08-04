@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% block title %} Quartos {% endblock %}
+
+{% block content %}
+<section class="container mx-auto px-4 py-8">
+    <div class="container flex flex-col lg:flex-row lg:justify-between mx-auto mb-8 border-b-2 border-gray-200 pb-4">
+        <div>
+            <h1 class="text-3xl font-bold mb-2">Nossos Quartos</h1>
+            <small>
+                <p class="text-gray-500 text-sm">Quartos disponíveis para reserva</p>
+            </small>
+        </div>
+        <div class="flex flex-1 lg:max-w-xl items-center mt-2">
+            <input type="text" placeholder="Pesquisar quartos..." id="filtro"
+                class="flex flex-1 w-full p-2 border border-gray-300 rounded">
+            <button
+                class="flex bg-primary text-white items-center px-4 gap-2 py-2 rounded ml-2 hover:bg-primary/70 cursor-pointer transition-all duration-300">
+                Pesquisar
+                <span class="material-symbols-outlined scale-70 -mr-2" aria-label="search">
+                    search
+                </span>
+            </button>
+        </div>
+    </div>
+    <div id="lista" class="grid md:grid-cols-3 lg:grid-cols-5 grid-cols-2 justify-between gap-4">
+    Carregando...</div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='assets/search.js') }}"></script>
+{% endblock %}

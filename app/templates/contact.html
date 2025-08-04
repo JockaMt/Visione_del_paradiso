@@ -1,0 +1,76 @@
+{% extends 'index.html' %}
+
+{% block title %} Contato {% endblock %}
+
+{% block content %}
+<section class="min-h-full flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl w-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg flex flex-col md:flex-row">
+
+        <div class="md:w-1/2 md:pr-8 mb-8 md:mb-0">
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">Fale Conosco</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">
+                Tem alguma dúvida, sugestão ou apenas quer dizer um "olá"? Preencha o formulário ao lado ou utilize as
+                informações abaixo para entrar em contato.
+            </p>
+
+            <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                <div class="flex items-center">
+                    <span class="material-symbols-outlined text-primary h-5 pr-2">
+                        mail
+                    </span>
+                    <span>jockaplay@gmail.com</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="material-symbols-outlined text-primary h-5 pr-2">
+                        phone_enabled
+                    </span>
+                    <span>(82) 99124-5437</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="material-symbols-outlined text-primary h-5 pr-2">
+                        location_on
+                    </span>
+                    <span>Jocélia Barbosa da Silva, Limoeiro de Anadia - Alagoas, 57260-000</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="md:w-1/2">
+            <form action="/contact" method="post" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nome
+                        Completo:</label>
+                    <input type="text" id="name" name="name" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="Seu nome">
+                </div>
+                <div>
+                    <label for="email"
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">E-mail:</label>
+                    <input type="email" id="email" name="email" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="seu@email.com">
+                </div>
+                <div>
+                    <label for="subject"
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Assunto:</label>
+                    <input type="text" id="subject" name="subject" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="Motivo do contato">
+                </div>
+                <div>
+                    <label for="message"
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Mensagem:</label>
+                    <textarea id="message" name="message" rows="5" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white resize-y"
+                        placeholder="Sua mensagem..."></textarea>
+                </div>
+                <button type="submit"
+                    class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary/70 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition duration-300 ease-in-out">
+                    Enviar Mensagem
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

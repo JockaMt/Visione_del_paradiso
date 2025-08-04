@@ -1,0 +1,82 @@
+{% extends 'index.html' %}
+
+{% block title %} Login | Cadastro {% endblock %}
+
+{% block content %}
+<section class="flex flex-1 min-h-full items-center justify-center bg-gray-100 dark:bg-gray-900 py-8 px-4">
+    <div class="bg-white dark:bg-gray-800 duration-300 transition-all p-8 rounded-lg shadow-lg max-w-md w-full">
+        <div class="mb-6 border-b dark:border-gray-700">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block p-4 border-b-2 rounded-t-lg" id="login-tab" data-tabs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Entrar</button>
+                </li>
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="register-tab" data-tabs-target="#register" type="button" role="tab" aria-controls="register" aria-selected="false">Cadastrar</button>
+                </li>
+            </ul>
+        </div>
+
+        <div id="myTabContent">
+            <button class="absolute top-4 left-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300" onclick="window.location.href='/'">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            {% include 'components/login_frame.html' %}
+            {% include 'components/register_frame.html' %}
+        </div>
+    </div>
+</section>
+
+{% block scripts %}
+{% if page == "register" %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const registerTab = document.getElementById('register-tab');
+        if (registerTab) {
+            registerTab.click();
+        }
+    });
+</script>
+{% endif %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabs = document.querySelectorAll('#myTab button');
+        const tabContents = document.querySelectorAll('#myTabContent > div');
+
+        function activateTab(tabId) {
+            tabs.forEach(tab => {
+                const targetId = tab.getAttribute('data-tabs-target').substring(1);
+                if (targetId === tabId) {
+                    tab.classList.add('text-primary', 'border-primary');
+                    tab.classList.remove('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300', 'dark:hover:text-gray-300');
+                    tab.setAttribute('aria-selected', 'true');
+                } else {
+                    tab.classList.remove('text-primary', 'border-primary');
+                    tab.classList.add('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300', 'dark:hover:text-gray-300');
+                    tab.setAttribute('aria-selected', 'false');
+                }
+            });
+
+            tabContents.forEach(content => {
+                if (content.id === tabId) {
+                    content.classList.remove('hidden');
+                    content.classList.add('block');
+                } else {
+                    content.classList.add('hidden');
+                    content.classList.remove('block');
+                }
+            });
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.getAttribute('data-tabs-target').substring(1);
+                activateTab(targetId);
+            });
+        });
+
+        // Activate the login tab by default on page load
+        activateTab('login');
+    });
+</script>
+{% endblock %}
+{% endblock %}

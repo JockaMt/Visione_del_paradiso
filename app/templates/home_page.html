@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+{% block title %} Início {% endblock %}
+{% import 'components/room_card.html' as room_card %}
+{% block content %}
+<img src="https://images.pexels.com/photos/19836801/pexels-photo-19836801.jpeg" alt="Banner"
+    class="w-full h-64 object-cover mb-4">
+{% if "user_username" in session %}
+<div class="container mx-auto mb-8">
+    <ul class="flex p-4 mx-4 bg-white dark:bg-gray-800 shadow-md rounded justify-between space-x-4">
+        <li class="flex w-full"><a
+                class="flex hover:scale-105 transition duration-300 bg-primary justify-center w-full py-2 rounded text-white"
+                href="/my-rooms">Meus quartos</a></li>
+        <li class="flex w-full"><a
+                class="flex hover:scale-105 transition duration-300 bg-primary justify-center w-full py-2 rounded text-white"
+                href="/my-services">Meus serviços</a></li>
+        <li class="flex w-full"><a
+                class="flex hover:scale-105 transition duration-300 bg-primary justify-center w-full py-2 rounded text-white"
+                href="/my-events">Meus eventos</a></li>
+    </ul>
+</div>
+{% endif %}
+<section class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center mb-2">Quartos em destaque!</h1>
+    <p class="text-center">Descubra nossos quartos luxuosos e confortáveis, perfeitos para uma estadia inesquecível.</p>
+    <div class="container mx-auto px-4 py-8 mt-6">
+        <div class="flex flex-wrap justify-between gap-4">
+            {% set room_card = room_card %}
+            {% for item in quartos %}
+            {{ room_card.render(title=item.name, id=item.id,
+            image=item.image, description=item.description) }}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section class="py-8">
+    <div class="container mx-auto px-4 pb-6">
+        <div class="flex flex-col items-center mb-8">
+            <div class="flex flex-row items-center mb-8 px-8 pb-4 border-b-2 border-primary">
+                <h1 class="text-3xl font-bold text-center">
+                    Bem vindo ao <span class="text-primary">Visione del Paradiso</span>.
+                </h1>
+            </div>
+        </div>
+
+        <article class="text-lg text-gray-700 dark:text-gray-200 leading-relaxed">
+            <p>É com grande prazer que abrimos as portas da Visione del Paradiso para recebê-lo em um ambiente onde o
+                conforto encontra a elegância, e cada momento é uma experiência única.</p>
+            <br />
+            <p>Neste refúgio de tranquilidade, dedicamo-nos a proporcionar-lhe uma estadia memorável, repleta de
+                comodidades e serviços que superam as suas expectativas. Desde quartos cuidadosamente decorados até uma
+                cozinha refinada que desperta os sentidos, cada detalhe foi cuidadosamente considerado para elevar a sua
+                experiência a um nível extraordinário.</p>
+            <br />
+            <p>Imprima-se na serenidade dos nossos jardins exuberantes, relaxe junto à piscina com uma vista
+                deslumbrante, ou entregue-se aos luxos do nosso spa exclusivo. Na Visione del Paradiso, a excelência no
+                serviço é a nossa prioridade, e a nossa equipe está aqui para tornar a sua estadia verdadeiramente
+                especial.</p>
+            <br />
+            <p>Qualquer que seja o motivo da sua visita, ansiamos por compartilhar momentos inesquecíveis e tornar este
+                retiro uma parte do seu paraíso pessoal.</p>
+            <br />
+            <p>Sinta-se em casa na Visione del Paradiso - onde o luxo encontra a hospitalidade de braços abertos.</p>
+            <br />
+            <p>Com estima, A Equipe da Visione del Paradiso</p>
+        </article>
+    </div>
+</section>
+{% endblock %}

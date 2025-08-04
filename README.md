@@ -63,21 +63,26 @@ Para finalizar, é preciso criar manualmente dois arquivos de configurações co
 [default]
 SECRET_NUM=7
 SECRET_KEY='vdp_es_project'
-SQLALCHEMY_DATABASE_URI='sqlite:///database.db'
+SQLALCHEMY_DATABASE_URI='database_uri'
 ```
 
 no segundo arquivo apenas as variáveis de ambiente que estivermos utilizando, assim:
 
 
 - Windows
-```env
-FLASK_APP=api_vdp\main.py
+```toml
+FLASK_APP=app\main.py
+
+# --- Opcional ---
+FLASK_ENV=development
+FLASK_RUN_PORT=8080
+FLASK_DEBUG=True
 ```
 
 - Linux
 
-```
-FLASK_APP=api_vdp/main.py
+```toml
+FLASK_APP=app/main.py
 ```
 
 _Caso esteja apenas testando, não será necessário preencher os dados do banco de dados em produção._

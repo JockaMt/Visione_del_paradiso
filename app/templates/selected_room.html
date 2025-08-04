@@ -1,0 +1,127 @@
+{% extends 'index.html' %}
+{% block title %} Quarto {% endblock %}
+{% import 'components/room_card.html' as room_card %}
+
+{% block content %}
+<section class="container mx-auto px-4 py-8">
+    <div class="container flex flex-col lg:flex-row lg:justify-between mx-auto mb-8 border-b-2 border-gray-200 dark:border-gray-700 pb-4">
+        <div>
+            <h1 class="text-3xl font-bold mb-2">Detalhes do Quarto</h1>
+            <small>
+                <p class="text-gray-500 text-sm">Informações sobre o quarto selecionado</p>
+            </small>
+        </div>
+    </div>
+
+    <div id="room-details">
+        <div class="flex flex-1 w-full justify-between">
+            <img src="{{ room.image }}" alt="{{ room.name }}" class="w-64 h-40 object-cover rounded mb-4">
+
+            <div class="flex flex-col flex-1 ml-4">
+                <span class="material-symbols-outlined text-4xl text-gray-500 dark:text-gray-400">
+                    hotel
+                </span>
+                <h2 class="text-xl font-semibold">{{ room.name }}</h2>
+                <p class="text-gray-600 dark:text-gray-400">{{ room.description }}</p>
+                <p class="text-green-600 font-bold mt-2">R$ {{ "%.2f"|format(room.price|float) }}</p>
+            </div>
+
+            <div class="flex flex-col">
+                <div class="flex flex-row gap-2 items-center">
+                    <span class="material-symbols-outlined text-4xl text-gray-500 dark:text-gray-400">
+                        group
+                    </span>
+                    <p class="text-gray-600 dark:text-gray-400">Capacidade: {{ room.capacity }} pessoas</p>
+                </div>
+
+                <a
+                    {% if occupied %}
+                        class="bg-gray-300/20 text-gray-500 text-center px-4 py-2 rounded-md cursor-not-allowed"
+                        aria-disabled="true"
+                    {% else %}
+                        onclick="reserveRoom({{ room.id }})"
+                        class="bg-primary text-white cursor-pointer text-center px-4 py-2 rounded-md mt-4 hover:bg-primary/70 transition-all duration-300"
+                    {% endif %}
+                >
+                    Reservar Quarto
+                </a>
+
+                {% if owner %}
+                    <a  onclick="cancelReservation({{ room.id }})"
+                        class="bg-primary text-white cursor-pointer text-center px-4 py-2 rounded-md mt-4 hover:bg-primary/70 transition-all duration-300"
+                    >
+                        Cancelar Reserva
+                    </a>
+                {% endif %}
+
+                {% if room.occupied %}
+                    <p class="text-gray-500 text-sm mt-2">
+                        Este quarto está atualmente ocupado.
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-8 border-b-2 border-gray-200 dark:border-gray-700 pb-6">
+        <h2 class="text-2xl font-semibold mb-4">Descrição</h2>
+        <p class="text-gray-600 dark:text-gray-400">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum mollitia aut molestias quos quis a numquam quo et sapiente velit in expedita, magnam quisquam quam. Dolor omnis minus optio ipsam.
+            Consectetur molestiae nesciunt repudiandae aut aperiam, fuga illum mollitia nostrum libero omnis perferendis in eaque fugit fugiat nulla laboriosam. Odio veniam omnis sequi assumenda, nobis atque illo harum veritatis ducimus?
+            Cupiditate quidem unde harum debitis nisi. Iure in voluptatum error accusamus assumenda eveniet, repudiandae, ea asperiores quas facere, temporibus cumque obcaecati totam veritatis. Ipsum nemo fugiat facilis velit maxime soluta?
+            Numquam quia odit obcaecati sequi, molestias corporis natus commodi ipsa, quaerat molestiae delectus quos est sapiente! Eligendi officiis veniam, culpa corrupti perferendis et tenetur excepturi quo similique fugit natus unde.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure eum tenetur harum tempora. Quam, amet ratione? Itaque quos molestiae totam aliquam, vitae voluptas nam, odio repellendus dolorem, iusto ad laudantium.
+            Ullam tenetur cupiditate quae blanditiis porro? Iure earum, magni tenetur enim ipsum nobis corrupti eos assumenda, perferendis ab, aliquam soluta similique facilis nam voluptatum. Voluptatibus libero repellendus nobis animi soluta?
+            Inventore, animi. Nemo laborum commodi labore tenetur quo distinctio, voluptatibus aliquam saepe minus animi? Eaque, ratione non est alias maxime iure numquam natus porro enim in? Unde odit culpa enim?
+        </p>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function reserveRoom(roomId) {
+        fetch(`/api/rooms/reserve/${roomId}`, {
+            method: "POST"
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(data => {
+                    throw new Error(data.message || "Erro ao reservar quarto");
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message);
+            location.reload();
+        })
+        .catch(error => {
+            alert("Erro: " + error.message);
+        });
+    }
+
+    function cancelReservation(roomId) {
+        if (confirm("Tem certeza que deseja cancelar a reserva deste quarto?")) {
+            fetch(`/api/rooms/cancel/${roomId}`, {
+                method: "POST"
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(data => {
+                        throw new Error(data.message || "Erro ao cancelar reserva");
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert(data.message);
+                location.reload();
+            })
+            .catch(error => {
+                alert("Erro: " + error.message);
+            });
+        }
+    }
+</script>
+{% endblock %}

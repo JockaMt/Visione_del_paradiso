@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+
+{% block title %} Perfil do Usuário {% endblock %}
+
+{% block content %}
+<section class="flex flex-1 items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-xl w-full bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 transform transition duration-300">
+        <div class="flex flex-col items-center">
+            <div class="relative w-32 h-32 mb-6">
+                <img id="user-avatar" src="/placeholder-avatar.jpg" alt="Avatar do Usuário" class="w-full h-full object-cover rounded-full border-4 border-primary shadow-lg">
+                <span class="absolute bottom-0 right-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold border-2 border-white" title="Online">✓</span>
+            </div>
+            <h2 id="user-name" class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2 text-center">Carregando...</h2>
+            <p id="user-username" class="text-lg text-gray-600 dark:text-gray-400 mb-1 text-center">carregando...</p>
+            <p id="user-email" class="text-md text-gray-500 dark:text-gray-500 mb-6 text-center">carregando...</p>
+            <div class="flex flex-col md:flex-row space-x-4 mb-6 border-y border-gray-200 py-4">
+                <a id="my-rooms" href="/my-rooms" class="text-primary py-2 hover:underline">Meus Quartos</a>
+                <a id="my-services" href="/my-services" class="text-primary py-2 hover:underline">Meus Serviços</a>
+                <a id="my-events" href="/my-events" class="text-primary py-2 hover:underline">Meus Eventos</a>
+            </div>
+            <a href="/edit-profile"
+                class="mt-8 inline-block px-8 py-3 bg-primary text-white font-semibold rounded-md hover:bg-primary/80 transition-all duration-300 transform shadow-lg">
+                Editar Perfil
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/api/user/details')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('user-avatar').src = data.avatar || '/placeholder-avatar.jpg';
+                document.getElementById('user-name').textContent = data.name || 'Nome do Usuário';
+                document.getElementById('user-username').textContent = `@${data.username || 'usuario'}`;
+                document.getElementById('user-email').textContent = data.email || 'email@example.com';
+                document.getElementById('my-rooms').textContent = `Meus Quartos (${data.rooms_count || 0})`;
+                document.getElementById('my-services').textContent = `Meus Serviços (${data.services_count || 0})`;
+                document.getElementById('my-events').textContent = `Meus Eventos (${data.events_count || 0})`;
+            })
+            .catch(error => {
+                console.error('Erro ao carregar perfil:', error);
+                // Optionally, display an error message to the user
+                document.getElementById('user-name').textContent = 'Erro ao carregar';
+                document.getElementById('user-username').textContent = '';
+                document.getElementById('user-email').textContent = '';
+                document.getElementById('user-avatar').src = '/error-avatar.jpg'; // A placeholder for errors
+                document.getElementById('my-rooms').textContent = 'Meus Quartos (0)';
+                document.getElementById('my-services').textContent = 'Meus Serviços (0)';
+                document.getElementById('my-events').textContent = 'Meus Eventos (0)';
+            });
+    });
+</script>
+{% endblock %}

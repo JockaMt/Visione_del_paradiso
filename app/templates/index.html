@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR" style="scroll-behavior: smooth;" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+        --color-primary: #ff5733;
+      }
+    </style>
+    <title>{% block title %} {% endblock %} | Visione del Paradiso</title>
+    {% block head_page %}{% endblock %}
+</head>
+
+<body class="flex flex-col scroll min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    {% if request.path.startswith('/auth') %} <!-- Alterar para verificar logado -->
+    {% else %}
+    {% include 'components/header.html' %}
+    {% endif %}
+    <main class="flex flex-col flex-1 bg-gray-100 dark:bg-gray-900">
+        {% block content %}{% endblock %}
+    </main>
+    {% include 'components/footer.html' %}
+</body>
+{% block scripts %}
+{% endblock %}
+</html>
