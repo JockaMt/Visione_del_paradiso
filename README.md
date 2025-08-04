@@ -1,5 +1,5 @@
-﻿# Visione_del_paradiso
-## Visione del paradiso
+﻿# Visione del paradiso
+## Gerenciador de hoteis com flask
 
 ### Introdução
 
@@ -96,3 +96,4 @@ flask --debug run
 ```
 
 O servidor estará aberto em [localhost:5000](localhost:5000)
+
