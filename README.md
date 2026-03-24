@@ -1,6 +1,6 @@
-# 🤖 Visione del paradiso
+# 🏨 Visione del paradiso
 
-Bot/Sistema: Gerenciador de hoteis com flask
+Sistema: Gerenciador de hoteis com flask
 
 ---
 
