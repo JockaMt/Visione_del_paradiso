@@ -175,8 +175,8 @@ class Events(db.Model):
         return f"<Event {self.name}>"
 
     @classmethod
-    def create(cls, name, description=None, date=None, room_id=None):
-        event = cls(name=name, description=description, date=date, room_id=room_id)
+    def create(cls, name, description=None, date=None):
+        event = cls(name=name, description=description, date=date)
         db.session.add(event)
         db.session.commit()
         return event

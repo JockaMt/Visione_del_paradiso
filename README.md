@@ -1,30 +1,41 @@
-﻿# Visione del paradiso
-## Gerenciador de hoteis com flask
+# 🤖 Visione del paradiso
 
-### Introdução
+Bot/Sistema: Gerenciador de hoteis com flask
+
+---
+
+## 🎯 Objetivo
 
 O projeto de engenharia de software consistirá no desenvolvimento de um sistema de gerenciamento de hotéis com funcionalidades de check-in e check-out. O objetivo principal é criar uma solução eficiente e completa para o setor hoteleiro, buscando facilitar o controle e a organização das reservas, além de agilizar o processo de entrada e saída dos hóspedes.
 
-O sistema terá uma interface amigável e intuitiva, permitindo que os funcionários do hotel realizem as tarefas de check-in e check-out de forma simples e rápida. Além disso, o sistema será capaz de armazenar as informações dos hóspedes, como nome, contato, data de entrada e saída, número de quartos reservados, entre outros dados relevantes.
-
-**[Uma das principais funcionalidades do sistema será a geração de relatórios, que permitirão aos gerentes do hotel acompanhar a ocupação dos quartos, a taxa de ocupação, o faturamento diário, entre outras informações importantes para a gestão do estabelecimento. Esses relatórios poderão ser visualizados de forma gráfica e exportados em diferentes formatos, como PDF e planilhas.]**
-
-Além disso, o sistema contará com um módulo de reserva online, que permitirá aos clientes realizar reservas de quartos de forma prática e segura. Os hóspedes poderão consultar a disponibilidade dos quartos, selecionar as datas de entrada e saída desejadas, **[fazer o pagamento online e receber a confirmação da reserva por e-mail.]**
-
-Para garantir a segurança dos dados dos hóspedes, o sistema contará com medidas de proteção, como criptografia de informações e acesso restrito aos dados sensíveis. **[Também serão implementados backups periódicos dos dados, garantindo a recuperação das informações em caso de falhas ou incidentes.]**
-
 Em resumo, o sistema de gerenciamento de hotéis com funcionalidades de check-in e check-out será uma solução completa e eficiente para o setor hoteleiro, facilitando as tarefas diárias dos funcionários e proporcionando uma melhor experiência tanto para os hóspedes quanto para os gerentes do hotel.
 
-*As partes em negrito nesse texto são pontos que poderemos rever dependendo do tempo que teremos para a realização do trabalho.*
+---
 
+## 🧠 Funcionalidades
 
-### Instalação
+* ✔️ O sistema terá uma interface amigável e intuitiva, permitindo que os funcionários do hotel realizem as tarefas de check-in e check-out de forma simples e rápida.
+* ✔️ Além disso, o sistema será capaz de armazenar as informações dos hóspedes, como nome, contato, data de entrada e saída, número de quartos reservados, entre outros dados relevantes.
+* ✔️ Além disso, o sistema contará com um módulo de reserva online, que permitirá aos clientes realizar reservas de quartos de forma prática e segura. Os hóspedes poderão consultar a disponibilidade dos quartos, selecionar as datas de entrada e saída desejadas.
+* ✔️ Para garantir a segurança dos dados dos hóspedes, o sistema contará com medidas de proteção, como criptografia de informações e acesso restrito aos dados sensíveis.
+
+---
+
+## 🛠️ Tecnologias
+
+* Python 3.11 ou superior
+* Flask
+* SQLAlchemy
+
+---
+
+## ⚙️ Como usar
 
 Para fazer o programa rodar, você precisará realizar alguns comandos de instalação.
 
 _Primeiramente, certifique-se que o python 3.11 ou superior esteja instalado em sua máquina. Caso não esteja, instale pelo [Site Oficial do Python](https://www.python.org/downloads/)._
 
-#### Passo 1
+### Passo 1
 
 Antes de tudo, é necessário criar um ambiente virtual python, para que os pacotes não sejam instalados diretamente na sua máquina, evitando assim interferência em outros projeto, faremos isso com o seguinte comando:
 
@@ -34,7 +45,7 @@ python -m venv <nome_do_ambiente>
 
 _Substitua o '<nome_do_ambiente>' por um nome de sua escolha_
 
-#### Passo 2
+### Passo 2
 
 Ao executar o passo anterior, irá surjir no diretório uma pasta com o nome do ambiente que você escolheu, neste passo iremos ativar esse ambiente, com os seguintes comandos dependendo do seu sistema operacional:
 
@@ -47,7 +58,7 @@ source <nome_do_ambiente>/bin/activate
 <nome_do_ambiente>/Scripts/activate
 ```
 
-#### Passo 3
+### Passo 3
 
 Após o passo 1 e 2, o ambiente já estara pronto para receber os pacotes, neste projeto há um arquivo chamado `requirements.txt`, no qual está os pacotes principais que deverão ser instalados, com este arquivo não é necessário instalar pacote por pacote, basta usar o comando:
 
@@ -55,7 +66,7 @@ Após o passo 1 e 2, o ambiente já estara pronto para receber os pacotes, neste
 pip install -r requirements.txt
 ```
 
-#### Passo 4
+### Passo 4
 
 Para finalizar, é preciso criar manualmente dois arquivos de configurações com o nome: `settings.toml` e `.env`, dentro deles deve estar algumas informações, no primeiro arquivo, duas variáveis de ambiente, desta forma:
 
@@ -68,7 +79,6 @@ SQLALCHEMY_DATABASE_URI='database_uri'
 
 no segundo arquivo apenas as variáveis de ambiente que estivermos utilizando, assim:
 
-
 - Windows
 ```toml
 FLASK_APP=app\main.py
@@ -80,7 +90,6 @@ FLASK_DEBUG=True
 ```
 
 - Linux
-
 ```toml
 FLASK_APP=app/main.py
 ```
@@ -95,5 +104,26 @@ Após todos os passos de instalação realizados, podemos iniciar o servidor fla
 flask --debug run
 ```
 
-O servidor estará aberto em [localhost:5000](localhost:5000)
+O servidor estará aberto em [localhost:5000](http://localhost:5000)
 
+---
+
+## 📸 Demonstração
+
+![](images/example.gif)
+
+---
+
+## 💡 Melhorias futuras
+
+_As partes abaixo são pontos que poderemos rever dependendo do tempo que teremos para a realização do trabalho._
+
+* [ ] Uma das principais funcionalidades do sistema será a geração de relatórios, que permitirão aos gerentes do hotel acompanhar a ocupação dos quartos, a taxa de ocupação, o faturamento diário, entre outras informações importantes para a gestão do estabelecimento. Esses relatórios poderão ser visualizados de forma gráfica e exportados em diferentes formatos, como PDF e planilhas.
+* [ ] No módulo de reserva online, **fazer o pagamento online e receber a confirmação da reserva por e-mail.**
+* [ ] **Também serão implementados backups periódicos dos dados**, garantindo a recuperação das informações em caso de falhas ou incidentes.
+
+---
+
+## 📄 Licença
+
+MIT
